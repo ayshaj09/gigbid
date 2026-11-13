@@ -1,0 +1,72 @@
+{
+ "C-1": {
+  "client_id": "C-1",
+  "payment_verified": true,
+  "total_spent_usd": 42000,
+  "hires": 18,
+  "jobs_posted": 22,
+  "average_rating": 4.9,
+  "country": "DE",
+  "industry": "saas"
+ },
+ "C-2": {
+  "client_id": "C-2",
+  "payment_verified": false,
+  "total_spent_usd": 0,
+  "hires": 0,
+  "jobs_posted": 14,
+  "average_rating": null,
+  "country": "??",
+  "industry": null
+ },
+ "C-3": {
+  "client_id": "C-3",
+  "payment_verified": true,
+  "total_spent_usd": 8000,
+  "hires": 6,
+  "jobs_posted": 9,
+  "average_rating": 4.6,
+  "country": "US",
+  "industry": "consumer apps"
+ },
+ "C-4": {
+  "client_id": "C-4",
+  "payment_verified": true,
+  "total_spent_usd": 120000,
+  "hires": 40,
+  "jobs_posted": 45,
+  "average_rating": 4.8,
+  "country": "UK",
+  "industry": "finance"
+ },
+ "C-5": {
+  "client_id": "C-5",
+  "payment_verified": true,
+  "total_spent_usd": 15000,
+  "hires": 10,
+  "jobs_posted": 12,
+  "average_rating": 4.7,
+  "country": "NL",
+  "industry": "logistics"
+ },
+ "C-6": {
+  "client_id": "C-6",
+  "payment_verified": true,
+  "total_spent_usd": 5000,
+  "hires": 3,
+  "jobs_posted": 4,
+  "average_rating": 4.5,
+  "country": "CA",
+  "industry": "accounting"
+ },
+ "C-7": {
+  "client_id": "C-7",
+  "payment_verified": false,
+  "total_spent_usd": 0,
+  "hires": 0,
+  "jobs_posted": 30,
+  "average_rating": 2.1,
+  "country": "??",
+  "industry": null
+ }
+}

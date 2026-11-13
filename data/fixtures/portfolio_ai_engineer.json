@@ -1,0 +1,255 @@
+[
+ {
+  "evidence_id": "cs-churn",
+  "type": "case_study",
+  "title": "Churn prediction for a subscription box company",
+  "date": "2025-03-10",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "classification",
+   "model evaluation",
+   "imbalanced data"
+  ],
+  "outcome": null,
+  "text": "Built a churn classifier for a subscription e-commerce client with 120k customers. Compared logistic regression, random forest and gradient boosting with stratified 5-fold cross-validation. Handled class imbalance with class weights and threshold tuning; reported precision, recall and PR-AUC instead of accuracy. The gradient boosting model reached 0.71 PR-AUC versus 0.52 for the previous rules. Delivered a reproducible pipeline and a model card documenting limitations.",
+  "persona": "ai_engineer",
+  "project": "cs-churn",
+  "source": "fixtures/case_study/cs-churn"
+ },
+ {
+  "evidence_id": "cs-rag-support",
+  "type": "case_study",
+  "title": "RAG assistant over support tickets",
+  "date": "2025-08-02",
+  "client_industry": "saas",
+  "skills": [
+   "Python",
+   "LangChain",
+   "RAG",
+   "Qdrant",
+   "FastAPI",
+   "embeddings",
+   "evaluation"
+  ],
+  "outcome": null,
+  "text": "Designed a retrieval-augmented support assistant over 40k historical tickets for a SaaS company. Used hybrid BM25 and dense retrieval in Qdrant with a cross-encoder reranker, served through FastAPI. Built an evaluation set of 300 questions and measured answer faithfulness; deflected 23% of tier-1 tickets in the first month.",
+  "persona": "ai_engineer",
+  "project": "cs-rag-support",
+  "source": "fixtures/case_study/cs-rag-support"
+ },
+ {
+  "evidence_id": "cs-celery-etl",
+  "type": "case_study",
+  "title": "Celery task queue for nightly ETL",
+  "date": "2024-11-20",
+  "client_industry": "logistics",
+  "skills": [
+   "Python",
+   "Celery",
+   "Redis",
+   "PostgreSQL",
+   "ETL",
+   "Docker"
+  ],
+  "outcome": null,
+  "text": "Replaced cron scripts with a Celery and Redis task queue for a logistics client's nightly ETL into PostgreSQL. Added retries with exponential backoff, idempotent tasks and Flower monitoring. Nightly job failures dropped from about twice a week to none over three months. Everything ran in Docker Compose.",
+  "persona": "ai_engineer",
+  "project": "cs-celery-etl",
+  "source": "fixtures/case_study/cs-celery-etl"
+ },
+ {
+  "evidence_id": "cs-forecast",
+  "type": "case_study",
+  "title": "Demand forecasting for a grocery chain",
+  "date": "2024-06-15",
+  "client_industry": "retail",
+  "skills": [
+   "Python",
+   "time series",
+   "Prophet",
+   "LightGBM",
+   "pandas",
+   "forecasting"
+  ],
+  "outcome": null,
+  "text": "Forecast weekly demand for 900 SKUs across 14 grocery stores. Benchmarked Prophet against LightGBM with lag features; LightGBM cut weighted MAPE from 31% to 22%. Delivered forecasts as a scheduled job writing to the client's warehouse.",
+  "persona": "ai_engineer",
+  "project": "cs-forecast",
+  "source": "fixtures/case_study/cs-forecast"
+ },
+ {
+  "evidence_id": "repo-docparse",
+  "type": "repo_readme",
+  "title": "docparse: PDF invoice field extraction",
+  "date": "2025-01-05",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "OCR",
+   "PDF parsing",
+   "LayoutLM",
+   "transformers"
+  ],
+  "outcome": null,
+  "text": "Open-source library that extracts invoice fields (vendor, totals, line items) from scanned PDFs. Uses Tesseract OCR and a fine-tuned LayoutLM model. Includes a CLI and a benchmark on 500 labelled invoices with 94% field-level accuracy.",
+  "persona": "ai_engineer",
+  "project": "repo-docparse",
+  "source": "fixtures/repo_readme/repo-docparse"
+ },
+ {
+  "evidence_id": "repo-docparse-code",
+  "type": "code",
+  "title": "docparse/train.py",
+  "date": "2025-01-05",
+  "client_industry": null,
+  "skills": [
+   "PyTorch",
+   "transformers",
+   "fine-tuning",
+   "Hugging Face"
+  ],
+  "outcome": null,
+  "text": "Training script: fine-tunes microsoft/layoutlmv3-base with the Hugging Face Trainer, mixed precision, early stopping on validation F1, and exports to ONNX for CPU inference.",
+  "project": "docparse",
+  "persona": "ai_engineer",
+  "source": "fixtures/code/repo-docparse-code"
+ },
+ {
+  "evidence_id": "cs-cv-defects",
+  "type": "case_study",
+  "title": "Defect detection on a production line",
+  "date": "2023-09-30",
+  "client_industry": "manufacturing",
+  "skills": [
+   "computer vision",
+   "PyTorch",
+   "YOLO",
+   "data labelling"
+  ],
+  "outcome": null,
+  "text": "Trained a YOLO object detector to find surface defects on metal parts from line-scan camera images. Organised labelling of 6k images, reached 0.88 mAP@0.5, and deployed on an edge GPU.",
+  "persona": "ai_engineer",
+  "project": "cs-cv-defects",
+  "source": "fixtures/case_study/cs-cv-defects"
+ },
+ {
+  "evidence_id": "cs-dbt",
+  "type": "case_study",
+  "title": "dbt models for marketing analytics",
+  "date": "2024-02-12",
+  "client_industry": "marketing",
+  "skills": [
+   "dbt",
+   "SQL",
+   "BigQuery",
+   "data modelling"
+  ],
+  "outcome": null,
+  "text": "Built 40 dbt models in BigQuery for a marketing agency, with tests and documentation, replacing hand-written dashboard queries. Cut dashboard refresh time from 20 minutes to 3.",
+  "persona": "ai_engineer",
+  "project": "cs-dbt",
+  "source": "fixtures/case_study/cs-dbt"
+ },
+ {
+  "evidence_id": "review-01",
+  "type": "review",
+  "title": "Client review: churn project",
+  "date": "2025-04-01",
+  "client_industry": "ecommerce",
+  "skills": [
+   "communication",
+   "model evaluation"
+  ],
+  "outcome": null,
+  "text": "5 stars. Explained the precision/recall trade-off to our non-technical team clearly and delivered ahead of schedule.",
+  "persona": "ai_engineer",
+  "project": "review-01",
+  "source": "fixtures/review/review-01"
+ },
+ {
+  "evidence_id": "review-02",
+  "type": "review",
+  "title": "Client review: RAG assistant",
+  "date": "2025-09-10",
+  "client_industry": "saas",
+  "skills": [
+   "RAG",
+   "communication"
+  ],
+  "outcome": null,
+  "text": "5 stars. Set up a proper evaluation instead of eyeballing answers. Would hire again.",
+  "persona": "ai_engineer",
+  "project": "review-02",
+  "source": "fixtures/review/review-02"
+ },
+ {
+  "evidence_id": "prop-won-rag",
+  "type": "past_proposal",
+  "title": "Proposal: chatbot over product docs",
+  "date": "2025-07-01",
+  "client_industry": "saas",
+  "skills": [
+   "RAG",
+   "LangChain"
+  ],
+  "outcome": "won",
+  "text": "Your docs bot answers wrong because retrieval misses exact product names. I fixed the same issue for a SaaS support team with hybrid search and a reranker, and measured it on 300 real questions.",
+  "persona": "ai_engineer",
+  "project": "prop-won-rag",
+  "source": "fixtures/past_proposal/prop-won-rag"
+ },
+ {
+  "evidence_id": "prop-ignored-generic",
+  "type": "past_proposal",
+  "title": "Proposal: ML engineer needed",
+  "date": "2024-05-01",
+  "client_industry": "other",
+  "skills": [
+   "machine learning"
+  ],
+  "outcome": "ignored",
+  "text": "Hi, I am a passionate machine learning engineer with many years of experience. I have read your job post and I am confident I can do it.",
+  "persona": "ai_engineer",
+  "project": "prop-ignored-generic",
+  "source": "fixtures/past_proposal/prop-ignored-generic"
+ },
+ {
+  "evidence_id": "prop-replied-forecast",
+  "type": "past_proposal",
+  "title": "Proposal: sales forecasting",
+  "date": "2024-08-01",
+  "client_industry": "retail",
+  "skills": [
+   "forecasting"
+  ],
+  "outcome": "replied",
+  "text": "Forecasting 900 SKUs taught me that Prophet is a good baseline but gradient boosting with lag features usually wins on retail data. I would start by benchmarking both on your last two years.",
+  "persona": "ai_engineer",
+  "project": "prop-replied-forecast",
+  "source": "fixtures/past_proposal/prop-replied-forecast"
+ },
+ {
+  "evidence_id": "cv",
+  "type": "cv",
+  "title": "CV: Alex Morgan",
+  "date": "2025-10-01",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "scikit-learn",
+   "PyTorch",
+   "LangChain",
+   "FastAPI",
+   "SQL",
+   "Docker"
+  ],
+  "outcome": null,
+  "text": "Machine learning engineer, 4 years freelance. Python, scikit-learn, PyTorch, LangChain, FastAPI, SQL, Docker. BSc Computer Science.",
+  "persona": "ai_engineer",
+  "project": "cv",
+  "source": "fixtures/cv/cv"
+ }
+]

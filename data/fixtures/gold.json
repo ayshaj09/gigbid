@@ -1,0 +1,77 @@
+{
+ "J-100": {
+  "action": "bid",
+  "scam": false,
+  "relevant": [
+   "cs-rag-support",
+   "prop-won-rag",
+   "review-02"
+  ],
+  "fair_band": [
+   900,
+   1500
+  ]
+ },
+ "J-101": {
+  "action": "skip",
+  "scam": true,
+  "relevant": [],
+  "fair_band": [
+   0,
+   0
+  ]
+ },
+ "J-102": {
+  "action": "bid",
+  "scam": false,
+  "relevant": [
+   "cs-churn",
+   "review-01"
+  ],
+  "fair_band": [
+   600,
+   1000
+  ]
+ },
+ "J-103": {
+  "action": "skip",
+  "scam": false,
+  "relevant": [],
+  "fair_band": [
+   3000,
+   6000
+  ]
+ },
+ "J-104": {
+  "action": "bid",
+  "scam": false,
+  "relevant": [
+   "cs-celery-etl"
+  ],
+  "fair_band": [
+   40,
+   60
+  ]
+ },
+ "J-106": {
+  "action": "bid",
+  "scam": false,
+  "relevant": [
+   "repo-docparse",
+   "repo-docparse-code"
+  ],
+  "fair_band": [
+   1000,
+   2000
+  ]
+ },
+ "J-107": {
+  "action": "skip",
+  "scam": true,
+  "relevant": [],
+  "fair_band": [
+   0,
+   0
+  ]
+ }
+}
