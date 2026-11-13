@@ -1,0 +1,562 @@
+[
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "evidence_id": {
+     "maxLength": 80,
+     "minLength": 1,
+     "title": "Evidence Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "evidence_id"
+   ],
+   "title": "get_case_studyArguments",
+   "type": "object"
+  },
+  "name": "get_case_study",
+  "output": {
+   "properties": {
+    "date": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Date"
+    },
+    "evidence_id": {
+     "title": "Evidence Id",
+     "type": "string"
+    },
+    "outcome": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Outcome"
+    },
+    "project": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Project"
+    },
+    "score": {
+     "default": 0.0,
+     "title": "Score",
+     "type": "number"
+    },
+    "skills": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Skills",
+     "type": "array"
+    },
+    "source": {
+     "title": "Source",
+     "type": "string"
+    },
+    "text": {
+     "title": "Text",
+     "type": "string"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    },
+    "type": {
+     "title": "Type",
+     "type": "string"
+    }
+   },
+   "required": [
+    "evidence_id",
+    "type",
+    "title",
+    "text",
+    "source"
+   ],
+   "title": "Evidence",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {},
+   "title": "list_skillsArguments",
+   "type": "object"
+  },
+  "name": "list_skills",
+  "output": {
+   "$defs": {
+    "SkillCount": {
+     "properties": {
+      "count": {
+       "title": "Count",
+       "type": "integer"
+      },
+      "skill": {
+       "title": "Skill",
+       "type": "string"
+      }
+     },
+     "required": [
+      "skill",
+      "count"
+     ],
+     "title": "SkillCount",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "skills": {
+     "items": {
+      "$ref": "#/$defs/SkillCount"
+     },
+     "title": "Skills",
+     "type": "array"
+    }
+   },
+   "required": [
+    "skills"
+   ],
+   "title": "SkillList",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "$defs": {
+    "RequirementIn": {
+     "properties": {
+      "id": {
+       "maxLength": 40,
+       "minLength": 1,
+       "title": "Id",
+       "type": "string"
+      },
+      "skills": {
+       "default": [],
+       "items": {
+        "type": "string"
+       },
+       "title": "Skills",
+       "type": "array"
+      },
+      "text": {
+       "maxLength": 500,
+       "minLength": 2,
+       "title": "Text",
+       "type": "string"
+      }
+     },
+     "required": [
+      "id",
+      "text"
+     ],
+     "title": "RequirementIn",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "job_text": {
+     "default": "",
+     "maxLength": 8000,
+     "title": "Job Text",
+     "type": "string"
+    },
+    "k": {
+     "default": 8,
+     "maximum": 20,
+     "minimum": 1,
+     "title": "K",
+     "type": "integer"
+    },
+    "requirements": {
+     "items": {
+      "$ref": "#/$defs/RequirementIn"
+     },
+     "maxItems": 15,
+     "minItems": 1,
+     "title": "Requirements",
+     "type": "array"
+    }
+   },
+   "required": [
+    "requirements"
+   ],
+   "title": "match_requirementsArguments",
+   "type": "object"
+  },
+  "name": "match_requirements",
+  "output": {
+   "$defs": {
+    "Evidence": {
+     "properties": {
+      "date": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Date"
+      },
+      "evidence_id": {
+       "title": "Evidence Id",
+       "type": "string"
+      },
+      "outcome": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Outcome"
+      },
+      "project": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Project"
+      },
+      "score": {
+       "default": 0.0,
+       "title": "Score",
+       "type": "number"
+      },
+      "skills": {
+       "default": [],
+       "items": {
+        "type": "string"
+       },
+       "title": "Skills",
+       "type": "array"
+      },
+      "source": {
+       "title": "Source",
+       "type": "string"
+      },
+      "text": {
+       "title": "Text",
+       "type": "string"
+      },
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "type": {
+       "title": "Type",
+       "type": "string"
+      }
+     },
+     "required": [
+      "evidence_id",
+      "type",
+      "title",
+      "text",
+      "source"
+     ],
+     "title": "Evidence",
+     "type": "object"
+    },
+    "RequirementHits": {
+     "properties": {
+      "evidence": {
+       "items": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+         {
+          "type": "string"
+         },
+         {
+          "type": "number"
+         }
+        ],
+        "type": "array"
+       },
+       "title": "Evidence",
+       "type": "array"
+      },
+      "requirement_id": {
+       "title": "Requirement Id",
+       "type": "string"
+      }
+     },
+     "required": [
+      "requirement_id",
+      "evidence"
+     ],
+     "title": "RequirementHits",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "#/$defs/Evidence"
+     },
+     "title": "Items",
+     "type": "array"
+    },
+    "per_requirement": {
+     "items": {
+      "$ref": "#/$defs/RequirementHits"
+     },
+     "title": "Per Requirement",
+     "type": "array"
+    },
+    "variant": {
+     "title": "Variant",
+     "type": "string"
+    },
+    "weak_requirements": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Weak Requirements",
+     "type": "array"
+    }
+   },
+   "required": [
+    "items",
+    "per_requirement",
+    "weak_requirements",
+    "variant"
+   ],
+   "title": "MatchResult",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "k": {
+     "default": 5,
+     "maximum": 20,
+     "minimum": 1,
+     "title": "K",
+     "type": "integer"
+    },
+    "outcome": {
+     "anyOf": [
+      {
+       "enum": [
+        "won",
+        "replied",
+        "ignored"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Outcome"
+    },
+    "requirement": {
+     "maxLength": 500,
+     "minLength": 2,
+     "title": "Requirement",
+     "type": "string"
+    },
+    "types": {
+     "anyOf": [
+      {
+       "items": {
+        "enum": [
+         "case_study",
+         "repo_readme",
+         "code",
+         "review",
+         "past_proposal",
+         "cv"
+        ],
+        "type": "string"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Types"
+    }
+   },
+   "required": [
+    "requirement"
+   ],
+   "title": "search_evidenceArguments",
+   "type": "object"
+  },
+  "name": "search_evidence",
+  "output": {
+   "$defs": {
+    "Evidence": {
+     "properties": {
+      "date": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Date"
+      },
+      "evidence_id": {
+       "title": "Evidence Id",
+       "type": "string"
+      },
+      "outcome": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Outcome"
+      },
+      "project": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Project"
+      },
+      "score": {
+       "default": 0.0,
+       "title": "Score",
+       "type": "number"
+      },
+      "skills": {
+       "default": [],
+       "items": {
+        "type": "string"
+       },
+       "title": "Skills",
+       "type": "array"
+      },
+      "source": {
+       "title": "Source",
+       "type": "string"
+      },
+      "text": {
+       "title": "Text",
+       "type": "string"
+      },
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "type": {
+       "title": "Type",
+       "type": "string"
+      }
+     },
+     "required": [
+      "evidence_id",
+      "type",
+      "title",
+      "text",
+      "source"
+     ],
+     "title": "Evidence",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "#/$defs/Evidence"
+     },
+     "title": "Items",
+     "type": "array"
+    },
+    "variant": {
+     "title": "Variant",
+     "type": "string"
+    }
+   },
+   "required": [
+    "items",
+    "variant"
+   ],
+   "title": "EvidenceList",
+   "type": "object"
+  }
+ }
+]

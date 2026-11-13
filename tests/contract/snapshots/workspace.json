@@ -1,0 +1,215 @@
+[
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": false,
+   "openWorldHint": false,
+   "readOnlyHint": false,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "body": {
+     "maxLength": 5000,
+     "minLength": 1,
+     "title": "Body",
+     "type": "string"
+    },
+    "subject": {
+     "maxLength": 200,
+     "minLength": 1,
+     "title": "Subject",
+     "type": "string"
+    },
+    "to": {
+     "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+     "title": "To",
+     "type": "string"
+    }
+   },
+   "required": [
+    "to",
+    "subject",
+    "body"
+   ],
+   "title": "create_email_draftArguments",
+   "type": "object"
+  },
+  "name": "create_email_draft",
+  "output": {
+   "properties": {
+    "body": {
+     "title": "Body",
+     "type": "string"
+    },
+    "draft_id": {
+     "title": "Draft Id",
+     "type": "string"
+    },
+    "status": {
+     "default": "draft",
+     "title": "Status",
+     "type": "string"
+    },
+    "subject": {
+     "title": "Subject",
+     "type": "string"
+    },
+    "to": {
+     "title": "To",
+     "type": "string"
+    }
+   },
+   "required": [
+    "draft_id",
+    "to",
+    "subject",
+    "body"
+   ],
+   "title": "EmailDraft",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": false,
+   "openWorldHint": false,
+   "readOnlyHint": false,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "duration_min": {
+     "default": 30,
+     "maximum": 120,
+     "minimum": 15,
+     "title": "Duration Min",
+     "type": "integer"
+    },
+    "start": {
+     "description": "ISO-8601 start with offset",
+     "title": "Start",
+     "type": "string"
+    },
+    "title": {
+     "maxLength": 120,
+     "minLength": 3,
+     "title": "Title",
+     "type": "string"
+    }
+   },
+   "required": [
+    "start",
+    "title"
+   ],
+   "title": "create_interview_holdArguments",
+   "type": "object"
+  },
+  "name": "create_interview_hold",
+  "output": {
+   "properties": {
+    "end": {
+     "title": "End",
+     "type": "string"
+    },
+    "hold_id": {
+     "title": "Hold Id",
+     "type": "string"
+    },
+    "start": {
+     "title": "Start",
+     "type": "string"
+    },
+    "status": {
+     "default": "tentative",
+     "title": "Status",
+     "type": "string"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    }
+   },
+   "required": [
+    "hold_id",
+    "start",
+    "end",
+    "title"
+   ],
+   "title": "Hold",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "days": {
+     "default": 5,
+     "maximum": 14,
+     "minimum": 1,
+     "title": "Days",
+     "type": "integer"
+    },
+    "duration_min": {
+     "default": 30,
+     "maximum": 120,
+     "minimum": 15,
+     "title": "Duration Min",
+     "type": "integer"
+    }
+   },
+   "title": "free_slotsArguments",
+   "type": "object"
+  },
+  "name": "free_slots",
+  "output": {
+   "$defs": {
+    "Slot": {
+     "properties": {
+      "end": {
+       "title": "End",
+       "type": "string"
+      },
+      "start": {
+       "title": "Start",
+       "type": "string"
+      }
+     },
+     "required": [
+      "start",
+      "end"
+     ],
+     "title": "Slot",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "slots": {
+     "items": {
+      "$ref": "#/$defs/Slot"
+     },
+     "title": "Slots",
+     "type": "array"
+    },
+    "timezone": {
+     "title": "Timezone",
+     "type": "string"
+    }
+   },
+   "required": [
+    "timezone",
+    "slots"
+   ],
+   "title": "SlotList",
+   "type": "object"
+  }
+ }
+]

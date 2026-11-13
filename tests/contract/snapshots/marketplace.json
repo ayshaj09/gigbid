@@ -1,0 +1,1204 @@
+[
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": false,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "bid_amount": {
+     "exclusiveMinimum": 0,
+     "maximum": 1000000,
+     "title": "Bid Amount",
+     "type": "number"
+    },
+    "bid_type": {
+     "default": "fixed",
+     "enum": [
+      "fixed",
+      "hourly"
+     ],
+     "title": "Bid Type",
+     "type": "string"
+    },
+    "cover_letter": {
+     "maxLength": 5000,
+     "minLength": 40,
+     "title": "Cover Letter",
+     "type": "string"
+    },
+    "dry_run": {
+     "default": false,
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "idempotency_key": {
+     "description": "Same key => same effect at most once",
+     "maxLength": 128,
+     "minLength": 8,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Idempotency Key",
+     "type": "string"
+    },
+    "job_id": {
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Job Id",
+     "type": "string"
+    },
+    "screening_answers": {
+     "default": [],
+     "items": {
+      "maxLength": 2000,
+      "type": "string"
+     },
+     "maxItems": 10,
+     "title": "Screening Answers",
+     "type": "array"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "job_id",
+    "cover_letter",
+    "bid_amount",
+    "idempotency_key"
+   ],
+   "title": "create_proposal_draftArguments",
+   "type": "object"
+  },
+  "name": "create_proposal_draft",
+  "output": {
+   "properties": {
+    "action": {
+     "title": "Action",
+     "type": "string"
+    },
+    "connects_balance_after": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Connects Balance After"
+    },
+    "cost_connects": {
+     "default": 0,
+     "title": "Cost Connects",
+     "type": "integer"
+    },
+    "dry_run": {
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "idempotent_replay": {
+     "default": false,
+     "title": "Idempotent Replay",
+     "type": "boolean"
+    },
+    "result": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Result"
+    },
+    "would_send": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Would Send"
+    }
+   },
+   "required": [
+    "dry_run",
+    "action"
+   ],
+   "title": "WriteResult",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "client_id": {
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Client Id",
+     "type": "string"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "client_id"
+   ],
+   "title": "get_client_historyArguments",
+   "type": "object"
+  },
+  "name": "get_client_history",
+  "output": {
+   "properties": {
+    "average_rating": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Average Rating"
+    },
+    "client_id": {
+     "title": "Client Id",
+     "type": "string"
+    },
+    "country": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Country"
+    },
+    "hires": {
+     "default": 0,
+     "title": "Hires",
+     "type": "integer"
+    },
+    "industry": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Industry"
+    },
+    "jobs_posted": {
+     "default": 0,
+     "title": "Jobs Posted",
+     "type": "integer"
+    },
+    "payment_verified": {
+     "default": false,
+     "title": "Payment Verified",
+     "type": "boolean"
+    },
+    "total_spent_usd": {
+     "default": 0,
+     "title": "Total Spent Usd",
+     "type": "number"
+    }
+   },
+   "required": [
+    "client_id"
+   ],
+   "title": "ClientHistory",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "title": "get_connects_balanceArguments",
+   "type": "object"
+  },
+  "name": "get_connects_balance",
+  "output": {
+   "properties": {
+    "balance": {
+     "title": "Balance",
+     "type": "integer"
+    },
+    "user_id": {
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "user_id",
+    "balance"
+   ],
+   "title": "ConnectsBalance",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "job_id": {
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Job Id",
+     "type": "string"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "job_id"
+   ],
+   "title": "get_jobArguments",
+   "type": "object"
+  },
+  "name": "get_job",
+  "output": {
+   "$defs": {
+    "Budget": {
+     "properties": {
+      "max": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Max"
+      },
+      "min": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Min"
+      },
+      "type": {
+       "default": "fixed",
+       "title": "Type",
+       "type": "string"
+      }
+     },
+     "title": "Budget",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "budget": {
+     "$ref": "#/$defs/Budget",
+     "default": {
+      "max": null,
+      "min": null,
+      "type": "fixed"
+     }
+    },
+    "category": {
+     "default": "other",
+     "title": "Category",
+     "type": "string"
+    },
+    "client_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Client Id"
+    },
+    "connects_cost": {
+     "default": 0,
+     "title": "Connects Cost",
+     "type": "integer"
+    },
+    "description": {
+     "title": "Description",
+     "type": "string"
+    },
+    "duration_days": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Duration Days"
+    },
+    "job_id": {
+     "title": "Job Id",
+     "type": "string"
+    },
+    "posted_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Posted At"
+    },
+    "required_skills": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Required Skills",
+     "type": "array"
+    },
+    "screening_questions": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Screening Questions",
+     "type": "array"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    }
+   },
+   "required": [
+    "job_id",
+    "title",
+    "description"
+   ],
+   "title": "Job",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "category": {
+     "maxLength": 40,
+     "minLength": 1,
+     "title": "Category",
+     "type": "string"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "category"
+   ],
+   "title": "get_market_statsArguments",
+   "type": "object"
+  },
+  "name": "get_market_stats",
+  "output": {
+   "$defs": {
+    "Percentiles": {
+     "properties": {
+      "n": {
+       "title": "N",
+       "type": "integer"
+      },
+      "p25": {
+       "title": "P25",
+       "type": "number"
+      },
+      "p50": {
+       "title": "P50",
+       "type": "number"
+      },
+      "p75": {
+       "title": "P75",
+       "type": "number"
+      }
+     },
+     "required": [
+      "p25",
+      "p50",
+      "p75",
+      "n"
+     ],
+     "title": "Percentiles",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "category": {
+     "title": "Category",
+     "type": "string"
+    },
+    "fixed": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Percentiles"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "hourly": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Percentiles"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "category"
+   ],
+   "title": "MarketStats",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "thread_id": {
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Thread Id",
+     "type": "string"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "thread_id"
+   ],
+   "title": "list_messagesArguments",
+   "type": "object"
+  },
+  "name": "list_messages",
+  "output": {
+   "$defs": {
+    "Message": {
+     "properties": {
+      "at": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "At"
+      },
+      "id": {
+       "title": "Id",
+       "type": "string"
+      },
+      "sender": {
+       "title": "Sender",
+       "type": "string"
+      },
+      "text": {
+       "title": "Text",
+       "type": "string"
+      }
+     },
+     "required": [
+      "id",
+      "sender",
+      "text"
+     ],
+     "title": "Message",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "messages": {
+     "items": {
+      "$ref": "#/$defs/Message"
+     },
+     "title": "Messages",
+     "type": "array"
+    },
+    "thread_id": {
+     "title": "Thread Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "thread_id",
+    "messages"
+   ],
+   "title": "MessageList",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "limit": {
+     "default": 20,
+     "maximum": 50,
+     "minimum": 1,
+     "title": "Limit",
+     "type": "integer"
+    },
+    "query": {
+     "maxLength": 200,
+     "minLength": 1,
+     "title": "Query",
+     "type": "string"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "query"
+   ],
+   "title": "search_jobsArguments",
+   "type": "object"
+  },
+  "name": "search_jobs",
+  "output": {
+   "$defs": {
+    "Budget": {
+     "properties": {
+      "max": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Max"
+      },
+      "min": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Min"
+      },
+      "type": {
+       "default": "fixed",
+       "title": "Type",
+       "type": "string"
+      }
+     },
+     "title": "Budget",
+     "type": "object"
+    },
+    "Job": {
+     "properties": {
+      "budget": {
+       "$ref": "#/$defs/Budget",
+       "default": {
+        "max": null,
+        "min": null,
+        "type": "fixed"
+       }
+      },
+      "category": {
+       "default": "other",
+       "title": "Category",
+       "type": "string"
+      },
+      "client_id": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Client Id"
+      },
+      "connects_cost": {
+       "default": 0,
+       "title": "Connects Cost",
+       "type": "integer"
+      },
+      "description": {
+       "title": "Description",
+       "type": "string"
+      },
+      "duration_days": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Duration Days"
+      },
+      "job_id": {
+       "title": "Job Id",
+       "type": "string"
+      },
+      "posted_at": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Posted At"
+      },
+      "required_skills": {
+       "default": [],
+       "items": {
+        "type": "string"
+       },
+       "title": "Required Skills",
+       "type": "array"
+      },
+      "screening_questions": {
+       "default": [],
+       "items": {
+        "type": "string"
+       },
+       "title": "Screening Questions",
+       "type": "array"
+      },
+      "title": {
+       "title": "Title",
+       "type": "string"
+      }
+     },
+     "required": [
+      "job_id",
+      "title",
+      "description"
+     ],
+     "title": "Job",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "jobs": {
+     "items": {
+      "$ref": "#/$defs/Job"
+     },
+     "title": "Jobs",
+     "type": "array"
+    }
+   },
+   "required": [
+    "jobs"
+   ],
+   "title": "JobList",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": true,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": false,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "dry_run": {
+     "default": false,
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "idempotency_key": {
+     "description": "Same key => same effect at most once",
+     "maxLength": 128,
+     "minLength": 8,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Idempotency Key",
+     "type": "string"
+    },
+    "text": {
+     "maxLength": 4000,
+     "minLength": 1,
+     "title": "Text",
+     "type": "string"
+    },
+    "thread_id": {
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Thread Id",
+     "type": "string"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "thread_id",
+    "text",
+    "idempotency_key"
+   ],
+   "title": "send_messageArguments",
+   "type": "object"
+  },
+  "name": "send_message",
+  "output": {
+   "properties": {
+    "action": {
+     "title": "Action",
+     "type": "string"
+    },
+    "connects_balance_after": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Connects Balance After"
+    },
+    "cost_connects": {
+     "default": 0,
+     "title": "Cost Connects",
+     "type": "integer"
+    },
+    "dry_run": {
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "idempotent_replay": {
+     "default": false,
+     "title": "Idempotent Replay",
+     "type": "boolean"
+    },
+    "result": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Result"
+    },
+    "would_send": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Would Send"
+    }
+   },
+   "required": [
+    "dry_run",
+    "action"
+   ],
+   "title": "WriteResult",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": true,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": false,
+   "title": null
+  },
+  "input": {
+   "properties": {
+    "dry_run": {
+     "default": false,
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "idempotency_key": {
+     "description": "Same key => same effect at most once",
+     "maxLength": 128,
+     "minLength": 8,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Idempotency Key",
+     "type": "string"
+    },
+    "proposal_id": {
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Proposal Id",
+     "type": "string"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "proposal_id",
+    "idempotency_key"
+   ],
+   "title": "submit_proposalArguments",
+   "type": "object"
+  },
+  "name": "submit_proposal",
+  "output": {
+   "properties": {
+    "action": {
+     "title": "Action",
+     "type": "string"
+    },
+    "connects_balance_after": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Connects Balance After"
+    },
+    "cost_connects": {
+     "default": 0,
+     "title": "Cost Connects",
+     "type": "integer"
+    },
+    "dry_run": {
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "idempotent_replay": {
+     "default": false,
+     "title": "Idempotent Replay",
+     "type": "boolean"
+    },
+    "result": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Result"
+    },
+    "would_send": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Would Send"
+    }
+   },
+   "required": [
+    "dry_run",
+    "action"
+   ],
+   "title": "WriteResult",
+   "type": "object"
+  }
+ }
+]
