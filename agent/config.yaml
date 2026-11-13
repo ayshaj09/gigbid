@@ -1,0 +1,176 @@
+# GigBid runtime configuration.
+# Rules, thresholds, prompts and model choices live here (and in agent/prompts/), never in code,
+# so a platform policy change is a config edit, not a code change.
+version: 1
+
+marketplace:
+  mode: gigsim            # gigsim | upwork_live   (R1: one port, two adapters)
+  max_requests_per_minute: 20
+  timeout_s: 10
+  max_retries: 3
+  backoff_base_s: 0.5
+  gigsim:
+    base_url_env: GIGSIM_BASE_URL
+    token_env: GIGSIM_API_TOKEN
+    # Map port operations onto the GigSim REST paths. When you receive the real GigSim docs,
+    # edit only this block.
+    paths:
+      search_jobs: "GET /jobs"
+      get_job: "GET /jobs/{job_id}"
+      get_client_history: "GET /clients/{client_id}/history"
+      get_connects_balance: "GET /connects"
+      create_proposal_draft: "POST /proposals"
+      submit_proposal: "POST /proposals/{proposal_id}/submit"
+      list_messages: "GET /threads/{thread_id}/messages"
+      send_message: "POST /threads/{thread_id}/messages"
+  upwork_live:
+    url: https://mcp.upwork.com/mcp
+    # Conservative read interval (minutes) for live mode; justified in docs/RUNBOOK.md.
+    poll_interval_minutes: 180
+    # Port operation -> Upwork MCP tool name. Fill after listing the server's tools
+    # (`python -m agent.tools_listing upwork`). Write operations only ever create drafts.
+    tool_map:
+      search_jobs: search_jobs
+      get_job: get_job
+      get_client_history: get_client
+      get_connects_balance: get_connects_balance
+      create_proposal_draft: create_proposal_draft
+      submit_proposal: null      # never auto-submitted in live mode; user confirms on Upwork
+      list_messages: list_messages
+      send_message: create_message_draft
+
+mcp:
+  servers:
+    portfolio:
+      transport: stdio
+      command: python
+      args: ["-m", "mcp_servers.portfolio.server"]
+    marketplace:
+      transport: stdio
+      command: python
+      args: ["-m", "mcp_servers.marketplace.server"]
+    workspace:
+      transport: stdio
+      command: python
+      args: ["-m", "mcp_servers.workspace.server"]
+  # A6: each agent sees only the tools it needs (filtered by name).
+  allowlists:
+    scout: [search_jobs, get_job]
+    risk_assessor: [get_client_history]
+    fit_matcher: [match_requirements, search_evidence, list_skills]
+    pricing: [get_connects_balance, get_market_stats]
+    writer: [search_evidence, get_case_study]
+    critic: [search_evidence, get_case_study]
+    preview: [create_proposal_draft, submit_proposal, send_message]   # dry_run=true enforced in code
+    submit: [create_proposal_draft, submit_proposal]
+    client_liaison: [list_messages, free_slots, search_evidence]
+    liaison_send: [send_message, create_interview_hold]
+  tool_timeout_s: 15
+
+models:
+  profile: open          # open (required) | paid (optional) | offline (rules only: tests, CI)
+  profiles:
+    open:
+      provider: openai_compatible        # Ollama, vLLM, llama.cpp, Groq, OpenRouter, Together
+      base_url_env: OPEN_MODEL_BASE_URL  # e.g. http://ollama:11434/v1 or https://api.groq.com/openai/v1
+      api_key_env: OPEN_MODEL_API_KEY
+      usd_per_mtok: {input: 0.0, output: 0.0}
+      nodes:
+        analyst: qwen3:8b
+        risk_assessor: qwen3:4b
+        fit_matcher: qwen3:4b
+        pricing: qwen3:4b
+        writer: gpt-oss:20b
+        critic: gpt-oss:20b
+        compliance: qwen3:4b
+        client_liaison: gpt-oss:20b
+        intent: qwen3:4b
+      fallback: qwen3:4b                 # C7: fallback model for cheap nodes
+      cheap_nodes: [analyst, risk_assessor, fit_matcher, pricing, compliance, intent]
+    paid:
+      provider: openai_compatible
+      base_url_env: PAID_MODEL_BASE_URL
+      api_key_env: PAID_MODEL_API_KEY
+      usd_per_mtok: {input: 1.0, output: 4.0}
+      nodes:
+        writer: configure-me
+        critic: configure-me
+        client_liaison: configure-me
+      fallback: null
+      cheap_nodes: []
+    offline:
+      provider: rules
+      usd_per_mtok: {input: 0.0, output: 0.0}
+      nodes: {}
+      fallback: null
+      cheap_nodes: []
+  temperature: 0.2
+  node_timeout_s: 60
+  node_max_retries: 2
+
+retrieval:
+  variant: v3_rerank       # chosen by measurement (R6); rerun `make eval-rag` to compare
+  k: 8
+  embedder:
+    provider: hashing      # hashing (tests only) | ollama | sentence_transformers
+    model: nomic-embed-text
+    dim: 512
+  reranker:
+    provider: lexical      # lexical (tests only) | cross_encoder
+    model: BAAI/bge-reranker-v2-m3
+  chunk:
+    max_words: 180
+    overlap_words: 30
+  rrf_k: 60
+  outcome_boost: {won: 0.30, replied: 0.15, ignored: -0.10}
+  corrective:
+    min_grade: 0.35
+    max_requeries: 1
+
+verification:
+  supported_threshold: 0.55
+  partial_threshold: 0.30
+  action_on_unsupported: remove     # remove | rewrite
+
+policy:
+  pack_path: data/policy_pack/marketplace_policy.md
+  max_proposal_words: 320
+  min_proposal_words: 60
+  banned_phrases: ["passionate", "guarantee", "100% satisfaction", "rockstar", "ninja"]
+  guarantee_patterns: ['\bguarantee[sd]?\b', '\b100\s?%\s*(?:success|satisfaction|accuracy)\b', '\brisk[- ]free\b']
+  off_platform_patterns: ['whats\s?app', 'telegram', 'skype', 'signal app', '\bpay(?:ment)? (?:via|through|by) (?:paypal|wise|crypto|bank transfer)', 'contact me (?:at|on)']
+  # Change request hook: extra rules are evaluated by the Compliance Guard and pricing without code edits.
+  extra_rules: []
+
+connects:
+  usd_per_connect: 0.15
+  weekly_budget: 80
+  min_value_ratio: 20.0     # expected job value / connects USD cost must exceed this to bid
+
+thresholds:
+  minimum_fit_score: 0.55
+  watch_fit_score: 0.40
+  maximum_risk_score: 0.60
+  min_client_rating: 4.0
+
+budgets:
+  max_graph_steps: 40
+  max_revisions: 2
+  max_tokens_per_job: 30000
+  max_tokens_per_conversation: 12000
+  declared:
+    p95_latency_s_per_job_analysed: 20
+    p95_latency_s_per_proposal: 60
+    usd_per_job_analysed: 0.002
+    usd_per_proposal: 0.01
+
+autonomy:
+  auto_skip_low_fit: true   # may auto-skip; never auto-send (C5)
+
+memory:
+  style:
+    min_occurrences: 3      # a pattern must appear in >= 3 distinct edits
+    window: 10              # ... among the user's last 10 edits
+    max_contradictions: 0   # and never be reversed in that window
+  outcome:
+    min_samples: 5          # per job category before an outcome stat is promoted
