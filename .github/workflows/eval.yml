@@ -1,0 +1,14 @@
+name: Smoke eval
+on: [pull_request]
+jobs:
+  smoke-eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install -e ".[dev]"
+      - name: Decision + grounding gate (fails on F1 drop or unsupported claims)
+        env: {MODEL_PROFILE: offline}
+        run: python -m evals.runners.decision_eval --dataset ${DATASET:-fixtures} --limit 30 --fail-on-thresholds
+      - run: python -m evals.runners.rag_eval --dataset ${DATASET:-fixtures} --variants all
