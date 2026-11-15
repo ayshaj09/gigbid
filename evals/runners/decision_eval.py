@@ -22,8 +22,10 @@ from evals.datasets import is_smoke, label_sources, load
 from rag.metrics import f1, percentile
 
 
-async def run(dataset: str, limit: int | None):
+async def run(dataset: str, limit: int | None, gold_action: str | None = None):
     jobs, gold, persona = load(dataset)
+    if gold_action:  # e.g. only jobs labelled `bid`, so every node (Writer, Critic, ...) runs: LLM profile comparison
+        gold = {k: v for k, v in gold.items() if v.get("action") == gold_action}
     # decisions are scored on human-labelled jobs; scam detection also on jobs with dataset scam labels
     ids = [j for j in gold if j in jobs and (gold[j].get("action") or jobs[j].get("source") == "fake_job_postings"
                                              or gold[j].get("planted_injection") or dataset == "fixtures")][:limit]
@@ -95,13 +97,16 @@ def main():
     ap.add_argument("--dataset", default="fixtures")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--fail-on-thresholds", action="store_true")
+    ap.add_argument("--gold-action", default=None, help="restrict to jobs with this gold action (bid/watch/skip)")
+    ap.add_argument("--tag", default="", help="suffix for the results file name")
     args = ap.parse_args()
-    rows, cfg = asyncio.run(run(args.dataset, args.limit))
+    rows, cfg = asyncio.run(run(args.dataset, args.limit, args.gold_action))
     summary = summarise(rows)
     out = {"dataset": args.dataset, "model_profile": cfg["models"]["profile"], "variant": cfg["retrieval"]["variant"],
            "warnings": is_smoke(args.dataset, cfg), "label_sources": label_sources(args.dataset), "created": time.strftime("%Y-%m-%dT%H:%M:%S"),
            "summary": summary, "rows": rows}
-    path = ROOT / "evals" / "results" / f"decision_{args.dataset}_{time.strftime('%Y%m%d-%H%M%S')}.json"
+    path = ROOT / "evals" / "results" / (f"llm_{args.tag}_{args.dataset}_{time.strftime('%Y%m%d-%H%M%S')}.json" if args.tag
+                                                 else f"decision_{args.dataset}_{time.strftime('%Y%m%d-%H%M%S')}.json")
     path.write_text(json.dumps(out, indent=1), encoding="utf-8")
     print(json.dumps(summary, indent=1))
     for w in out["warnings"]:
