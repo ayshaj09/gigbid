@@ -1,0 +1,25 @@
+name: Web
+on: [push, pull_request]
+jobs:
+  build-and-e2e:
+    runs-on: ubuntu-latest
+    defaults: {run: {working-directory: apps/web}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install -e "../..[dev]"
+      - run: npm ci
+      - name: API types are up to date with the backend
+        run: |
+          (cd ../.. && python -c "import json; from apps.api.main import app; json.dump(app.openapi(), open('apps/web/openapi.json','w'), indent=1)")
+          npm run gen:api && git diff --exit-code lib/api-types.ts
+      - run: npm run typecheck
+      - run: npx playwright install --with-deps chromium
+      - name: Playwright (5 critical flows against a real API + built web app)
+        run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with: {name: playwright-traces, path: apps/web/test-results}
