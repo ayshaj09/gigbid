@@ -73,7 +73,7 @@ class LLMRouter:
                 base_url=base_url,
                 api_key=api_key,
                 temperature=self.models_cfg.get("temperature", 0.2),
-                timeout=self.models_cfg.get("node_timeout_s", 60),
+                timeout=self.profile.get("node_timeout_s", self.models_cfg.get("node_timeout_s", 60)),
                 max_retries=0,  # retries are handled here so fallback can kick in
             )
         return self._clients[model]
@@ -98,7 +98,7 @@ class LLMRouter:
                 t0 = time.perf_counter()
                 try:
                     msg = await self._client(model).ainvoke(
-                        [("system", system), ("user", user)]
+                        [("system", system + self.profile.get("system_suffix", "")), ("user", user)]
                     )
                     meta = getattr(msg, "usage_metadata", None) or {}
                     tin, tout = meta.get("input_tokens", 0), meta.get("output_tokens", 0)

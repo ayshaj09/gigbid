@@ -12,6 +12,7 @@ correct), wrong-tool calls, calls per task, tokens. Tasks list the expected tool
 from __future__ import annotations
 
 import argparse
+import os
 import asyncio
 import json
 import tempfile
@@ -31,10 +32,10 @@ CONDITIONS = {
 EQUIV = {"coarse": {"search_evidence": "match_requirements"}}
 
 
-async def run_task(model, tools, task) -> dict:
+async def run_task(model, tools, task, suffix: str = "") -> dict:
     bound = model.bind_tools(tools)
     t0 = time.perf_counter()
-    msg = await bound.ainvoke([("system", "Answer by calling exactly the right tool. Do not answer from memory."),
+    msg = await bound.ainvoke([("system", "Answer by calling exactly the right tool. Do not answer from memory." + suffix),
                                ("user", task["prompt"])])
     calls = getattr(msg, "tool_calls", []) or []
     usage = getattr(msg, "usage_metadata", None) or {}
@@ -55,7 +56,9 @@ async def main(tasks_path: str, conditions: list[str], model=None):
     tasks = json.loads((ROOT / tasks_path).read_text(encoding="utf-8"))
     rows = []
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
-        async with harness(tmp, cfg_overrides={"models": {"profile": "open"}} if model is None else None) as r:
+        profile = os.environ.get("MODEL_PROFILE", "open")
+        async with harness(tmp, cfg_overrides={"models": {"profile": profile}} if model is None else None) as r:
+            suffix = r.cfg["models"]["profiles"][r.cfg["models"]["profile"]].get("system_suffix", "")
             model = model or chat_model(r.cfg)
             for cond in conditions:
                 spec = CONDITIONS[cond]
@@ -64,7 +67,7 @@ async def main(tasks_path: str, conditions: list[str], model=None):
                     for t in tools:
                         t.description = t.name.replace("_", " ")
                 for task in tasks:
-                    out = await run_task(model, tools, task)
+                    out = await run_task(model, tools, task, suffix)
                     rows.append({"condition": cond, "task_id": task["id"], **out, **score(task, out, cond)})
     summary = {}
     for cond in conditions:
