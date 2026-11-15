@@ -33,9 +33,10 @@ gigbid-portfolio-mcp = "mcp_servers.portfolio.server:main"
 
 [project.optional-dependencies]
 models = ["sentence-transformers>=3.0", "pypdf>=4.0"]
-dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.6"]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.6", "pandas>=2.2", "openpyxl>=3.1"]
 worker = ["arq>=0.26"]
 experiments = ["langgraph-supervisor>=0.0.31"]
+data = ["pandas>=2.2", "openpyxl>=3.1", "kaggle>=1.6"]
 tracing = ["langfuse>=3.0"]
 
 [tool.ruff]

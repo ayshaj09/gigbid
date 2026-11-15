@@ -1,65 +1,84 @@
 # Kaggle sources the instructor approved. Download each into data/raw/<key>/ (see scripts/download_datasets.sh).
-# `columns` maps our field -> candidate column names (first match wins, case-insensitive).
+# `columns` maps our field -> candidate column names (first match wins, case-insensitive);
+#   {join: [...]} merges several columns into one comma-separated field (used for skill tags).
+# `files` (optional) restricts which files are read (glob, relative to data/raw/<key>/).
 # Run `python -m datapipe.inspect` after downloading; if a field shows "MISSING", add the real column name here.
-# LICENCE: copy the exact licence shown on each Kaggle page into `licence` before submitting.
+# Licences copied from each dataset's Kaggle metadata (`kaggle datasets metadata <ref>`), 2026-11-15.
 sources:
   upwork_jobs_2024_50k:
     kaggle: asaniczka/upwork-job-postings-dataset-2024-50k-records
-    role: job posts (real titles, budgets, countries, dates)
-    licence: "CHECK KAGGLE PAGE"
+    role: job posts with full descriptions (real titles, budgets, hourly ranges, countries, dates)
+    licence: "ODC Attribution License (ODC-By) v1.0"
+    attribution: "asaniczka, Upwork Job Postings Dataset 2024 (50K Records), Kaggle"
+    files: ["*.csv"]
     columns: &jobcols
-      title: [title, job_title, Title]
-      description: [description, job_description, Description, desc, summary]
-      link: [link, url, job_url, Link]
+      title: [title, job_title, Job Title]
+      description: [description, job_description, Description]
+      link: [link, url, job_url]
       posted_at: [published_date, posted_date, date_posted, posted_on, date, published_at]
-      is_hourly: [is_hourly, hourly, job_type, Job Type, type, payment_type]
-      hourly_low: [hourly_low, hourly_min, rate_low, min_rate]
-      hourly_high: [hourly_high, hourly_max, rate_high, max_rate]
-      budget: [budget, fixed_budget, price, fixed_price, Budget]
-      country: [country, client_country, location, Country]
-      skills: [skills, tags, Skills, required_skills]
-      experience_level: [experience_level, level, Experience Level, tier]
+      is_hourly: [is_hourly, hourly, Payment_type, job_type]
+      hourly_low: [hourly_low, hourly_min, Start_rate]
+      hourly_high: [hourly_high, hourly_max, End_rate]
+      budget: [budget, fixed_budget, Job_Cost]
+      country: [country, client_country]
+      skills: {join: [skills, Category_1, Category_2, Category_3, Category_4, Category_5, Category_6, Category_7, Category_8, Category_9]}
+      experience_level: [experience_level, EX_level_demand]
+      connects: [Connects_Num]
+      client_spent: [Spent($)]
+      client_rating: [Rating]
+      client_reviews: [Feedback_Num]
+      payment_status: [Payment_Situation]
+      applicants: [Applicants_Num]
   upwork_jobs_200k:
     kaggle: asaniczka/all-jobs-on-upwork-200k-plus
-    role: job posts (more of the same shape; used for market statistics)
-    licence: "CHECK KAGGLE PAGE"
+    role: title-only job posts (budgets, hourly ranges, countries); market statistics and pool volume
+    licence: "ODC Attribution License (ODC-By) v1.0"
+    attribution: "asaniczka, All Upwork Job Postings - Monthly Tracker, Kaggle"
+    files: ["*.csv"]
     columns: *jobcols
   upwork_jobs_60k:
     kaggle: ahmedmyalo/upwork-freelance-jobs-60k
-    role: job posts (2023); used for descriptions/skills if present
-    licence: "CHECK KAGGLE PAGE"
+    role: 2023 job posts with descriptions, skill tags, real Connects cost and real client signals
+    licence: "Apache-2.0"
+    attribution: "ahmedmyalo, Upwork freelance jobs (+60k), Kaggle"
+    files: ["Final_Upwork_Dataset.csv"]   # the .xlsx is the same table; reading both would duplicate rows
     columns: *jobcols
   contracts_1_3m:
     kaggle: asaniczka/freelance-contracts-dataset-1-3-million-entries
     role: completed contracts -> realistic rates, amounts, durations for pricing and client histories
-    licence: "CHECK KAGGLE PAGE"
+    licence: "ODC Attribution License (ODC-By) v1.0"
+    attribution: "asaniczka, Freelance Contracts Dataset (1.3 Million Entries), Kaggle"
+    files: ["*.csv"]
     columns:
       job_id: [job_id, contract_id, id]
-      title: [title, job_title]
+      title: [job_title, title]
       freelancer_id: [freelancer_id, freelancer, user_id]
       start: [start_date, started, start]
       end: [end_date, ended, end]
       hours: [total_hours, hours, hours_worked]
-      amount: [total_charge, amount_paid, total_paid, amount, earnings]
+      amount: [total_paid, total_charge, amount_paid, amount, earnings]
       hourly_rate: [hourly_rate, rate, avg_hourly_rate]
   freelancer_success:
     kaggle: sarveshchhetri/freelancer-success-earnings-and-churn-prediction
     role: freelancer profile distributions (rates, success score) to calibrate synthetic personas
-    licence: "CHECK KAGGLE PAGE"
+    licence: "Apache-2.0"
+    attribution: "sarveshchhetri, Freelancer Marketplace Dataset for ML & Analytics, Kaggle (itself 'real-world style', i.e. partly synthetic)"
     columns:
-      hourly_rate: [hourly_rate, rate, hourly_rate_usd, Hourly_Rate]
-      success: [job_success_score, success_score, jss, success_rate, Job_Success_Score]
-      earnings: [earnings, total_earnings, earnings_usd, Earnings_USD]
-      category: [category, job_category, skill_category, Job_Category]
-      experience: [experience_years, years_experience, experience, Experience_Level]
+      hourly_rate: [hourly_rate_usd, hourly_rate, rate]
+      success: [job_success_rate, success_score, job_success_score]
+      earnings: [total_earnings_12m_usd, earnings, total_earnings]
+      category: [primary_skill, category, job_category]
+      experience: [years_experience, experience_years, experience]
   fake_job_postings:
     kaggle: adityammantri/trial-1
-    role: real/fake labelled postings (EMSCAD-style) -> real scam examples and scam labels
-    licence: "CHECK KAGGLE PAGE"
+    role: real/fake labelled postings -> scam examples and scam labels for Risk Assessor evaluation
+    licence: "Unknown (not stated on Kaggle). Only a ~115-row sample is committed (dev sets), with attribution, for non-commercial coursework evaluation; remove on request"
+    attribution: "adityammantri, Fake-Job-Posting-Detection (Kaggle ref trial-1)"
+    files: ["processed_labeled_dataset_without_encoding.xlsx"]   # skip the unlabelled BERT file
     columns:
-      title: [title]
-      description: [description, job_description]
-      requirements: [requirements]
+      title: [job_title, title]
+      description: [job_desc, description, job_description]
+      requirements: [skills_desc, requirements]
       company_profile: [company_profile]
       salary_range: [salary_range]
       fraudulent: [fraudulent, is_fake, label, fake]

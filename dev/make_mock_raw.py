@@ -1,6 +1,6 @@
 """Write SCHEMA-FAITHFUL MOCK files into a raw folder, to test the data pipeline without Kaggle.
-Columns copy the published schemas (asaniczka trackers: 8 columns; EMSCAD: 18 columns); the 60K,
-contracts and freelancer-success column names are guesses the pipeline's aliases must cope with.
+File names and columns copy the real downloads (checked 2026-11-15 with `python -m datapipe.inspect`),
+including the decoy files the pipeline must skip (60K .xlsx copy, unlabelled BERT sheet).
 Contents are random and meaningless: never use these for results.
 
     python -m dev.make_mock_raw /tmp/raw
@@ -37,31 +37,38 @@ def main(out: str, n: int = 3000, seed: int = 1):
         (out / key).mkdir(parents=True, exist_ok=True)
         pd.DataFrame(part).to_csv(out / key / f"{key}.csv", index=False)
     (out / "upwork_jobs_60k").mkdir(parents=True, exist_ok=True)
-    pd.DataFrame([{"Title": x["title"], "Description": f"We need help: {x['title']}. Must have shipped similar work. Timeline 2 weeks.",
-                   "Budget": x["budget"] or x["hourly_high"], "Job Type": "Hourly" if x["is_hourly"] else "Fixed",
-                   "Skills": "Python, SQL" if "data" in x["title"].lower() else "JavaScript"} for x in rows[2 * n // 3:]]
-                 ).to_csv(out / "upwork_jobs_60k" / "jobs.csv", index=False)
+    pd.DataFrame([{"Job Title": x["title"], "Job_URL": x["link"] + "_60k", "EX_level_demand": r.choice(["Entry level", "Intermediate", "Expert"]),
+                   "Description": f"We need help: {x['title']}. Must have shipped similar work. Timeline 2 weeks.",
+                   "Category_1": "Python" if "data" in x["title"].lower() else "JavaScript", "Category_2": "SQL", "Category_3": None,
+                   "Payment_type": "Hourly" if x["is_hourly"] else "Fixed-price",
+                   "Job_Cost": None if x["is_hourly"] else f"${x['budget']:,} ", "Start_rate": x["hourly_low"] or 0,
+                   "End_rate": x["hourly_high"], "Client_Country": x["country"], "Connects_Num": r.choice([2, 4, 6, 8, 12, 16]),
+                   "Spent($)": r.choice([0, 1200, 25000]), "Rating": r.choice([None, 4.2, 4.9]), "Feedback_Num": r.randint(0, 50),
+                   "Payment_Situation": r.choice(["Payment verified", "Payment unverified"])} for x in rows[2 * n // 3:]]
+                 ).to_csv(out / "upwork_jobs_60k" / "Final_Upwork_Dataset.csv", index=False)
     (out / "contracts_1_3m").mkdir(parents=True, exist_ok=True)
-    pd.DataFrame([{"job_id": i, "title": r.choice(TITLES), "freelancer_id": r.randint(1, 500), "start_date": "2023-01-01",
-                   "end_date": "2023-02-01", "total_hours": r.randint(1, 120), "total_charge": r.choice([80, 200, 450, 900, 2000]),
+    pd.DataFrame([{"job_id": i, "job_title": r.choice(TITLES), "freelancer_id": r.randint(1, 500), "start_date": "2023-01-01",
+                   "end_date": "2023-02-01", "total_hours": r.randint(1, 120), "total_paid": r.choice([80, 200, 450, 900, 2000]),
                    "hourly_rate": r.choice([12, 18, 25, 35, 50, 75])} for i in range(4000)]
                  ).to_csv(out / "contracts_1_3m" / "contracts.csv", index=False)
     (out / "freelancer_success").mkdir(parents=True, exist_ok=True)
-    pd.DataFrame([{"Hourly_Rate": r.choice([15, 25, 35, 45, 60]), "Job_Success_Score": r.randint(60, 100),
-                   "Job_Category": r.choice(["Data Science", "Web Development", "Design"]), "Earnings_USD": r.randint(100, 90000)}
-                  for _ in range(600)]).to_csv(out / "freelancer_success" / "freelancers.csv", index=False)
+    pd.DataFrame([{"freelancer_id": f"FL_{i:06d}", "hourly_rate_usd": min(280.0, r.choice([15, 25, 35, 45, 60, 400])),
+                   "job_success_rate": r.randint(60, 100), "primary_skill": r.choice(["Data Science & Analytics", "Web Development", "Graphic Design"]),
+                   "total_earnings_12m_usd": r.randint(100, 90000), "years_experience": r.randint(0, 15)}
+                  for i in range(600)]).to_csv(out / "freelancer_success" / "freelancer_gig_success_dataset.csv", index=False)
     (out / "fake_job_postings").mkdir(parents=True, exist_ok=True)
     fake = []
-    for i in range(400):
+    for i in range(400):  # columns of processed_labeled_dataset_without_encoding.xlsx (lower-cased, punctuation-stripped text)
         fr = int(r.random() < 0.1)
-        fake.append({"job_id": i, "title": r.choice(["Data Entry Clerk", "Customer Service Rep", "Software Engineer", "Admin Assistant"]),
-                     "location": "US", "department": None, "salary_range": None, "company_profile": "" if fr else "We build tools.",
-                     "description": ("Work from home and earn $5000 weekly! No experience needed. Send your bank details to start immediately."
-                                     if fr else "Join our team to build and maintain internal tools in Python and SQL with code review."),
-                     "requirements": "None" if fr else "2 years experience with Python.", "benefits": None, "telecommuting": fr,
-                     "has_company_logo": 1 - fr, "has_questions": 0, "employment_type": "Full-time", "required_experience": None,
-                     "required_education": None, "industry": None, "function": None, "fraudulent": fr})
-    pd.DataFrame(fake).to_csv(out / "fake_job_postings" / "fake_job_postings.csv", index=False)
+        title = r.choice(["data entry clerk", "customer service rep", "software engineer", "admin assistant"])
+        desc = ("work from home and earn 5000 weekly no experience needed send your bank details to start immediately"
+                if fr else "join our team to build and maintain internal tools in python and sql with code review")
+        fake.append({"job_title": title, "location": r.randint(1, 5000), "industry": r.randint(1, 700), "salary_range": None,
+                     "company_profile": "" if fr else "we build tools", "job_desc": desc,
+                     "skills_desc": "none" if fr else "2 years experience with python", "employment_type": "Full-time",
+                     "fraudulent": fr, "text": f"{title} {desc}"})
+    pd.DataFrame(fake).to_excel(out / "fake_job_postings" / "processed_labeled_dataset_without_encoding.xlsx", index=False)
+    pd.DataFrame(fake[:5]).to_excel(out / "fake_job_postings" / "preprocessed_unlabelled_data_bert.xlsx", index=False)  # must be skipped
     print("mock raw data written to", out)
 
 
