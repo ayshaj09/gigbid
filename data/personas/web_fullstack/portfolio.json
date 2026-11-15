@@ -1,0 +1,468 @@
+[
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-cs-saas-dashboard",
+  "type": "case_study",
+  "title": "SaaS analytics dashboard in Next.js",
+  "date": "2023-01-15",
+  "client_industry": "saas",
+  "skills": [
+   "React",
+   "Next.js",
+   "TypeScript",
+   "Tailwind CSS",
+   "PostgreSQL"
+  ],
+  "outcome": null,
+  "project": "saas-dashboard",
+  "source": "synthetic/web_fullstack/case_studies/saas-dashboard.md",
+  "text": "Client: saas company with a startup whose customers could not see their own usage data. Built a Next.js dashboard with server components, role-based access and charts over PostgreSQL. Result: cut support tickets about usage by 40%. Pages load in under one second at the 95th percentile."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-repo-saas-dashboard",
+  "type": "repo_readme",
+  "title": "saas-dashboard: SaaS analytics dashboard in Next.js",
+  "date": "2023-01-15",
+  "client_industry": null,
+  "skills": [
+   "React",
+   "Next.js",
+   "TypeScript",
+   "Tailwind CSS",
+   "PostgreSQL"
+  ],
+  "outcome": null,
+  "project": "saas-dashboard",
+  "source": "synthetic/web_fullstack/repos/saas-dashboard/README.md",
+  "text": "SaaS analytics dashboard in Next.js. Open-source reference implementation of the approach: built a Next.js dashboard with server components, role-based access and charts over PostgreSQL. Stack: React, Next.js, TypeScript, Tailwind CSS, PostgreSQL. Includes setup instructions, tests and a sample dataset."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-code-saas-dashboard",
+  "type": "code",
+  "title": "saas-dashboard/main module",
+  "date": "2023-01-15",
+  "client_industry": null,
+  "skills": [
+   "React",
+   "Next.js",
+   "TypeScript"
+  ],
+  "outcome": null,
+  "project": "saas-dashboard",
+  "source": "synthetic/web_fullstack/repos/saas-dashboard/src",
+  "text": "Core module of saas-dashboard: React, Next.js, TypeScript implementation with configuration, logging, retries and unit tests covering the main paths."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-cs-shopify-store",
+  "type": "case_study",
+  "title": "Shopify store migration and custom theme",
+  "date": "2024-03-15",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Shopify",
+   "Liquid",
+   "JavaScript",
+   "SEO"
+  ],
+  "outcome": null,
+  "project": "shopify-store",
+  "source": "synthetic/web_fullstack/case_studies/shopify-store.md",
+  "text": "Client: ecommerce company with a clothing brand losing sales on a slow WooCommerce site. Migrated 1,200 products and orders to Shopify and built a custom Liquid theme. Result: raised mobile conversion rate from 1.1% to 1.9%. Redirects preserved existing search rankings."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-cs-django-api",
+  "type": "case_study",
+  "title": "Django REST API for a booking platform",
+  "date": "2025-05-15",
+  "client_industry": "travel",
+  "skills": [
+   "Python",
+   "Django",
+   "Django REST Framework",
+   "PostgreSQL",
+   "Celery"
+  ],
+  "outcome": null,
+  "project": "django-api",
+  "source": "synthetic/web_fullstack/case_studies/django-api.md",
+  "text": "Client: travel company with double bookings and slow availability checks. Designed a Django REST API with row-level locking and Celery tasks for confirmations. Result: eliminated double bookings and cut availability checks from 2 seconds to 150 milliseconds. The API is documented with OpenAPI."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-repo-django-api",
+  "type": "repo_readme",
+  "title": "django-api: Django REST API for a booking platform",
+  "date": "2025-05-15",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "Django",
+   "Django REST Framework",
+   "PostgreSQL",
+   "Celery"
+  ],
+  "outcome": null,
+  "project": "django-api",
+  "source": "synthetic/web_fullstack/repos/django-api/README.md",
+  "text": "Django REST API for a booking platform. Open-source reference implementation of the approach: designed a Django REST API with row-level locking and Celery tasks for confirmations. Stack: Python, Django, Django REST Framework, PostgreSQL, Celery. Includes setup instructions, tests and a sample dataset."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-code-django-api",
+  "type": "code",
+  "title": "django-api/main module",
+  "date": "2025-05-15",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "Django",
+   "Django REST Framework"
+  ],
+  "outcome": null,
+  "project": "django-api",
+  "source": "synthetic/web_fullstack/repos/django-api/src",
+  "text": "Core module of django-api: Python, Django, Django REST Framework implementation with configuration, logging, retries and unit tests covering the main paths."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-cs-node-realtime",
+  "type": "case_study",
+  "title": "Real-time chat with Node.js and WebSockets",
+  "date": "2023-07-15",
+  "client_industry": "education",
+  "skills": [
+   "Node.js",
+   "Socket.IO",
+   "Redis",
+   "MongoDB",
+   "React"
+  ],
+  "outcome": null,
+  "project": "node-realtime",
+  "source": "synthetic/web_fullstack/case_studies/node-realtime.md",
+  "text": "Client: education company with an online tutoring platform without live chat. Built a Node.js and Socket.IO service with Redis pub/sub and a React chat widget. Result: handled 3,000 concurrent users in load tests. Messages are persisted in MongoDB with read receipts."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-repo-node-realtime",
+  "type": "repo_readme",
+  "title": "node-realtime: Real-time chat with Node.js and WebSockets",
+  "date": "2023-07-15",
+  "client_industry": null,
+  "skills": [
+   "Node.js",
+   "Socket.IO",
+   "Redis",
+   "MongoDB",
+   "React"
+  ],
+  "outcome": null,
+  "project": "node-realtime",
+  "source": "synthetic/web_fullstack/repos/node-realtime/README.md",
+  "text": "Real-time chat with Node.js and WebSockets. Open-source reference implementation of the approach: built a Node.js and Socket.IO service with Redis pub/sub and a React chat widget. Stack: Node.js, Socket.IO, Redis, MongoDB, React. Includes setup instructions, tests and a sample dataset."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-code-node-realtime",
+  "type": "code",
+  "title": "node-realtime/main module",
+  "date": "2023-07-15",
+  "client_industry": null,
+  "skills": [
+   "Node.js",
+   "Socket.IO",
+   "Redis"
+  ],
+  "outcome": null,
+  "project": "node-realtime",
+  "source": "synthetic/web_fullstack/repos/node-realtime/src",
+  "text": "Core module of node-realtime: Node.js, Socket.IO, Redis implementation with configuration, logging, retries and unit tests covering the main paths."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-cs-wordpress-perf",
+  "type": "case_study",
+  "title": "WordPress performance rescue",
+  "date": "2024-09-15",
+  "client_industry": "media",
+  "skills": [
+   "WordPress",
+   "PHP",
+   "Cloudflare",
+   "performance optimization"
+  ],
+  "outcome": null,
+  "project": "wordpress-perf",
+  "source": "synthetic/web_fullstack/case_studies/wordpress-perf.md",
+  "text": "Client: media company with a news site timing out under traffic spikes. Profiled plugins, added object caching and moved assets behind Cloudflare. Result: improved Largest Contentful Paint from 4.8 seconds to 1.9 seconds. Core Web Vitals passed on mobile for the first time."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-cs-stripe-billing",
+  "type": "case_study",
+  "title": "Stripe subscription billing integration",
+  "date": "2025-11-15",
+  "client_industry": "saas",
+  "skills": [
+   "Stripe",
+   "Node.js",
+   "TypeScript",
+   "webhooks"
+  ],
+  "outcome": null,
+  "project": "stripe-billing",
+  "source": "synthetic/web_fullstack/case_studies/stripe-billing.md",
+  "text": "Client: saas company with a SaaS product billing customers manually by invoice. Integrated Stripe Checkout and subscriptions with idempotent webhook handling. Result: moved 300 customers to automatic billing without a failed charge going unnoticed. Failed payments trigger dunning emails."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-cs-react-native",
+  "type": "case_study",
+  "title": "React Native app for field inspections",
+  "date": "2023-01-15",
+  "client_industry": "construction",
+  "skills": [
+   "React Native",
+   "Expo",
+   "TypeScript",
+   "offline sync"
+  ],
+  "outcome": null,
+  "project": "react-native",
+  "source": "synthetic/web_fullstack/case_studies/react-native.md",
+  "text": "Client: construction company with inspectors filling paper forms on site. Built an offline-first React Native app with photo capture and background sync. Result: cut report turnaround from three days to the same day. Works without signal and syncs when back online."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-cs-ci-tests",
+  "type": "case_study",
+  "title": "Test suite and CI for a legacy React app",
+  "date": "2024-03-15",
+  "client_industry": "fintech",
+  "skills": [
+   "React",
+   "Jest",
+   "Playwright",
+   "GitHub Actions"
+  ],
+  "outcome": null,
+  "project": "ci-tests",
+  "source": "synthetic/web_fullstack/case_studies/ci-tests.md",
+  "text": "Client: fintech company with frequent regressions in a legacy React front end. Added Jest unit tests, Playwright end-to-end tests and a GitHub Actions pipeline. Result: raised coverage from 12% to 68% and halved production incidents. Every pull request now runs the full suite."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-review-shopify-store",
+  "type": "review",
+  "title": "Client review: Shopify store migration and custom theme",
+  "date": "2025-06-01",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Shopify",
+   "Liquid"
+  ],
+  "outcome": null,
+  "project": "shopify-store",
+  "source": "synthetic/web_fullstack/reviews/shopify-store.json",
+  "text": "5 stars. Our mobile sales went up within weeks. Clear communication throughout."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-review-django-api",
+  "type": "review",
+  "title": "Client review: Django REST API for a booking platform",
+  "date": "2025-06-01",
+  "client_industry": "travel",
+  "skills": [
+   "Python",
+   "Django"
+  ],
+  "outcome": null,
+  "project": "django-api",
+  "source": "synthetic/web_fullstack/reviews/django-api.json",
+  "text": "5 stars. No more double bookings. Clean, documented code."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-review-wordpress-perf",
+  "type": "review",
+  "title": "Client review: WordPress performance rescue",
+  "date": "2025-06-01",
+  "client_industry": "media",
+  "skills": [
+   "WordPress",
+   "PHP"
+  ],
+  "outcome": null,
+  "project": "wordpress-perf",
+  "source": "synthetic/web_fullstack/reviews/wordpress-perf.json",
+  "text": "4 stars. Site is much faster; a few plugins needed a second pass."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-prop-saas-dashboard",
+  "type": "past_proposal",
+  "title": "Proposal: SaaS analytics dashboard in Next.js",
+  "date": "2025-01-10",
+  "client_industry": "saas",
+  "skills": [
+   "React",
+   "Next.js"
+  ],
+  "outcome": "won",
+  "project": "saas-dashboard",
+  "source": "synthetic/web_fullstack/proposals/saas-dashboard.json",
+  "text": "Your post describes a startup whose customers could not see their own usage data. I solved the same problem before: I built a Next.js dashboard with server components, role-based access and charts over PostgreSQL, and it cut support tickets about usage by 40%. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-prop-shopify-store",
+  "type": "past_proposal",
+  "title": "Proposal: Shopify store migration and custom theme",
+  "date": "2025-02-10",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Shopify",
+   "Liquid"
+  ],
+  "outcome": "replied",
+  "project": "shopify-store",
+  "source": "synthetic/web_fullstack/proposals/shopify-store.json",
+  "text": "Your post describes a clothing brand losing sales on a slow WooCommerce site. I solved the same problem before: I migrated 1,200 products and orders to Shopify and built a custom Liquid theme, and it raised mobile conversion rate from 1.1% to 1.9%. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-prop-django-api",
+  "type": "past_proposal",
+  "title": "Proposal: Django REST API for a booking platform",
+  "date": "2025-03-10",
+  "client_industry": "travel",
+  "skills": [
+   "Python",
+   "Django"
+  ],
+  "outcome": "replied",
+  "project": "django-api",
+  "source": "synthetic/web_fullstack/proposals/django-api.json",
+  "text": "Your post describes double bookings and slow availability checks. I solved the same problem before: I designed a Django REST API with row-level locking and Celery tasks for confirmations, and it eliminated double bookings and cut availability checks from 2 seconds to 150 milliseconds. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-prop-node-realtime",
+  "type": "past_proposal",
+  "title": "Proposal: Real-time chat with Node.js and WebSockets",
+  "date": "2025-04-10",
+  "client_industry": "education",
+  "skills": [
+   "Node.js",
+   "Socket.IO"
+  ],
+  "outcome": "ignored",
+  "project": "node-realtime",
+  "source": "synthetic/web_fullstack/proposals/node-realtime.json",
+  "text": "Hi, I am a passionate and hardworking freelancer with many years of experience. I have read your job post and I am confident I can do it."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-prop-wordpress-perf",
+  "type": "past_proposal",
+  "title": "Proposal: WordPress performance rescue",
+  "date": "2025-05-10",
+  "client_industry": "media",
+  "skills": [
+   "WordPress",
+   "PHP"
+  ],
+  "outcome": "won",
+  "project": "wordpress-perf",
+  "source": "synthetic/web_fullstack/proposals/wordpress-perf.json",
+  "text": "Your post describes a news site timing out under traffic spikes. I solved the same problem before: I profiled plugins, added object caching and moved assets behind Cloudflare, and it improved Largest Contentful Paint from 4.8 seconds to 1.9 seconds. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-prop-stripe-billing",
+  "type": "past_proposal",
+  "title": "Proposal: Stripe subscription billing integration",
+  "date": "2025-06-10",
+  "client_industry": "saas",
+  "skills": [
+   "Stripe",
+   "Node.js"
+  ],
+  "outcome": "ignored",
+  "project": "stripe-billing",
+  "source": "synthetic/web_fullstack/proposals/stripe-billing.json",
+  "text": "Hi, I am a passionate and hardworking freelancer with many years of experience. I have read your job post and I am confident I can do it."
+ },
+ {
+  "persona": "web_fullstack",
+  "synthetic": true,
+  "evidence_id": "web_fullstack-cv",
+  "type": "cv",
+  "title": "CV: Bilal Ahmed (synthetic persona)",
+  "date": "2025-10-01",
+  "client_industry": null,
+  "skills": [
+   "Celery",
+   "Cloudflare",
+   "Django",
+   "Django REST Framework",
+   "Expo",
+   "GitHub Actions",
+   "JavaScript",
+   "Jest",
+   "Liquid",
+   "MongoDB",
+   "Next.js",
+   "Node.js",
+   "PHP",
+   "Playwright",
+   "PostgreSQL",
+   "Python",
+   "React",
+   "React Native",
+   "Redis",
+   "SEO",
+   "Shopify",
+   "Socket.IO",
+   "Stripe",
+   "Tailwind CSS",
+   "TypeScript",
+   "WordPress",
+   "offline sync",
+   "performance optimization",
+   "webhooks"
+  ],
+  "outcome": null,
+  "project": "cv",
+  "source": "synthetic/web_fullstack/cv.pdf",
+  "text": "Full-stack developer: React, Next.js, Node, Django, Shopify. Freelance since 2022. Skills: Celery, Cloudflare, Django, Django REST Framework, Expo, GitHub Actions, JavaScript, Jest, Liquid, MongoDB, Next.js, Node.js, PHP, Playwright, PostgreSQL, Python, React, React Native, Redis, SEO, Shopify, Socket.IO, Stripe, Tailwind CSS, TypeScript, WordPress, offline sync, performance optimization, webhooks."
+ }
+]

@@ -1,0 +1,479 @@
+[
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-cs-rag-support",
+  "type": "case_study",
+  "title": "RAG assistant over support tickets",
+  "date": "2023-01-15",
+  "client_industry": "saas",
+  "skills": [
+   "Python",
+   "LangChain",
+   "RAG",
+   "Qdrant",
+   "FastAPI",
+   "OpenAI API"
+  ],
+  "outcome": null,
+  "project": "rag-support",
+  "source": "synthetic/ai_engineer/case_studies/rag-support.md",
+  "text": "Client: saas company with a support team drowning in repeated tier-1 questions across 40k historical tickets. Built hybrid BM25 and dense retrieval in Qdrant with a cross-encoder reranker behind a FastAPI service, and an evaluation set of 300 real questions. Result: deflected 23% of tier-1 tickets in the first month. Answer faithfulness was checked weekly against the evaluation set."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-repo-rag-support",
+  "type": "repo_readme",
+  "title": "rag-support: RAG assistant over support tickets",
+  "date": "2023-01-15",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "LangChain",
+   "RAG",
+   "Qdrant",
+   "FastAPI",
+   "OpenAI API"
+  ],
+  "outcome": null,
+  "project": "rag-support",
+  "source": "synthetic/ai_engineer/repos/rag-support/README.md",
+  "text": "RAG assistant over support tickets. Open-source reference implementation of the approach: built hybrid BM25 and dense retrieval in Qdrant with a cross-encoder reranker behind a FastAPI service, and an evaluation set of 300 real questions. Stack: Python, LangChain, RAG, Qdrant, FastAPI, OpenAI API. Includes setup instructions, tests and a sample dataset."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-code-rag-support",
+  "type": "code",
+  "title": "rag-support/main module",
+  "date": "2023-01-15",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "LangChain",
+   "RAG"
+  ],
+  "outcome": null,
+  "project": "rag-support",
+  "source": "synthetic/ai_engineer/repos/rag-support/src",
+  "text": "Core module of rag-support: Python, LangChain, RAG implementation with configuration, logging, retries and unit tests covering the main paths."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-cs-churn",
+  "type": "case_study",
+  "title": "Churn prediction for a subscription box company",
+  "date": "2024-03-15",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Python",
+   "scikit-learn",
+   "pandas",
+   "XGBoost",
+   "classification"
+  ],
+  "outcome": null,
+  "project": "churn",
+  "source": "synthetic/ai_engineer/case_studies/churn.md",
+  "text": "Client: ecommerce company with rising churn with no way to target retention offers. Compared logistic regression, random forest and gradient boosting with stratified 5-fold cross-validation and tuned the threshold for recall. Result: reached 0.71 PR-AUC versus 0.52 for the previous rules. Delivered a model card and a monthly retraining script."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-cs-forecast",
+  "type": "case_study",
+  "title": "Demand forecasting for a grocery chain",
+  "date": "2025-05-15",
+  "client_industry": "retail",
+  "skills": [
+   "Python",
+   "time series",
+   "Prophet",
+   "LightGBM",
+   "forecasting"
+  ],
+  "outcome": null,
+  "project": "forecast",
+  "source": "synthetic/ai_engineer/case_studies/forecast.md",
+  "text": "Client: retail company with stock-outs and waste across 900 SKUs in 14 stores. Benchmarked Prophet against LightGBM with lag and holiday features. Result: cut weighted MAPE from 31% to 22%. Forecasts ran as a nightly job writing to the client's warehouse."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-cs-invoice-ocr",
+  "type": "case_study",
+  "title": "Invoice field extraction from scanned PDFs",
+  "date": "2023-07-15",
+  "client_industry": "accounting",
+  "skills": [
+   "Python",
+   "OCR",
+   "PDF parsing",
+   "transformers",
+   "LayoutLM"
+  ],
+  "outcome": null,
+  "project": "invoice-ocr",
+  "source": "synthetic/ai_engineer/case_studies/invoice-ocr.md",
+  "text": "Client: accounting company with an accounts team typing 2,000 supplier invoices a month by hand. Combined Tesseract OCR with a fine-tuned LayoutLM model and a review queue for low-confidence fields. Result: reached 94% field-level accuracy on 500 labelled invoices. The model runs on CPU and exports to ONNX."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-repo-invoice-ocr",
+  "type": "repo_readme",
+  "title": "invoice-ocr: Invoice field extraction from scanned PDFs",
+  "date": "2023-07-15",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "OCR",
+   "PDF parsing",
+   "transformers",
+   "LayoutLM"
+  ],
+  "outcome": null,
+  "project": "invoice-ocr",
+  "source": "synthetic/ai_engineer/repos/invoice-ocr/README.md",
+  "text": "Invoice field extraction from scanned PDFs. Open-source reference implementation of the approach: combined Tesseract OCR with a fine-tuned LayoutLM model and a review queue for low-confidence fields. Stack: Python, OCR, PDF parsing, transformers, LayoutLM. Includes setup instructions, tests and a sample dataset."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-code-invoice-ocr",
+  "type": "code",
+  "title": "invoice-ocr/main module",
+  "date": "2023-07-15",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "OCR",
+   "PDF parsing"
+  ],
+  "outcome": null,
+  "project": "invoice-ocr",
+  "source": "synthetic/ai_engineer/repos/invoice-ocr/src",
+  "text": "Core module of invoice-ocr: Python, OCR, PDF parsing implementation with configuration, logging, retries and unit tests covering the main paths."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-cs-cv-defects",
+  "type": "case_study",
+  "title": "Defect detection on a production line",
+  "date": "2024-09-15",
+  "client_industry": "manufacturing",
+  "skills": [
+   "computer vision",
+   "PyTorch",
+   "YOLO",
+   "OpenCV"
+  ],
+  "outcome": null,
+  "project": "cv-defects",
+  "source": "synthetic/ai_engineer/case_studies/cv-defects.md",
+  "text": "Client: manufacturing company with manual inspection missing surface defects on metal parts. Organised labelling of 6,000 images and trained a YOLO detector deployed on an edge GPU. Result: reached 0.88 mAP at IoU 0.5. False alarms were reviewed with line operators each week."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-cs-llm-extract",
+  "type": "case_study",
+  "title": "LLM pipeline for contract clause extraction",
+  "date": "2025-11-15",
+  "client_industry": "legal",
+  "skills": [
+   "Python",
+   "LLM",
+   "prompt engineering",
+   "Pydantic",
+   "evaluation"
+  ],
+  "outcome": null,
+  "project": "llm-extract",
+  "source": "synthetic/ai_engineer/case_studies/llm-extract.md",
+  "text": "Client: legal company with lawyers reading hundreds of supplier contracts for renewal and liability clauses. Built a structured-output LLM pipeline with schema validation and a 150-contract test set. Result: matched lawyer labels on 91% of clauses. Low-confidence extractions were routed to a human reviewer."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-cs-sentiment",
+  "type": "case_study",
+  "title": "Customer review sentiment and topic dashboard",
+  "date": "2023-01-15",
+  "client_industry": "hospitality",
+  "skills": [
+   "Python",
+   "NLP",
+   "BERT",
+   "topic modeling",
+   "Streamlit"
+  ],
+  "outcome": null,
+  "project": "sentiment",
+  "source": "synthetic/ai_engineer/case_studies/sentiment.md",
+  "text": "Client: hospitality company with a hotel group with 60k reviews and no view of recurring complaints. Fine-tuned a multilingual BERT classifier and clustered complaint topics. Result: surfaced the five complaint themes behind 70% of negative reviews. Results were shown in a small dashboard for managers."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-cs-mlops",
+  "type": "case_study",
+  "title": "MLOps pipeline for model retraining",
+  "date": "2024-03-15",
+  "client_industry": "fintech",
+  "skills": [
+   "MLflow",
+   "Docker",
+   "GitHub Actions",
+   "Python",
+   "AWS"
+  ],
+  "outcome": null,
+  "project": "mlops",
+  "source": "synthetic/ai_engineer/case_studies/mlops.md",
+  "text": "Client: fintech company with models retrained by hand on a data scientist's laptop. Set up MLflow tracking, Dockerised training and a GitHub Actions retraining workflow on AWS. Result: reduced retraining time from two days to three hours. Every model version is reproducible from its run id."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-repo-mlops",
+  "type": "repo_readme",
+  "title": "mlops: MLOps pipeline for model retraining",
+  "date": "2024-03-15",
+  "client_industry": null,
+  "skills": [
+   "MLflow",
+   "Docker",
+   "GitHub Actions",
+   "Python",
+   "AWS"
+  ],
+  "outcome": null,
+  "project": "mlops",
+  "source": "synthetic/ai_engineer/repos/mlops/README.md",
+  "text": "MLOps pipeline for model retraining. Open-source reference implementation of the approach: set up MLflow tracking, Dockerised training and a GitHub Actions retraining workflow on AWS. Stack: MLflow, Docker, GitHub Actions, Python, AWS. Includes setup instructions, tests and a sample dataset."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-code-mlops",
+  "type": "code",
+  "title": "mlops/main module",
+  "date": "2024-03-15",
+  "client_industry": null,
+  "skills": [
+   "MLflow",
+   "Docker",
+   "GitHub Actions"
+  ],
+  "outcome": null,
+  "project": "mlops",
+  "source": "synthetic/ai_engineer/repos/mlops/src",
+  "text": "Core module of mlops: MLflow, Docker, GitHub Actions implementation with configuration, logging, retries and unit tests covering the main paths."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-review-churn",
+  "type": "review",
+  "title": "Client review: Churn prediction for a subscription box company",
+  "date": "2025-06-01",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Python",
+   "scikit-learn"
+  ],
+  "outcome": null,
+  "project": "churn",
+  "source": "synthetic/ai_engineer/reviews/churn.json",
+  "text": "5 stars. Explained the precision and recall trade-off to our non-technical team clearly and delivered ahead of schedule."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-review-rag-support",
+  "type": "review",
+  "title": "Client review: RAG assistant over support tickets",
+  "date": "2025-06-01",
+  "client_industry": "saas",
+  "skills": [
+   "Python",
+   "LangChain"
+  ],
+  "outcome": null,
+  "project": "rag-support",
+  "source": "synthetic/ai_engineer/reviews/rag-support.json",
+  "text": "5 stars. Built a proper evaluation instead of eyeballing answers. Would hire again."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-review-forecast",
+  "type": "review",
+  "title": "Client review: Demand forecasting for a grocery chain",
+  "date": "2025-06-01",
+  "client_industry": "retail",
+  "skills": [
+   "Python",
+   "time series"
+  ],
+  "outcome": null,
+  "project": "forecast",
+  "source": "synthetic/ai_engineer/reviews/forecast.json",
+  "text": "4 stars. Solid forecasting work; documentation could have been longer."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-prop-rag-support",
+  "type": "past_proposal",
+  "title": "Proposal: RAG assistant over support tickets",
+  "date": "2025-01-10",
+  "client_industry": "saas",
+  "skills": [
+   "Python",
+   "LangChain"
+  ],
+  "outcome": "won",
+  "project": "rag-support",
+  "source": "synthetic/ai_engineer/proposals/rag-support.json",
+  "text": "Your post describes a support team drowning in repeated tier-1 questions across 40k historical tickets. I solved the same problem before: I built hybrid BM25 and dense retrieval in Qdrant with a cross-encoder reranker behind a FastAPI service, and an evaluation set of 300 real questions, and it deflected 23% of tier-1 tickets in the first month. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-prop-churn",
+  "type": "past_proposal",
+  "title": "Proposal: Churn prediction for a subscription box company",
+  "date": "2025-02-10",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Python",
+   "scikit-learn"
+  ],
+  "outcome": "replied",
+  "project": "churn",
+  "source": "synthetic/ai_engineer/proposals/churn.json",
+  "text": "Your post describes rising churn with no way to target retention offers. I solved the same problem before: I compared logistic regression, random forest and gradient boosting with stratified 5-fold cross-validation and tuned the threshold for recall, and it reached 0.71 PR-AUC versus 0.52 for the previous rules. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-prop-forecast",
+  "type": "past_proposal",
+  "title": "Proposal: Demand forecasting for a grocery chain",
+  "date": "2025-03-10",
+  "client_industry": "retail",
+  "skills": [
+   "Python",
+   "time series"
+  ],
+  "outcome": "replied",
+  "project": "forecast",
+  "source": "synthetic/ai_engineer/proposals/forecast.json",
+  "text": "Your post describes stock-outs and waste across 900 SKUs in 14 stores. I solved the same problem before: I benchmarked Prophet against LightGBM with lag and holiday features, and it cut weighted MAPE from 31% to 22%. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-prop-invoice-ocr",
+  "type": "past_proposal",
+  "title": "Proposal: Invoice field extraction from scanned PDFs",
+  "date": "2025-04-10",
+  "client_industry": "accounting",
+  "skills": [
+   "Python",
+   "OCR"
+  ],
+  "outcome": "ignored",
+  "project": "invoice-ocr",
+  "source": "synthetic/ai_engineer/proposals/invoice-ocr.json",
+  "text": "Your post describes an accounts team typing 2,000 supplier invoices a month by hand. I solved the same problem before: I combined Tesseract OCR with a fine-tuned LayoutLM model and a review queue for low-confidence fields, and it reached 94% field-level accuracy on 500 labelled invoices. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-prop-cv-defects",
+  "type": "past_proposal",
+  "title": "Proposal: Defect detection on a production line",
+  "date": "2025-05-10",
+  "client_industry": "manufacturing",
+  "skills": [
+   "computer vision",
+   "PyTorch"
+  ],
+  "outcome": "won",
+  "project": "cv-defects",
+  "source": "synthetic/ai_engineer/proposals/cv-defects.json",
+  "text": "Your post describes manual inspection missing surface defects on metal parts. I solved the same problem before: I organised labelling of 6,000 images and trained a YOLO detector deployed on an edge GPU, and it reached 0.88 mAP at IoU 0.5. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-prop-llm-extract",
+  "type": "past_proposal",
+  "title": "Proposal: LLM pipeline for contract clause extraction",
+  "date": "2025-06-10",
+  "client_industry": "legal",
+  "skills": [
+   "Python",
+   "LLM"
+  ],
+  "outcome": "ignored",
+  "project": "llm-extract",
+  "source": "synthetic/ai_engineer/proposals/llm-extract.json",
+  "text": "Hi, I am a passionate and hardworking freelancer with many years of experience. I have read your job post and I am confident I can do it."
+ },
+ {
+  "persona": "ai_engineer",
+  "synthetic": true,
+  "evidence_id": "ai_engineer-cv",
+  "type": "cv",
+  "title": "CV: Sana Qureshi (synthetic persona)",
+  "date": "2025-10-01",
+  "client_industry": null,
+  "skills": [
+   "AWS",
+   "BERT",
+   "Docker",
+   "FastAPI",
+   "GitHub Actions",
+   "LLM",
+   "LangChain",
+   "LayoutLM",
+   "LightGBM",
+   "MLflow",
+   "NLP",
+   "OCR",
+   "OpenAI API",
+   "OpenCV",
+   "PDF parsing",
+   "Prophet",
+   "PyTorch",
+   "Pydantic",
+   "Python",
+   "Qdrant",
+   "RAG",
+   "Streamlit",
+   "XGBoost",
+   "YOLO",
+   "classification",
+   "computer vision",
+   "evaluation",
+   "forecasting",
+   "pandas",
+   "prompt engineering",
+   "scikit-learn",
+   "time series",
+   "topic modeling",
+   "transformers"
+  ],
+  "outcome": null,
+  "project": "cv",
+  "source": "synthetic/ai_engineer/cv.pdf",
+  "text": "ML engineer: LLM apps, RAG, forecasting, MLOps. Freelance since 2022. Skills: AWS, BERT, Docker, FastAPI, GitHub Actions, LLM, LangChain, LayoutLM, LightGBM, MLflow, NLP, OCR, OpenAI API, OpenCV, PDF parsing, Prophet, PyTorch, Pydantic, Python, Qdrant, RAG, Streamlit, XGBoost, YOLO, classification, computer vision, evaluation, forecasting, pandas, prompt engineering, scikit-learn, time series, topic modeling, transformers."
+ }
+]

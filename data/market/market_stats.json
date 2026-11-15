@@ -1,0 +1,198 @@
+{
+ "ai_ml": {
+  "category": "ai_ml",
+  "fixed": {
+   "p25": 50.0,
+   "p50": 150.0,
+   "p75": 500.0,
+   "n": 4361
+  },
+  "hourly": {
+   "p25": 11.0,
+   "p50": 30.0,
+   "p75": 49.0,
+   "n": 6174
+  },
+  "source": "real job posts",
+  "contract_hourly_rate": {
+   "p25": 6.0,
+   "p50": 12.99,
+   "p75": 30.0,
+   "n": 2489
+  },
+  "contract_amount": {
+   "p25": 79.29,
+   "p50": 296.89,
+   "p75": 1100.62,
+   "n": 3798
+  }
+ },
+ "data_analysis": {
+  "category": "data_analysis",
+  "fixed": {
+   "p25": 25.0,
+   "p50": 100.0,
+   "p75": 300.0,
+   "n": 6547
+  },
+  "hourly": {
+   "p25": 15.0,
+   "p50": 30.0,
+   "p75": 50.0,
+   "n": 8686
+  },
+  "source": "real job posts",
+  "contract_hourly_rate": {
+   "p25": 8.0,
+   "p50": 25.0,
+   "p75": 50.0,
+   "n": 3987
+  },
+  "contract_amount": {
+   "p25": 50.0,
+   "p50": 166.67,
+   "p75": 556.31,
+   "n": 7675
+  }
+ },
+ "design": {
+  "category": "design",
+  "fixed": {
+   "p25": 25.0,
+   "p50": 60.0,
+   "p75": 200.0,
+   "n": 9445
+  },
+  "hourly": {
+   "p25": 20.0,
+   "p50": 35.0,
+   "p75": 45.75,
+   "n": 7600
+  },
+  "source": "real job posts",
+  "contract_hourly_rate": {
+   "p25": 15.0,
+   "p50": 25.0,
+   "p75": 40.0,
+   "n": 4293
+  },
+  "contract_amount": {
+   "p25": 50.0,
+   "p50": 140.0,
+   "p75": 450.08,
+   "n": 10806
+  }
+ },
+ "devops": {
+  "category": "devops",
+  "fixed": {
+   "p25": 30.75,
+   "p50": 100.0,
+   "p75": 300.0,
+   "n": 438
+  },
+  "hourly": {
+   "p25": 30.0,
+   "p50": 45.0,
+   "p75": 60.0,
+   "n": 599
+  },
+  "source": "real job posts",
+  "contract_hourly_rate": {
+   "p25": 25.0,
+   "p50": 38.0,
+   "p75": 60.0,
+   "n": 711
+  },
+  "contract_amount": {
+   "p25": 80.22,
+   "p50": 250.0,
+   "p75": 1249.51,
+   "n": 1155
+  }
+ },
+ "other": {
+  "category": "other",
+  "fixed": {
+   "p25": 30.0,
+   "p50": 100.0,
+   "p75": 300.0,
+   "n": 32939
+  },
+  "hourly": {
+   "p25": 20.0,
+   "p50": 35.0,
+   "p75": 50.0,
+   "n": 31617
+  },
+  "source": "real job posts",
+  "contract_hourly_rate": {
+   "p25": 15.0,
+   "p50": 25.0,
+   "p75": 50.0,
+   "n": 38179
+  },
+  "contract_amount": {
+   "p25": 65.0,
+   "p50": 200.0,
+   "p75": 697.78,
+   "n": 83210
+  }
+ },
+ "web_fullstack": {
+  "category": "web_fullstack",
+  "fixed": {
+   "p25": 45.0,
+   "p50": 145.0,
+   "p75": 500.0,
+   "n": 19504
+  },
+  "hourly": {
+   "p25": 23.0,
+   "p50": 30.0,
+   "p75": 49.0,
+   "n": 19044
+  },
+  "source": "real job posts",
+  "contract_hourly_rate": {
+   "p25": 15.0,
+   "p50": 25.0,
+   "p75": 40.0,
+   "n": 9248
+  },
+  "contract_amount": {
+   "p25": 100.0,
+   "p50": 360.5,
+   "p75": 1335.0,
+   "n": 16957
+  }
+ },
+ "writing": {
+  "category": "writing",
+  "fixed": {
+   "p25": 35.0,
+   "p50": 100.0,
+   "p75": 400.0,
+   "n": 13652
+  },
+  "hourly": {
+   "p25": 15.0,
+   "p50": 30.0,
+   "p75": 50.0,
+   "n": 17143
+  },
+  "source": "real job posts",
+  "contract_hourly_rate": {
+   "p25": 10.0,
+   "p50": 25.0,
+   "p75": 50.0,
+   "n": 9029
+  },
+  "contract_amount": {
+   "p25": 64.75,
+   "p50": 220.0,
+   "p75": 806.66,
+   "n": 21207
+  }
+ }
+}

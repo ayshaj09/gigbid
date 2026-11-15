@@ -1,0 +1,62 @@
+{
+ "built": "2026-11-15 12:36",
+ "seconds": 309.4,
+ "raw_rows_read": {
+  "upwork_jobs_2024_50k": 53058,
+  "upwork_jobs_200k": 180000,
+  "upwork_jobs_60k": 60000
+ },
+ "jobs_after_dedupe": 217527,
+ "pool_jobs": 3050,
+ "jobs_with_real_description": 105632,
+ "jobs_with_synthetic_description": 111895,
+ "labelled_postings_used": {
+  "fraudulent": 60,
+  "legitimate": 55
+ },
+ "jobs_with_real_connects": 55299,
+ "jobs_with_real_client_signals": 55299,
+ "contracts_rows_read": 180000,
+ "freelancer_rows_read": 12000,
+ "persona_rates_usd": {
+  "ai_engineer": 49.0,
+  "web_fullstack": 49.0,
+  "data_analyst": 50.0
+ },
+ "rejected": {
+  "freelancer_success.hourly_rate_usd": "clipped at 280; median on the cap; not used for rates"
+ },
+ "categories": {
+  "ai_ml": 12767,
+  "data_analysis": 18390,
+  "design": 20529,
+  "devops": 1210,
+  "other": 80401,
+  "web_fullstack": 45884,
+  "writing": 38346
+ },
+ "synthetic": [
+  "personas + portfolios",
+  "client histories",
+  "threads",
+  "planted injections",
+  "descriptions/screening questions for title-only rows",
+  "connects costs"
+ ],
+ "licences": {
+  "upwork_jobs_2024_50k": "ODC Attribution License (ODC-By) v1.0",
+  "upwork_jobs_200k": "ODC Attribution License (ODC-By) v1.0",
+  "upwork_jobs_60k": "Apache-2.0",
+  "contracts_1_3m": "ODC Attribution License (ODC-By) v1.0",
+  "freelancer_success": "Apache-2.0",
+  "fake_job_postings": "Unknown (not stated on Kaggle). Only a ~115-row sample is committed (dev sets), with attribution, for non-commercial coursework evaluation; remove on request"
+ },
+ "attribution": {
+  "upwork_jobs_2024_50k": "asaniczka, Upwork Job Postings Dataset 2024 (50K Records), Kaggle",
+  "upwork_jobs_200k": "asaniczka, All Upwork Job Postings - Monthly Tracker, Kaggle",
+  "upwork_jobs_60k": "ahmedmyalo, Upwork freelance jobs (+60k), Kaggle",
+  "contracts_1_3m": "asaniczka, Freelance Contracts Dataset (1.3 Million Entries), Kaggle",
+  "freelancer_success": "sarveshchhetri, Freelancer Marketplace Dataset for ML & Analytics, Kaggle (itself 'real-world style', i.e. partly synthetic)",
+  "fake_job_postings": "adityammantri, Fake-Job-Posting-Detection (Kaggle ref trial-1)"
+ }
+}

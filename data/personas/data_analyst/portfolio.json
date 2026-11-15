@@ -1,0 +1,419 @@
+[
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-cs-powerbi-sales",
+  "type": "case_study",
+  "title": "Power BI sales dashboard",
+  "date": "2023-01-15",
+  "client_industry": "retail",
+  "skills": [
+   "Power BI",
+   "DAX",
+   "SQL",
+   "data modeling"
+  ],
+  "outcome": null,
+  "project": "powerbi-sales",
+  "source": "synthetic/data_analyst/case_studies/powerbi-sales.md",
+  "text": "Client: retail company with regional managers waiting a week for sales reports. Built a star-schema model and a Power BI dashboard with row-level security. Result: replaced 12 manual weekly reports with one refreshed daily. Managers see only their region."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-cs-excel-automation",
+  "type": "case_study",
+  "title": "Excel reporting automation with VBA and Power Query",
+  "date": "2024-03-15",
+  "client_industry": "logistics",
+  "skills": [
+   "Excel",
+   "VBA",
+   "Power Query",
+   "automation"
+  ],
+  "outcome": null,
+  "project": "excel-automation",
+  "source": "synthetic/data_analyst/case_studies/excel-automation.md",
+  "text": "Client: logistics company with a finance team spending two days a month consolidating spreadsheets. Automated consolidation with Power Query and a VBA export macro. Result: cut month-end reporting from two days to 40 minutes. Includes a one-page guide for the team."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-cs-sql-cohorts",
+  "type": "case_study",
+  "title": "SQL cohort and retention analysis",
+  "date": "2025-05-15",
+  "client_industry": "saas",
+  "skills": [
+   "SQL",
+   "PostgreSQL",
+   "cohort analysis",
+   "Python"
+  ],
+  "outcome": null,
+  "project": "sql-cohorts",
+  "source": "synthetic/data_analyst/case_studies/sql-cohorts.md",
+  "text": "Client: saas company with a product team unsure which features kept users. Wrote cohort and retention queries over 2 million events and summarised findings. Result: identified the onboarding step linked to a 15-point retention gap. Queries were delivered as reusable views."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-repo-sql-cohorts",
+  "type": "repo_readme",
+  "title": "sql-cohorts: SQL cohort and retention analysis",
+  "date": "2025-05-15",
+  "client_industry": null,
+  "skills": [
+   "SQL",
+   "PostgreSQL",
+   "cohort analysis",
+   "Python"
+  ],
+  "outcome": null,
+  "project": "sql-cohorts",
+  "source": "synthetic/data_analyst/repos/sql-cohorts/README.md",
+  "text": "SQL cohort and retention analysis. Open-source reference implementation of the approach: wrote cohort and retention queries over 2 million events and summarised findings. Stack: SQL, PostgreSQL, cohort analysis, Python. Includes setup instructions, tests and a sample dataset."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-code-sql-cohorts",
+  "type": "code",
+  "title": "sql-cohorts/main module",
+  "date": "2025-05-15",
+  "client_industry": null,
+  "skills": [
+   "SQL",
+   "PostgreSQL",
+   "cohort analysis"
+  ],
+  "outcome": null,
+  "project": "sql-cohorts",
+  "source": "synthetic/data_analyst/repos/sql-cohorts/src",
+  "text": "Core module of sql-cohorts: SQL, PostgreSQL, cohort analysis implementation with configuration, logging, retries and unit tests covering the main paths."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-cs-tableau-health",
+  "type": "case_study",
+  "title": "Tableau dashboard for clinic operations",
+  "date": "2023-07-15",
+  "client_industry": "healthcare",
+  "skills": [
+   "Tableau",
+   "SQL",
+   "data visualization"
+  ],
+  "outcome": null,
+  "project": "tableau-health",
+  "source": "synthetic/data_analyst/case_studies/tableau-health.md",
+  "text": "Client: healthcare company with clinics with no view of appointment no-shows. Built a Tableau dashboard of bookings, no-shows and wait times across 9 clinics. Result: helped reduce no-shows by 18% after reminder changes. Only aggregated, de-identified data was used."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-cs-scraping",
+  "type": "case_study",
+  "title": "Product price scraping and monitoring",
+  "date": "2024-09-15",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Python",
+   "web scraping",
+   "BeautifulSoup",
+   "Scrapy",
+   "pandas"
+  ],
+  "outcome": null,
+  "project": "scraping",
+  "source": "synthetic/data_analyst/case_studies/scraping.md",
+  "text": "Client: ecommerce company with a retailer tracking competitor prices by hand. Built Scrapy spiders respecting robots.txt with daily price-change reports. Result: tracked 8,000 products across 5 competitor sites. Alerts fire when a price drops more than 10%."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-repo-scraping",
+  "type": "repo_readme",
+  "title": "scraping: Product price scraping and monitoring",
+  "date": "2024-09-15",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "web scraping",
+   "BeautifulSoup",
+   "Scrapy",
+   "pandas"
+  ],
+  "outcome": null,
+  "project": "scraping",
+  "source": "synthetic/data_analyst/repos/scraping/README.md",
+  "text": "Product price scraping and monitoring. Open-source reference implementation of the approach: built Scrapy spiders respecting robots.txt with daily price-change reports. Stack: Python, web scraping, BeautifulSoup, Scrapy, pandas. Includes setup instructions, tests and a sample dataset."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-code-scraping",
+  "type": "code",
+  "title": "scraping/main module",
+  "date": "2024-09-15",
+  "client_industry": null,
+  "skills": [
+   "Python",
+   "web scraping",
+   "BeautifulSoup"
+  ],
+  "outcome": null,
+  "project": "scraping",
+  "source": "synthetic/data_analyst/repos/scraping/src",
+  "text": "Core module of scraping: Python, web scraping, BeautifulSoup implementation with configuration, logging, retries and unit tests covering the main paths."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-cs-ab-test",
+  "type": "case_study",
+  "title": "A/B test analysis for a checkout redesign",
+  "date": "2025-11-15",
+  "client_industry": "ecommerce",
+  "skills": [
+   "statistics",
+   "A/B testing",
+   "Python",
+   "SQL"
+  ],
+  "outcome": null,
+  "project": "ab-test",
+  "source": "synthetic/data_analyst/case_studies/ab-test.md",
+  "text": "Client: ecommerce company with a team about to ship a redesign on gut feel. Designed the test with a power calculation and analysed it with confidence intervals. Result: showed a 0.4-point conversion lift with a 95% interval excluding zero. Results were written up for non-technical stakeholders."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-cs-data-cleaning",
+  "type": "case_study",
+  "title": "CRM data cleaning and deduplication",
+  "date": "2023-01-15",
+  "client_industry": "real estate",
+  "skills": [
+   "Excel",
+   "Python",
+   "pandas",
+   "data cleaning"
+  ],
+  "outcome": null,
+  "project": "data-cleaning",
+  "source": "synthetic/data_analyst/case_studies/data-cleaning.md",
+  "text": "Client: real estate company with a CRM with thousands of duplicate and malformed contacts. Standardised fields and fuzzy-matched duplicates with a review sheet. Result: merged 4,300 duplicates out of 21,000 contacts. Nothing was deleted without a review flag."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-cs-gsheets",
+  "type": "case_study",
+  "title": "Google Sheets KPI tracker with Apps Script",
+  "date": "2024-03-15",
+  "client_industry": "nonprofit",
+  "skills": [
+   "Google Sheets",
+   "Apps Script",
+   "Looker Studio"
+  ],
+  "outcome": null,
+  "project": "gsheets",
+  "source": "synthetic/data_analyst/case_studies/gsheets.md",
+  "text": "Client: nonprofit company with a nonprofit collecting KPIs by email. Built a Google Sheets tracker with Apps Script validation and a Looker Studio report. Result: got all 25 programme leads reporting on time. Volunteers can update it without training."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-review-powerbi-sales",
+  "type": "review",
+  "title": "Client review: Power BI sales dashboard",
+  "date": "2025-06-01",
+  "client_industry": "retail",
+  "skills": [
+   "Power BI",
+   "DAX"
+  ],
+  "outcome": null,
+  "project": "powerbi-sales",
+  "source": "synthetic/data_analyst/reviews/powerbi-sales.json",
+  "text": "5 stars. The dashboard is used in every regional meeting now."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-review-excel-automation",
+  "type": "review",
+  "title": "Client review: Excel reporting automation with VBA and Power Query",
+  "date": "2025-06-01",
+  "client_industry": "logistics",
+  "skills": [
+   "Excel",
+   "VBA"
+  ],
+  "outcome": null,
+  "project": "excel-automation",
+  "source": "synthetic/data_analyst/reviews/excel-automation.json",
+  "text": "5 stars. Saved our team days every month. Very patient with questions."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-review-scraping",
+  "type": "review",
+  "title": "Client review: Product price scraping and monitoring",
+  "date": "2025-06-01",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Python",
+   "web scraping"
+  ],
+  "outcome": null,
+  "project": "scraping",
+  "source": "synthetic/data_analyst/reviews/scraping.json",
+  "text": "4 stars. Reliable scrapers; setup instructions could be clearer."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-prop-powerbi-sales",
+  "type": "past_proposal",
+  "title": "Proposal: Power BI sales dashboard",
+  "date": "2025-01-10",
+  "client_industry": "retail",
+  "skills": [
+   "Power BI",
+   "DAX"
+  ],
+  "outcome": "won",
+  "project": "powerbi-sales",
+  "source": "synthetic/data_analyst/proposals/powerbi-sales.json",
+  "text": "Your post describes regional managers waiting a week for sales reports. I solved the same problem before: I built a star-schema model and a Power BI dashboard with row-level security, and it replaced 12 manual weekly reports with one refreshed daily. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-prop-excel-automation",
+  "type": "past_proposal",
+  "title": "Proposal: Excel reporting automation with VBA and Power Query",
+  "date": "2025-02-10",
+  "client_industry": "logistics",
+  "skills": [
+   "Excel",
+   "VBA"
+  ],
+  "outcome": "replied",
+  "project": "excel-automation",
+  "source": "synthetic/data_analyst/proposals/excel-automation.json",
+  "text": "Your post describes a finance team spending two days a month consolidating spreadsheets. I solved the same problem before: I automated consolidation with Power Query and a VBA export macro, and it cut month-end reporting from two days to 40 minutes. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-prop-sql-cohorts",
+  "type": "past_proposal",
+  "title": "Proposal: SQL cohort and retention analysis",
+  "date": "2025-03-10",
+  "client_industry": "saas",
+  "skills": [
+   "SQL",
+   "PostgreSQL"
+  ],
+  "outcome": "replied",
+  "project": "sql-cohorts",
+  "source": "synthetic/data_analyst/proposals/sql-cohorts.json",
+  "text": "Your post describes a product team unsure which features kept users. I solved the same problem before: I wrote cohort and retention queries over 2 million events and summarised findings, and it identified the onboarding step linked to a 15-point retention gap. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-prop-tableau-health",
+  "type": "past_proposal",
+  "title": "Proposal: Tableau dashboard for clinic operations",
+  "date": "2025-04-10",
+  "client_industry": "healthcare",
+  "skills": [
+   "Tableau",
+   "SQL"
+  ],
+  "outcome": "ignored",
+  "project": "tableau-health",
+  "source": "synthetic/data_analyst/proposals/tableau-health.json",
+  "text": "Hi, I am a passionate and hardworking freelancer with many years of experience. I have read your job post and I am confident I can do it."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-prop-scraping",
+  "type": "past_proposal",
+  "title": "Proposal: Product price scraping and monitoring",
+  "date": "2025-05-10",
+  "client_industry": "ecommerce",
+  "skills": [
+   "Python",
+   "web scraping"
+  ],
+  "outcome": "won",
+  "project": "scraping",
+  "source": "synthetic/data_analyst/proposals/scraping.json",
+  "text": "Your post describes a retailer tracking competitor prices by hand. I solved the same problem before: I built Scrapy spiders respecting robots.txt with daily price-change reports, and it tracked 8,000 products across 5 competitor sites. I would start with a short audit and a plan."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-prop-ab-test",
+  "type": "past_proposal",
+  "title": "Proposal: A/B test analysis for a checkout redesign",
+  "date": "2025-06-10",
+  "client_industry": "ecommerce",
+  "skills": [
+   "statistics",
+   "A/B testing"
+  ],
+  "outcome": "ignored",
+  "project": "ab-test",
+  "source": "synthetic/data_analyst/proposals/ab-test.json",
+  "text": "Hi, I am a passionate and hardworking freelancer with many years of experience. I have read your job post and I am confident I can do it."
+ },
+ {
+  "persona": "data_analyst",
+  "synthetic": true,
+  "evidence_id": "data_analyst-cv",
+  "type": "cv",
+  "title": "CV: Ayesha Khan (synthetic persona)",
+  "date": "2025-10-01",
+  "client_industry": null,
+  "skills": [
+   "A/B testing",
+   "Apps Script",
+   "BeautifulSoup",
+   "DAX",
+   "Excel",
+   "Google Sheets",
+   "Looker Studio",
+   "PostgreSQL",
+   "Power BI",
+   "Power Query",
+   "Python",
+   "SQL",
+   "Scrapy",
+   "Tableau",
+   "VBA",
+   "automation",
+   "cohort analysis",
+   "data cleaning",
+   "data modeling",
+   "data visualization",
+   "pandas",
+   "statistics",
+   "web scraping"
+  ],
+  "outcome": null,
+  "project": "cv",
+  "source": "synthetic/data_analyst/cv.pdf",
+  "text": "Data analyst: SQL, Power BI, Tableau, Excel automation, scraping. Freelance since 2022. Skills: A/B testing, Apps Script, BeautifulSoup, DAX, Excel, Google Sheets, Looker Studio, PostgreSQL, Power BI, Power Query, Python, SQL, Scrapy, Tableau, VBA, automation, cohort analysis, data cleaning, data modeling, data visualization, pandas, statistics, web scraping."
+ }
+]

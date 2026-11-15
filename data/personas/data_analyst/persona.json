@@ -1,0 +1,43 @@
+{
+ "persona_id": "data_analyst",
+ "display_name": "Ayesha Khan (synthetic persona)",
+ "headline": "Data analyst: SQL, Power BI, Tableau, Excel automation, scraping",
+ "category": "data_analysis",
+ "skills": [
+  "A/B testing",
+  "Apps Script",
+  "BeautifulSoup",
+  "DAX",
+  "Excel",
+  "Google Sheets",
+  "Looker Studio",
+  "PostgreSQL",
+  "Power BI",
+  "Power Query",
+  "Python",
+  "SQL",
+  "Scrapy",
+  "Tableau",
+  "VBA",
+  "automation",
+  "cohort analysis",
+  "data cleaning",
+  "data modeling",
+  "data visualization",
+  "pandas",
+  "statistics",
+  "web scraping"
+ ],
+ "hourly_rate_usd": 50,
+ "floor_usd": 150,
+ "weekly_connects_budget": 80,
+ "saved_searches": [
+  "power bi",
+  "excel",
+  "data analysis",
+  "sql",
+  "tableau",
+  "web scraping"
+ ],
+ "synthetic": true
+}
