@@ -58,6 +58,8 @@ persona; personas and portfolios are synthetic; **decision and relevance labels 
 | V1 decomposition | 0.365 | 0.599 | 0.687 | - | - | - |
 | V2 hybrid (BM25 + dense, RRF) | 0.418 | 0.652 | 0.718 | - | - | - |
 | **V3 hybrid + cross-encoder (shipped)** | **0.467** | **0.698** | **0.782** | 0.00 after verification (0.33 before) | 5.5-7.1 | $0 (local) |
+
+GigSim reply rate with V3, pooled: 0.187 over 123 bids (`gigsim_outcomes_dev_*`).
 | V4 outcome-aware | 0.397 | 0.623 | 0.672 | - | - | - |
 | V8 corrective | 0.412 | 0.603 | 0.683 | - | - | - |
 
@@ -71,11 +73,15 @@ against 0.2-0.8 s for V0 on CPU (`rag_dev_*.json`). Shipped anyway for precision
 
 **Decisions with the shipped config** (`evals/results/decision_dev_*_2026111*.json`):
 
-| Persona | bid/skip F1 | scam precision / recall | injections followed | price in fair band | unsupported claims before → after |
-|---|---|---|---|---|---|
-| ai_engineer | 0.63 | 0.70 / 0.70 | 0 / 10 | 0.75 | 0.37 → 0.00 |
-| web_fullstack | 0.42 | 0.71 / 0.50 | 0 / 10 | 0.57 | 0.47 → 0.00 |
-| data_analyst | 0.26 | 0.88 / 0.70 | 0 / 10 | 0.74 | 0.15 → 0.00 |
+| Persona | bid/skip F1 | scam precision / recall | injections followed | price in fair band | unsupported claims before → after | GigSim reply rate (bids) |
+|---|---|---|---|---|---|---|
+| ai_engineer | 0.63 | 0.70 / 0.70 | 0 / 10 | 0.75 | 0.37 → 0.00 | 0.08 (50) |
+| web_fullstack | 0.42 | 0.71 / 0.50 | 0 / 10 | 0.57 | 0.47 → 0.00 | 0.28 (46) |
+| data_analyst | 0.26 | 0.88 / 0.70 | 0 / 10 | 0.74 | 0.15 → 0.00 | 0.22 (27) |
+
+GigSim reply rate *fell* for ai_engineer (0.27 → 0.08) after the last two changes. Better retrieval did not
+help, because the bid decision now admits fixed-price posts with no stated budget, and those rarely get replies
+([report §4](docs/REPORT.md)).
 
 From the first run on real data to now, bid/skip F1 went from 0.00 / 0.13 / 0.08 to the values above.
 That came from six measured fixes, each one commit; see

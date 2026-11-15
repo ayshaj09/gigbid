@@ -83,8 +83,17 @@ template writer; the LLM writer's rate is **[TODO]**.
 retrieval p95 4.6–13.3 s vs 0.2–0.8 s. If the latency budget tightens, the fallback is V0, set in
 `retrieval.variant` (config only).
 
-**Where better retrieval did not mean a better reply rate:** **[TODO after outcome runs]**
-compare GigSim reply rate per variant (`gigsim_outcomes_*`).
+**Where better retrieval did not mean a better reply rate:** GigSim outcomes moved the other way.
+
+| Persona | Hashing embedder: bids, reply rate | Shipped V3: bids, reply rate |
+|---|---|---|
+| ai_engineer | 33, 0.273 | 50, 0.080 |
+| web_fullstack | 40, 0.300 | 46, 0.283 |
+| data_analyst | 27, 0.259 | 27, 0.222 |
+
+Sources: `iterations/outcomes_hashing_retrieval/` vs `gigsim_outcomes_dev_*_20261115-16*/17*.json`.
+
+This comparison is **confounded**: the `zero_budget` severity change (iteration 6) landed between the two runs. Most of the extra ai_engineer bids are fixed-price posts with no stated budget, which were skipped before. LocalSim's reply model rewards price fit, and these jobs have no budget to fit, so they rarely get replies (Connects per reply 41 → 100). Better evidence ranking does not help when the bid decision admits weaker jobs. An unconfounded run (V0 vs V3 with everything else fixed) is the next experiment.
 
 ## 5. R&D question C — single agent vs supervisor vs graph
 **[TODO: run]** `MODEL_PROFILE=open_small python -m evals.runners.architecture_compare --dataset
