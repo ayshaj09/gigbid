@@ -14,17 +14,18 @@ cannot score well by copying the labeller's code. It does share one signal with 
 skill overlap, which is the honest limitation: silver labels reward skill matching more than a human
 would, and under-reward jobs whose skills are implied rather than named.
 
-Rubric v1 (decision):
+Rubric v2 (decision):
   scam label (fake_job_postings `fraudulent`=1)               -> skip
   category != persona category and skill overlap < 2          -> skip
   budget known and below the persona's floor/rate (see below)  -> skip
+  overlap counts specific shared skills; all GENERIC tags together count as one
   same category and overlap >= 2                              -> bid
   same category and overlap == 1, or other category overlap >= 2 -> watch
   otherwise                                                   -> skip
   budget rule: fixed max < 0.5 * floor, or hourly max < 0.6 * persona rate
   planted-injection copies get the label of the job they were copied from.
 
-Rubric v1 (evidence relevance): an evidence item is relevant to a non-scam job when its skill
+Rubric v2 (evidence relevance): an evidence item is relevant to a non-scam job when its skill
 tags share at least one skill with the job's required skills (case-insensitive, after aliasing),
 or its title shares a non-trivial keyword with the job title.
 Umbrella skills (IMPLIES) are granted to the persona from specific ones it demonstrably has, e.g.
@@ -37,7 +38,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-RUBRIC = "silver_rubric_v1"
+RUBRIC = "silver_rubric_v2"
 ALIASES = {"artificial intelligence": "ai", "ml": "machine learning", "llms": "llm", "large language models": "llm",
            "natural language processing": "nlp", "reactjs": "react", "react.js": "react", "nodejs": "node.js",
            "postgresql": "sql", "postgres": "sql", "mysql": "sql", "microsoft excel": "excel", "microsoft power bi": "power bi",
@@ -59,6 +60,8 @@ IMPLIES = {
     "data analysis": {"sql", "excel", "power bi", "tableau", "pandas", "google sheets"},
     "statistics": {"a/b testing", "regression"},
 }
+# Tags too generic to count as evidence of fit on their own ("AI" is on 3D-modelling posts too).
+GENERIC = {"ai", "chatbot", "backend", "frontend", "full stack", "data analysis", "javascript"}
 STOP = {"and", "for", "the", "with", "from", "need", "needed", "expert", "developer", "project", "help", "looking",
         "build", "create", "simple", "small", "data", "app", "web", "website"}
 
@@ -82,7 +85,8 @@ def decide(job: dict, persona: dict, portfolio_skills: set[str]) -> tuple[str, s
     if job.get("label_scam"):
         return "skip", "scam label"
     js = _skills(job.get("required_skills"))
-    overlap = len(js & portfolio_skills)
+    shared = js & portfolio_skills
+    overlap = len(shared - GENERIC) + (1 if shared & GENERIC else 0)  # all generic tags together count once
     same = job.get("category") == persona["category"]
     b = job.get("budget") or {}
     hi = b.get("max")
