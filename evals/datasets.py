@@ -20,9 +20,9 @@ def load(name: str) -> tuple[dict, dict, str]:
         persona = "ai_engineer"
     else:
         d = ROOT / "evals" / "datasets" / name
-        persona = json.loads((d / "meta.json").read_text())["persona"]
-    jobs = {j["job_id"]: j for j in json.loads((d / "jobs.json").read_text())}
-    gold = json.loads((d / "gold.json").read_text())
+        persona = json.loads((d / "meta.json").read_text(encoding="utf-8"))["persona"]
+    jobs = {j["job_id"]: j for j in json.loads((d / "jobs.json").read_text(encoding="utf-8"))}
+    gold = json.loads((d / "gold.json").read_text(encoding="utf-8"))
     return jobs, gold, persona
 
 
@@ -30,8 +30,22 @@ def is_smoke(name: str, cfg: dict) -> list[str]:
     warnings = []
     if name == "fixtures":
         warnings.append("fixtures dataset: 7 hand-labelled jobs; smoke test only, not reportable")
+    else:
+        warnings.append("personas, portfolios and client histories are SYNTHETIC; job posts are real (Kaggle); "
+                        "see data/market/provenance.json")
     if cfg["retrieval"]["embedder"]["provider"] == "hashing":
         warnings.append("hashing embedder is lexical; dense-vs-hybrid comparisons are meaningless with it")
     if cfg["retrieval"]["reranker"]["provider"] == "lexical":
         warnings.append("lexical reranker is a test stand-in for a cross-encoder")
     return warnings
+
+
+def backend_for(name: str):
+    """Fixtures run on the fixture marketplace; real dev sets on the simulator built from Kaggle data."""
+    from mcp_servers.marketplace.adapters.gigsim import FixtureGigSim
+
+    if name == "fixtures":
+        return FixtureGigSim()
+    from mcp_servers.marketplace.adapters.local_sim import LocalSim
+
+    return LocalSim()

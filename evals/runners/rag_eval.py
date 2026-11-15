@@ -24,7 +24,7 @@ from rag.retriever import VARIANTS, build_index, make_pipeline, persona_sources
 def evaluate(pipe, jobs, gold) -> dict:
     rows = []
     for jid, g in gold.items():
-        rel = set(g.get("relevant", []))
+        rel = set(g.get("relevant") or [])
         if not rel or jid not in jobs:
             continue
         job = jobs[jid]
@@ -75,7 +75,7 @@ def main():
            "reranker": cfg["retrieval"]["reranker"], "warnings": is_smoke(args.dataset, cfg),
            "created": time.strftime("%Y-%m-%dT%H:%M:%S"), "results": results}
     path = ROOT / "evals" / "results" / f"rag_{args.dataset}_{time.strftime('%Y%m%d-%H%M%S')}.json"
-    path.write_text(json.dumps(out, indent=1))
+    path.write_text(json.dumps(out, indent=1), encoding="utf-8")
     print(f"{'variant':32} {'R@5':>6} {'MRR':>6} {'nDCG@10':>8}")
     for v, r in results.items():
         o = r["overall"]

@@ -1,0 +1,310 @@
+[
+ {
+  "id": "t01",
+  "prompt": "Show me the full post for job J-100.",
+  "tool": "get_job",
+  "key_args": {
+   "job_id": "J-100"
+  }
+ },
+ {
+  "id": "t02",
+  "prompt": "Show me the full post for job J-102.",
+  "tool": "get_job",
+  "key_args": {
+   "job_id": "J-102"
+  }
+ },
+ {
+  "id": "t03",
+  "prompt": "Show me the full post for job J-104.",
+  "tool": "get_job",
+  "key_args": {
+   "job_id": "J-104"
+  }
+ },
+ {
+  "id": "t04",
+  "prompt": "Show me the full post for job J-106.",
+  "tool": "get_job",
+  "key_args": {
+   "job_id": "J-106"
+  }
+ },
+ {
+  "id": "t05",
+  "prompt": "Show me the full post for job J-103.",
+  "tool": "get_job",
+  "key_args": {
+   "job_id": "J-103"
+  }
+ },
+ {
+  "id": "t06",
+  "prompt": "Is client C-1 trustworthy? Look at their hiring history.",
+  "tool": "get_client_history",
+  "key_args": {
+   "client_id": "C-1"
+  }
+ },
+ {
+  "id": "t07",
+  "prompt": "Is client C-3 trustworthy? Look at their hiring history.",
+  "tool": "get_client_history",
+  "key_args": {
+   "client_id": "C-3"
+  }
+ },
+ {
+  "id": "t08",
+  "prompt": "Is client C-5 trustworthy? Look at their hiring history.",
+  "tool": "get_client_history",
+  "key_args": {
+   "client_id": "C-5"
+  }
+ },
+ {
+  "id": "t09",
+  "prompt": "Is client C-7 trustworthy? Look at their hiring history.",
+  "tool": "get_client_history",
+  "key_args": {
+   "client_id": "C-7"
+  }
+ },
+ {
+  "id": "t10",
+  "prompt": "Find portfolio evidence that I have done: Celery task queue with retries.",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "Celery"
+  }
+ },
+ {
+  "id": "t11",
+  "prompt": "Find portfolio evidence that I have done: hybrid BM25 search with a reranker.",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "hybrid"
+  }
+ },
+ {
+  "id": "t12",
+  "prompt": "Find portfolio evidence that I have done: demand forecasting for retail.",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "demand"
+  }
+ },
+ {
+  "id": "t13",
+  "prompt": "Find portfolio evidence that I have done: OCR for scanned invoices.",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "OCR"
+  }
+ },
+ {
+  "id": "t14",
+  "prompt": "Find portfolio evidence that I have done: imbalanced classification.",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "imbalanced"
+  }
+ },
+ {
+  "id": "t15",
+  "prompt": "Find portfolio evidence that I have done: dbt models in BigQuery.",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "dbt"
+  }
+ },
+ {
+  "id": "t16",
+  "prompt": "Find portfolio evidence that I have done: YOLO defect detection.",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "YOLO"
+  }
+ },
+ {
+  "id": "t17",
+  "prompt": "Find portfolio evidence that I have done: FastAPI service.",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "FastAPI"
+  }
+ },
+ {
+  "id": "t18",
+  "prompt": "Open my case study cs-churn in full.",
+  "tool": "get_case_study",
+  "key_args": {
+   "evidence_id": "cs-churn"
+  }
+ },
+ {
+  "id": "t19",
+  "prompt": "Open my case study cs-rag-support in full.",
+  "tool": "get_case_study",
+  "key_args": {
+   "evidence_id": "cs-rag-support"
+  }
+ },
+ {
+  "id": "t20",
+  "prompt": "Open my case study repo-docparse in full.",
+  "tool": "get_case_study",
+  "key_args": {
+   "evidence_id": "repo-docparse"
+  }
+ },
+ {
+  "id": "t21",
+  "prompt": "Open my case study cs-celery-etl in full.",
+  "tool": "get_case_study",
+  "key_args": {
+   "evidence_id": "cs-celery-etl"
+  }
+ },
+ {
+  "id": "t22",
+  "prompt": "What do clients usually pay for ai_ml jobs?",
+  "tool": "get_market_stats",
+  "key_args": {
+   "category": "ai_ml"
+  }
+ },
+ {
+  "id": "t23",
+  "prompt": "What do clients usually pay for devops jobs?",
+  "tool": "get_market_stats",
+  "key_args": {
+   "category": "devops"
+  }
+ },
+ {
+  "id": "t24",
+  "prompt": "What do clients usually pay for data_analysis jobs?",
+  "tool": "get_market_stats",
+  "key_args": {
+   "category": "data_analysis"
+  }
+ },
+ {
+  "id": "t25",
+  "prompt": "Search open jobs about python machine learning.",
+  "tool": "search_jobs",
+  "key_args": {
+   "query": "python"
+  }
+ },
+ {
+  "id": "t26",
+  "prompt": "Search open jobs about rag llm.",
+  "tool": "search_jobs",
+  "key_args": {
+   "query": "rag"
+  }
+ },
+ {
+  "id": "t27",
+  "prompt": "Search open jobs about celery.",
+  "tool": "search_jobs",
+  "key_args": {
+   "query": "celery"
+  }
+ },
+ {
+  "id": "t28",
+  "prompt": "How many Connects do I have left?",
+  "tool": "get_connects_balance",
+  "key_args": {}
+ },
+ {
+  "id": "t29",
+  "prompt": "Which skills does my portfolio actually demonstrate?",
+  "tool": "list_skills",
+  "key_args": {}
+ },
+ {
+  "id": "t30",
+  "prompt": "When am I free for a 30 minute interview this week?",
+  "tool": "free_slots",
+  "key_args": {}
+ },
+ {
+  "id": "t31",
+  "prompt": "Read the messages in conversation T-1.",
+  "tool": "list_messages",
+  "key_args": {
+   "thread_id": "T-1"
+  }
+ },
+ {
+  "id": "t32",
+  "prompt": "Read the messages in conversation T-2.",
+  "tool": "list_messages",
+  "key_args": {
+   "thread_id": "T-2"
+  }
+ },
+ {
+  "id": "t33",
+  "prompt": "Do I have enough Connects to bid this week?",
+  "tool": "get_connects_balance",
+  "key_args": {}
+ },
+ {
+  "id": "t34",
+  "prompt": "Do I have proof of Qdrant vector database experience in my work?",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "Qdrant"
+  }
+ },
+ {
+  "id": "t35",
+  "prompt": "Do I have proof of Redis experience in my work?",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "Redis"
+  }
+ },
+ {
+  "id": "t36",
+  "prompt": "Do I have proof of PyTorch fine-tuning experience in my work?",
+  "tool": "search_evidence",
+  "key_args": {
+   "requirement": "PyTorch"
+  }
+ },
+ {
+  "id": "t37",
+  "prompt": "Find me interview times over the next 3 days.",
+  "tool": "free_slots",
+  "key_args": {}
+ },
+ {
+  "id": "t38",
+  "prompt": "Look up the history of client C-2 before I bid.",
+  "tool": "get_client_history",
+  "key_args": {
+   "client_id": "C-2"
+  }
+ },
+ {
+  "id": "t39",
+  "prompt": "Typical budget range for devops gigs?",
+  "tool": "get_market_stats",
+  "key_args": {
+   "category": "devops"
+  }
+ },
+ {
+  "id": "t40",
+  "prompt": "List my demonstrated skills so I can update my profile.",
+  "tool": "list_skills",
+  "key_args": {}
+ }
+]
