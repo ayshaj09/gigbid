@@ -24,6 +24,18 @@ async def status(request: Request, user=Depends(current_user)):
     except Exception as exc:  # noqa: BLE001
         ok, detail = False, str(exc)[:200]
     waiting = svc.db.one("SELECT COUNT(*) n FROM jobs WHERE user_id=? AND status='waiting_for_marketplace'", (user["id"],))["n"]
+    if ok and waiting and not getattr(svc, "_resuming", False):
+        # The marketplace is back: resume parked threads from their checkpoints now, so recovery does
+        # not depend on the background worker running (it may not be, e.g. locally or on a free host).
+        svc._resuming = True
+
+        async def _resume():
+            try:
+                await svc.retry_waiting()
+            finally:
+                svc._resuming = False
+
+        asyncio.create_task(_resume())
     return {"marketplace_ok": ok, "detail": detail, "queued_while_down": waiting,
             "down_for_s": round(time.time() - svc.marketplace_down_since) if svc.marketplace_down_since else 0,
             "mcp_servers_down": sorted(getattr(svc.belt, "down", set()))}
