@@ -1,3 +1,76 @@
-# TODO: Define web, API, worker, MCP servers, GigSim, Postgres, Redis,
-# vector store and local model service as appropriate.
-services: {}
+# docker compose -f infra/docker-compose.yml up --build
+# Profiles: default = everything except a local model server; add `--profile ollama` to run models locally.
+name: gigbid
+x-py: &py
+  build: {context: .., dockerfile: infra/docker/python.Dockerfile}
+  env_file: [../.env]
+  environment:
+    DATABASE_URL: postgresql://gigbid:gigbid@postgres:5432/gigbid
+    REDIS_URL: redis://redis:6379/0
+    GIGSIM_BASE_URL: http://gigsim:8081
+    APP_DB: /app/data/processed/app.sqlite
+    OPEN_MODEL_BASE_URL: ${OPEN_MODEL_BASE_URL:-http://ollama:11434/v1}
+    OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+  volumes: [appdata:/app/data/processed]
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment: {POSTGRES_USER: gigbid, POSTGRES_PASSWORD: gigbid, POSTGRES_DB: gigbid}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck: {test: ["CMD", "pg_isready", "-U", "gigbid"], interval: 5s, retries: 10}
+
+  redis:
+    image: redis:7-alpine
+
+  # The instructor's simulator. Until gigsim/ exists, the dev stub serves the same paths.
+  gigsim:
+    <<: *py
+    command: ["uvicorn", "dev.gigsim_stub.app:app", "--host", "0.0.0.0", "--port", "8081"]
+    # When gigsim/ arrives, replace with its own image/command, e.g.:
+    # build: {context: ../gigsim}
+
+  api:
+    <<: *py
+    command: ["uvicorn", "apps.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports: ["8000:8000"]
+    depends_on: {postgres: {condition: service_healthy}, gigsim: {condition: service_started}}
+
+  worker:
+    <<: *py
+    command: ["arq", "worker.main.WorkerSettings"]
+    environment:
+      API_URL: http://api:8000
+      REDIS_URL: redis://redis:6379/0
+    depends_on: [api, redis]
+
+  # Standalone MCP servers over Streamable HTTP (for MCP_MODE=external, Claude Desktop, Inspector).
+  mcp-portfolio:
+    <<: *py
+    command: ["python", "-m", "mcp_servers.portfolio.server"]
+    environment: {MCP_TRANSPORT: http, MCP_PORT: "8101", MCP_TOKENS: "${MCP_TOKENS:-change-me:local}"}
+    ports: ["8101:8101"]
+  mcp-marketplace:
+    <<: *py
+    command: ["python", "-m", "mcp_servers.marketplace.server"]
+    environment: {MCP_TRANSPORT: http, MCP_PORT: "8102", MCP_TOKENS: "${MCP_TOKENS:-change-me:local}", GIGSIM_BASE_URL: "http://gigsim:8081"}
+  mcp-workspace:
+    <<: *py
+    command: ["python", "-m", "mcp_servers.workspace.server"]
+    environment: {MCP_TRANSPORT: http, MCP_PORT: "8103", MCP_TOKENS: "${MCP_TOKENS:-change-me:local}"}
+
+  web:
+    build:
+      context: ..
+      dockerfile: infra/docker/web.Dockerfile
+      args: {NEXT_PUBLIC_API_URL: "${NEXT_PUBLIC_API_URL:-http://localhost:8000}"}
+    ports: ["3000:3000"]
+    depends_on: [api]
+
+  ollama:
+    image: ollama/ollama
+    profiles: [ollama]
+    volumes: [ollama:/root/.ollama]
+    ports: ["11434:11434"]
+
+volumes: {pgdata: {}, appdata: {}, ollama: {}}

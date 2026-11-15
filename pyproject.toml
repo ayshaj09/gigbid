@@ -21,11 +21,22 @@ dependencies = [
   "numpy>=2.0",
   "rank-bm25==0.2.2",
   "python-dotenv>=1.0",
+  "pydantic[email]>=2.13",
+  "sse-starlette>=2.0",
+  "pyjwt>=2.9",
+  "cryptography>=43",
+  "python-multipart>=0.0.9",
 ]
+
+[project.scripts]
+gigbid-portfolio-mcp = "mcp_servers.portfolio.server:main"
 
 [project.optional-dependencies]
 models = ["sentence-transformers>=3.0", "pypdf>=4.0"]
 dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.6"]
+worker = ["arq>=0.26"]
+experiments = ["langgraph-supervisor>=0.0.31"]
+tracing = ["langfuse>=3.0"]
 
 [tool.ruff]
 line-length = 120
@@ -42,3 +53,10 @@ filterwarnings = ["ignore::DeprecationWarning"]
 
 [tool.setuptools.packages.find]
 include = ["agent*", "rag*", "mcp_servers*", "apps*", "worker*", "evals*", "dev*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.yaml", "*.md", "*.json"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
