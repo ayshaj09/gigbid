@@ -9,3 +9,12 @@
 | 2_intent_scam_rules | dev_ai_engineer | 0.1667 | 0.875 | 0.7 | 0 | 0.4615 | 0.6154 | 0.0 | 0.185 |
 | 2_intent_scam_rules | dev_data_analyst | 0.1311 | 1.0 | 0.7 | 0 | 0.4048 | 0.2381 | 0.0 | 0.196 |
 | 2_intent_scam_rules | dev_web_fullstack | 0.2817 | 0.6364 | 0.7 | 0 | 0.3103 | 0.5172 | 0.0 | 0.217 |
+| 3_tag_strength | dev_ai_engineer | 0.3023 | 0.875 | 0.7 | 0 | 0.4706 | 0.3137 | 0.0 | 0.315 |
+| 3_tag_strength | dev_data_analyst | 0.1429 | 1.0 | 0.7 | 0 | 0.3529 | 0.2157 | 0.0 | 0.294 |
+| 3_tag_strength | dev_web_fullstack | 0.4742 | 0.6364 | 0.7 | 0 | 0.4 | 0.5636 | 0.0 | 0.338 |
+| 4_below_floor_skip | dev_ai_engineer | 0.3881 | 0.875 | 0.7 | 0 | 0.75 | 0.2812 | 0.0 | 0.321 |
+| 4_below_floor_skip | dev_data_analyst | 0.2222 | 1.0 | 0.7 | 0 | 0.6923 | 0.3077 | 0.0 | 0.312 |
+| 4_below_floor_skip | dev_web_fullstack | 0.561 | 0.6364 | 0.7 | 0 | 0.55 | 0.525 | 0.0 | 0.349 |
+| 5_lexicon_fix_dev_v2 | dev_ai_engineer | 0.4359 | 0.7 | 0.7 | 0 | 0.6364 | 0.3636 | 0.0 | 0.477 |
+| 5_lexicon_fix_dev_v2 | dev_data_analyst | 0.2979 | 0.875 | 0.7 | 0 | 0.7037 | 0.3333 | 0.0 | 0.453 |
+| 5_lexicon_fix_dev_v2 | dev_web_fullstack | 0.5432 | 0.7 | 0.7 | 0 | 0.525 | 0.5 | 0.0 | 0.53 |
