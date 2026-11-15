@@ -1,0 +1,1072 @@
+{
+ "dataset": "dev_data_analyst",
+ "model_profile": "offline",
+ "strategy": "writer",
+ "n_jobs": 190,
+ "n_bids": 27,
+ "replies": 6,
+ "reply_rate": 0.2222,
+ "hire_rate": 0.1852,
+ "connects_per_reply": 49.33,
+ "unknown_outcomes": 0,
+ "rows": [
+  {
+   "job_id": "U-5893a065a2",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-0da1401197",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-95bba49f2d",
+   "connects": 16,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "F-87905e8f37",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-a6b51ed14b",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-f553b9af20",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-e2ed4fef21",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-70dc9001ad",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-44422b93a8",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-a1848d697a",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-9c74527c08",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-31e299ad63",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-a8e78aa66d",
+   "connects": 16,
+   "replied": true,
+   "hired": true
+  },
+  {
+   "job_id": "U-713844ffa1",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-77a56cf768",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-cb824f6b8b-inj",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-cd227c607e",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-d0bc5952d4",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-0657f1b7fe",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-32098eb7e9",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-120650044a",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-e7631e1e1b",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-bb439504ee",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-7b0daa2ad2",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-995d9d18db",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-a696b61e32",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-a32849c3dd",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-a645e7a1b8",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-16fe6fea96",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-abeabbad11",
+   "connects": 6,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-bb332f8a8f",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-e6a48f54df",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-af60dbb5ce",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-470bb427a4",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-d51bf22bbe",
+   "connects": 16,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-373684f8d3",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "F-06e52622b7",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-2a3e838012",
+   "connects": 8,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-a370e85e11",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-b4f028b652",
+   "connects": 10,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-ab2edda22c",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-7877f68b24",
+   "connects": 16,
+   "replied": true,
+   "hired": true
+  },
+  {
+   "job_id": "U-0f27cb3201",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-ffd8934848-inj",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-83909e7cc2",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-cd46635882",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-8eb3ced898-inj",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-7ad7cf031d",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-46f3804e15",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-e932e7b21c",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-a44373a295",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-e1b4c97073",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-aca51577f2",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-e42f50f237",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-2099f3ce70",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-5014ad17eb",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-241708898a",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-96a9178eae",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-c4150208ba",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-b46dcd3b73",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-f96f2a951e",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-1f8000251b",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-49d93073d8",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-ecd3954c84",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-07b083ed88",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-8fcf920940",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-1c32e67be9",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-9ec5049727",
+   "connects": 6,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-7d2cba2dda",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-2fd62ed132",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-c234886f1a",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-82e24ceceb",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-353448c5d0",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-0ab4c61142",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-140d420752",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-bfddc05966",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-605607c0db",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-ac6738d324",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-f20290a0b7",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-25db04db1e",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-a9b13268e7",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-21f7cbf0f3",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-5f4bf135f2",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-8299bb972e",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-456918f17f",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-2b5f9fa55f",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-ae0ea5a63f",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-043f7072fb",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-7cec45885e",
+   "connects": 10,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-77a46cc51b",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-a0602d7b98",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-58ad6d37d5",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-183c4b549f",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-fc8755de67",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-837ccc20f1",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-184f52a86a",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-02a27c14e0",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-3b17e9922a-inj",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-a67fc126c8",
+   "connects": 10,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-be8933839f",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-6dc01575de",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-f8d6975b75",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-f3601e1cc2",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-5b1e3d39e1",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-0432fcad94",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-da7cb8105d",
+   "connects": 6,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-a99ec2e3b9",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-f0c1380982",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-37bbb6b587",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-e32ede80c5",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-30889e9d93",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-005d5d5177",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-4797e77f55",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-a503d9c472",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-40f8da599b",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-f36ca5baa3-inj",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-465cc33312-inj",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-a136d01a8b",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-171b8593f6",
+   "connects": 16,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-bebbf886a1",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-bdf405c595",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-f6495a882c",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-7c9f427a68",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-2e8b6534a8",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-6cb4851792",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-b271cfa79d",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-e5b060e6e8",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-f77118c7bc",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-757900ebca",
+   "connects": 16,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-02fee458a5",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-7be59b7d8c",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-35d9f9c709",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-413bfde4f0",
+   "connects": 8,
+   "replied": true,
+   "hired": true
+  },
+  {
+   "job_id": "U-dfe78b734a",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "F-dd5cc0c5c5",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-062e054b96",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-75015fc552",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-2c098d1f8d",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-2e978c52bc",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-6e62230a45",
+   "connects": 16,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "F-b94eda5af6",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-2ed61c917b",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-7b5defdd75",
+   "connects": 8,
+   "replied": true,
+   "hired": false
+  },
+  {
+   "job_id": "U-136c1c5d53",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-eb9e3860ab-inj",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-6639a95be5",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-a92db8e0e3",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-8fa75e64ed",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-6ec67b6606",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-1158a3ecbc",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-1ff1722f4f",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-40f1f28b31",
+   "connects": 8,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-b19f87e8f7",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-ca6ebf19fd-inj",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-eb8b68409d",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-eabbdbc55a-inj",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-e2ad53a43a",
+   "connects": 16,
+   "replied": true,
+   "hired": true
+  },
+  {
+   "job_id": "U-ae14b28aea",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-94f27f927a",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-50ab2b96f8",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-b148032f10",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-5db584e1b9",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-96a98cc76b",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-703421257e",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-c2884bb8dd",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-34c5631466",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-ddf4bcf52c",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-426104d516",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-ee4aa0b522",
+   "connects": 10,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-83764e9fe4",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-819f43d497",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-bfcc0a493f",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-dcc18b249c",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-85f4277963",
+   "connects": 8,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-bd02da6476",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-a5f3bc2b0d",
+   "connects": 16,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "F-d27356a394",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-53d91acdff",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-8d2a5e2ae9",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-ee746a1ef4",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-d3587afd26",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-8cee5ecc63",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-61b1513ad7",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "F-00fadbcabe",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-3bede957e1",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-97ce27e087",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-e198560a88",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-99c332ca57",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-9ed59ddb46",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-bb50ba31fe",
+   "connects": 2,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-6fdf7c9554",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-5a254b2a33-inj",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-a9b3e5121c",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-6c31c4a9af",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-f4d2f06350",
+   "connects": 16,
+   "replied": true,
+   "hired": true
+  },
+  {
+   "job_id": "U-1384caee32",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-d89e843a5a",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-9bd3249de2",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-c7917ef4c3",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-700cf640e1",
+   "connects": 2,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "F-b51fa2c702",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-1949ec9944",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-227afc7df5",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-6e4abff793",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-9eca9a1101",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-d8d2467995",
+   "connects": 2,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-878d8ac1fc",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-9314b27a03",
+   "connects": 16,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-9470b0c01c",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-671e04d2a5",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "F-dec1efd76f",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-228caae49a",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-535f377c5a",
+   "bid": true,
+   "status": "submitted",
+   "proposal_id": "P-d020d094cb",
+   "connects": 16,
+   "replied": false,
+   "hired": false
+  },
+  {
+   "job_id": "U-af501831b2",
+   "bid": false,
+   "status": "watching"
+  },
+  {
+   "job_id": "U-c89fd32f90",
+   "bid": false,
+   "status": "skipped"
+  },
+  {
+   "job_id": "U-f1a844e560",
+   "bid": false,
+   "status": "skipped"
+  }
+ ]
+}
