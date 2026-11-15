@@ -45,6 +45,8 @@ def load_config(overrides: dict | None = None) -> dict[str, Any]:
         cfg["retrieval"]["embedder"]["model"] = emb_model
     if rr := os.environ.get("RERANKER_PROVIDER"):
         cfg["retrieval"]["reranker"]["provider"] = rr
+    if rr_model := os.environ.get("RERANKER_MODEL"):
+        cfg["retrieval"]["reranker"]["model"] = rr_model
     if rpm := os.environ.get("MARKETPLACE_RPM"):
         cfg["marketplace"]["max_requests_per_minute"] = int(rpm)
     if overrides:
