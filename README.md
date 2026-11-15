@@ -95,7 +95,7 @@ That came from six measured fixes, each one commit; see
 ## Data
 Six instructor-approved Kaggle datasets (ODC-By / Apache-2.0; one with no stated licence, sampled
 only) plus clearly marked synthetic personas, portfolios, client histories and threads. Real fields
-include titles, descriptions, budgets, Connects costs and, for 749 clients, real spend/rating/
+include titles, descriptions, budgets, Connects costs and, for 753 clients, real spend/rating/
 reviews. Build: `bash scripts/download_datasets.sh && make data && python -m datapipe.silver_labels`.
 Selection, preprocessing, attribution, licences and limitations: [data card](docs/DATA_CARD.md).
 

@@ -38,17 +38,17 @@ table as the `.csv` (reading both duplicated every row), and trial-1's
    characters of description. The 200K tracker re-lists 50K jobs *without* descriptions, so the
    URL key makes the copy with a real description win.
 4. Skills: lexicon over title + description, plus the dataset's own tags; category from skills
-   (ai_ml 12,767 · web_fullstack 45,884 · data_analysis 18,390 · design 20,529 · writing 38,346 ·
-   devops 1,210 · other 80,401).
+   (ai_ml 8,954 · web_fullstack 46,314 · data_analysis 14,509 · design 21,524 · writing 41,037 ·
+   devops 1,277 · other 83,912; after the lexicon fix in dev set v2).
 5. Market statistics (p25/p50/p75 of budgets per category and type) from real posts; contract
    rate/amount percentiles from `contracts_1_3m`.
 6. Persona hourly rate = p75 of real posted hourly maxima in the persona's category
-   (ai_ml $49, web_fullstack $49, data_analysis $50).
+   (ai_ml $60, web_fullstack $49, data_analysis $50; dev set v2 build).
 7. Scam set: 60 fraudulent + 55 legitimate labelled postings (5 legitimate rows were too short).
    Both get clients from the same synthetic distribution, so detection must come from the text.
 8. Dev set per persona (190 jobs): 60% same category, 20% other categories, 5% fraudulent, 5%
    legitimate labelled postings, 5% planted-injection copies of real posts.
-9. Pool served by the local simulator: 3,050 jobs (3,000 random + every dev job), 3,020 clients.
+9. Pool served by the local simulator: 3,059 jobs (3,000 random + every dev job), 3,039 clients.
 
 ## 3. Real vs synthetic, field by field
 | Data | Real | Synthetic (and why) |
@@ -56,7 +56,7 @@ table as the `.csv` (reading both duplicated every row), and trial-1's
 | Job title, budget, hourly range, country, date, URL | all jobs | — |
 | Job description | 105,632 jobs | 111,895 title-only tracker rows get a template restating the title and detected skills (adds no facts); `synthetic_fields` contains `description` |
 | Connects cost | 55,299 jobs (60K dataset) | the rest: budget-tier rule (`connects_for`) |
-| Client spend / rating / reviews / payment verified | 749 of 3,020 pool clients (`real_fields`) | the rest: seeded generator, spend sampled from real contract amounts |
+| Client spend / rating / reviews / payment verified | 753 of 3,039 pool clients (`real_fields`) | the rest: seeded generator, spend sampled from real contract amounts |
 | Screening questions | — | ~30% of jobs, seeded templates |
 | Personas + portfolios (CV, case studies, READMEs, code notes, reviews, past proposals with outcomes) | — | `datapipe/synthetic.py`; no approved dataset contains portfolios. Display names say "(synthetic persona)" |
 | Planted prompt injections | base post is real | 3 injection sentences appended to copies (`planted_injection: true`) |

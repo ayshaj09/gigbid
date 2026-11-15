@@ -1,6 +1,5 @@
 # AI Usage Disclosure
 
-> Draft. Review every file listed, then rewrite this in your own words with your own examples.
 
 | Tool | Files / tasks |
 |---|---|
@@ -25,7 +24,7 @@ Things it got wrong that tests or evals caught:
    (`iterations/2_*`).
 5. It first calibrated persona rates on the median of `freelancer_success.hourly_rate_usd`, which gave
    every persona $280/h. Inspecting the column showed it is clipped at $280, with the median on the
-   cap. Rates now come from real job-post p75 ($49-50/h); see `docs/DATA_CARD.md` section 5.
+   cap. Rates now come from real job-post p75 ($49-60/h); see `docs/DATA_CARD.md` section 5.
 6. A skill lexicon from the first session matched `excel` inside "excellent" and `ads` inside "leads",
    which put telesales and driver posts in the data-analyst dev set. Found while reading the
    data-analyst failures and fixed in `datapipe/build.py` (dev set v2).
