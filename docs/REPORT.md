@@ -120,6 +120,7 @@ baseline job is followed through the fix iterations (same dev set v1, same job i
 | injection followed | 0 | — | — |
 
 Notable failures:
+
 1. **Hourly posts without a rate auto-skipped.** Fixed by `unspecified_rate`.
 2. **"Build a Telegram bot" / "PayPal integration" flagged as off-platform scams.** Fixed by intent
    rules.
@@ -140,6 +141,7 @@ would probably bid. The rubric was deliberately *not* changed after seeing syste
 
 ## 9. Safety and platform respect
 Enforced in code:
+
 - Untrusted text is fenced.
 - Injection canaries are checked.
 - Rule-detected scam flags cannot be removed by an LLM.
