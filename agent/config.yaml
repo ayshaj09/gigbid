@@ -151,7 +151,12 @@ risk:
   # Added after failure analysis of the Kaggle fake-posting rows (text is lower-cased, punctuation stripped).
   patterns:
     income_bait: '\bearn\s?\$?\d[\d,]*\s?(?:/|per\s)?\s?(?:week|day)|\bimmediate hiring\b|no (?:degree|experience) (?:required|needed)'
-    off_platform_contact: 'whats\s?app|telegram|skype|signal\b|\bwechat|contact (?:me |us )?(?:now )?(?:on|at|via)\b|email me|\w+(?:gmail|yahoo|hotmail|outlook)com\b'
+    # Contact / payment / credential rules need INTENT toward the freelancer: on real posts the bare words
+    # are usually the project ("build a Telegram bot", "PayPal integration", "users create a password").
+    off_platform_contact: '(?:contact|message|text|reach|add|call|ping|chat with|write to) (?:me|us)\s(?:now\s)?(?:on|at|via|through)\s(?!upwork|the platform)\S+|(?:my|our) (?:whats\s?app|telegram|skype|wechat)\b|\bemail me\b|\w+(?:gmail|yahoo|hotmail|outlook)com\b'
+    off_platform_payment: '\bpa(?:y|id)(?:ment)? (?:you |will be |is )?(?:made )?(?:via|through|by|in|with) (?:paypal|crypto|bitcoin|usdt|gift ?cards?|western union|bank transfer)|outside (?:the )?(?:platform|upwork)|\bpay (?:you )?directly\b|western union|gift ?cards? as payment'
+    credential_request: 'bank details|send (?:me |us )?your (?:id|passport|password|bank|card)|(?:share|give|send) (?:me |us )?(?:your )?(?:login|password)|\bssn\b|id (?:card )?for verification'
+    unpaid_work: '\bfor free\b|\bunpaid (?:test|trial|work|task|sample|project)|\bfree (?:test|trial|sample)\b|\bno pay\b|\bwithout pay'
   severity:
     income_bait: 0.75
   scam_flags: [income_bait]
