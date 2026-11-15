@@ -1,0 +1,2202 @@
+{
+ "summary": {
+  "fine": {
+   "n": 40,
+   "tool_accuracy": 0.925,
+   "arg_accuracy": 0.925,
+   "wrong_calls": 2,
+   "mean_tokens": 1389.0
+  },
+  "coarse": {
+   "n": 40,
+   "tool_accuracy": 0.8,
+   "arg_accuracy": 0.8,
+   "wrong_calls": 5,
+   "mean_tokens": 1414.1
+  },
+  "terse_docs": {
+   "n": 40,
+   "tool_accuracy": 0.95,
+   "arg_accuracy": 0.9,
+   "wrong_calls": 1,
+   "mean_tokens": 1281.4
+  }
+ },
+ "rows": [
+  {
+   "condition": "fine",
+   "task_id": "t01",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-100"
+     }
+    }
+   ],
+   "latency_s": 56.698756400001,
+   "tokens": 1315,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t02",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-102"
+     }
+    }
+   ],
+   "latency_s": 21.205152700000326,
+   "tokens": 1337,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t03",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-104"
+     }
+    }
+   ],
+   "latency_s": 19.550476799995522,
+   "tokens": 1330,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t04",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-106"
+     }
+    }
+   ],
+   "latency_s": 15.559414100003778,
+   "tokens": 1295,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t05",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-103"
+     }
+    }
+   ],
+   "latency_s": 20.185397400011425,
+   "tokens": 1295,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t06",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-1"
+     }
+    }
+   ],
+   "latency_s": 61.15593349999108,
+   "tokens": 1322,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t07",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-3"
+     }
+    }
+   ],
+   "latency_s": 57.559894100006204,
+   "tokens": 1326,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t08",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-5"
+     }
+    }
+   ],
+   "latency_s": 52.06304049999744,
+   "tokens": 1318,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t09",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-7"
+     }
+    }
+   ],
+   "latency_s": 40.96733220000169,
+   "tokens": 1318,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t10",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": null,
+      "requirement": "Celery task queue with retries"
+     }
+    }
+   ],
+   "latency_s": 67.67245030000049,
+   "tokens": 1340,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t11",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "requirement": "hybrid BM25 search with a reranker",
+      "types": null
+     }
+    }
+   ],
+   "latency_s": 60.04918980000366,
+   "tokens": 1361,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t12",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": null,
+      "requirement": "demand forecasting for retail",
+      "types": null
+     }
+    }
+   ],
+   "latency_s": 61.88154919999943,
+   "tokens": 1360,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t13",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": null,
+      "requirement": "OCR for scanned invoices",
+      "types": [
+       "code"
+      ]
+     }
+    }
+   ],
+   "latency_s": 47.206613699992886,
+   "tokens": 1329,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t14",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "requirement": "imbalanced classification",
+      "types": [
+       "code"
+      ]
+     }
+    }
+   ],
+   "latency_s": 53.44503430000623,
+   "tokens": 1325,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t15",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": null,
+      "requirement": "dbt models in BigQuery",
+      "types": [
+       "code"
+      ]
+     }
+    }
+   ],
+   "latency_s": 62.182924900000216,
+   "tokens": 1358,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t16",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": null,
+      "requirement": "YOLO defect detection"
+     }
+    }
+   ],
+   "latency_s": 55.22618510000757,
+   "tokens": 1338,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t17",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "requirement": "FastAPI service",
+      "types": null
+     }
+    }
+   ],
+   "latency_s": 50.36392629999318,
+   "tokens": 1316,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t18",
+   "calls": [
+    {
+     "name": "get_case_study",
+     "args": {
+      "evidence_id": "cs-churn"
+     }
+    }
+   ],
+   "latency_s": 42.234746700007236,
+   "tokens": 1295,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t19",
+   "calls": [
+    {
+     "name": "get_case_study",
+     "args": {
+      "evidence_id": "cs-rag-support"
+     }
+    }
+   ],
+   "latency_s": 27.198810600006254,
+   "tokens": 1296,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t20",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": null,
+      "requirement": "repo-docparse",
+      "types": [
+       "repo_readme"
+      ]
+     }
+    }
+   ],
+   "latency_s": 49.83591179999348,
+   "tokens": 1572,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 1
+  },
+  {
+   "condition": "fine",
+   "task_id": "t21",
+   "calls": [
+    {
+     "name": "get_case_study",
+     "args": {
+      "evidence_id": "cs-celery-etl"
+     }
+    }
+   ],
+   "latency_s": 44.12800959999731,
+   "tokens": 1339,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t22",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "default_client_id"
+     }
+    }
+   ],
+   "latency_s": 346.5123728999897,
+   "tokens": 1927,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 1
+  },
+  {
+   "condition": "fine",
+   "task_id": "t23",
+   "calls": [],
+   "latency_s": 56.008616999999504,
+   "tokens": 1618,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 0,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t24",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "data_analysis"
+     }
+    }
+   ],
+   "latency_s": 37.61535100000037,
+   "tokens": 1499,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t25",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "limit": 10,
+      "query": "Python machine learning"
+     }
+    }
+   ],
+   "latency_s": 12.542163499994786,
+   "tokens": 1260,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t26",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "limit": 10,
+      "query": "rag llm"
+     }
+    }
+   ],
+   "latency_s": 19.901184699992882,
+   "tokens": 1322,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t27",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "query": "celery"
+     }
+    }
+   ],
+   "latency_s": 12.34887410000374,
+   "tokens": 1262,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t28",
+   "calls": [
+    {
+     "name": "get_connects_balance",
+     "args": {}
+    }
+   ],
+   "latency_s": 16.13711080000212,
+   "tokens": 1290,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t29",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 12.977214699989418,
+   "tokens": 1275,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t30",
+   "calls": [
+    {
+     "name": "free_slots",
+     "args": {
+      "days": 1,
+      "duration_min": 30
+     }
+    }
+   ],
+   "latency_s": 159.05541819999053,
+   "tokens": 2531,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t31",
+   "calls": [
+    {
+     "name": "list_messages",
+     "args": {
+      "thread_id": "T-1"
+     }
+    }
+   ],
+   "latency_s": 16.0018257000047,
+   "tokens": 1295,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t32",
+   "calls": [
+    {
+     "name": "list_messages",
+     "args": {
+      "thread_id": "T-2"
+     }
+    }
+   ],
+   "latency_s": 18.210205600000336,
+   "tokens": 1328,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t33",
+   "calls": [
+    {
+     "name": "get_connects_balance",
+     "args": {
+      "trace_id": null,
+      "user_id": null
+     }
+    }
+   ],
+   "latency_s": 13.514042300012079,
+   "tokens": 1280,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t34",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": "won",
+      "requirement": "Qdrant vector database",
+      "types": [
+       "code"
+      ]
+     }
+    }
+   ],
+   "latency_s": 25.461554599998635,
+   "tokens": 1401,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t35",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "requirement": "Redis",
+      "types": [
+       "code",
+       "repo_readme"
+      ]
+     }
+    }
+   ],
+   "latency_s": 33.770888899991405,
+   "tokens": 1474,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t36",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "requirement": "PyTorch fine-tuning"
+     }
+    }
+   ],
+   "latency_s": 31.772125999996206,
+   "tokens": 1469,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t37",
+   "calls": [
+    {
+     "name": "free_slots",
+     "args": {
+      "days": 3,
+      "duration_min": 1
+     }
+    }
+   ],
+   "latency_s": 16.188133400006336,
+   "tokens": 1309,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t38",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-2"
+     }
+    }
+   ],
+   "latency_s": 20.44202440000663,
+   "tokens": 1349,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t39",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "DevOps"
+     }
+    }
+   ],
+   "latency_s": 15.805465600002208,
+   "tokens": 1295,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "fine",
+   "task_id": "t40",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 14.689524600005825,
+   "tokens": 1293,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t01",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-100"
+     }
+    }
+   ],
+   "latency_s": 44.74680749999243,
+   "tokens": 1297,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t02",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-102"
+     }
+    }
+   ],
+   "latency_s": 15.807791100000031,
+   "tokens": 1303,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t03",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-104"
+     }
+    }
+   ],
+   "latency_s": 14.09492180000234,
+   "tokens": 1284,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t04",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-106",
+      "trace_id": null,
+      "user_id": "null"
+     }
+    }
+   ],
+   "latency_s": 16.24970949999988,
+   "tokens": 1305,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t05",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-103"
+     }
+    }
+   ],
+   "latency_s": 16.4274860000005,
+   "tokens": 1303,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t06",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-1"
+     }
+    }
+   ],
+   "latency_s": 17.010802399992826,
+   "tokens": 1288,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t07",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-3"
+     }
+    }
+   ],
+   "latency_s": 17.438232299988158,
+   "tokens": 1288,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t08",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-5"
+     }
+    }
+   ],
+   "latency_s": 20.898452600013115,
+   "tokens": 1321,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t09",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-7"
+     }
+    }
+   ],
+   "latency_s": 16.726901500005624,
+   "tokens": 1288,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t10",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 45.46236740000313,
+   "tokens": 1434,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 1
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t11",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "limit": 5,
+      "query": "hybrid BM25 search with a reranker"
+     }
+    }
+   ],
+   "latency_s": 191.5737369999988,
+   "tokens": 1898,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 1
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t12",
+   "calls": [
+    {
+     "name": "match_requirements",
+     "args": {
+      "job_text": "demand forecasting for retail",
+      "k": 1
+     }
+    }
+   ],
+   "latency_s": 156.0930762999924,
+   "tokens": 1870,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t13",
+   "calls": [
+    {
+     "name": "match_requirements",
+     "args": {
+      "job_text": "OCR for scanned invoices",
+      "k": 3
+     }
+    }
+   ],
+   "latency_s": 89.7354142999975,
+   "tokens": 1598,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t14",
+   "calls": [
+    {
+     "name": "match_requirements",
+     "args": {
+      "job_text": "imbalanced classification"
+     }
+    }
+   ],
+   "latency_s": 159.29440710000927,
+   "tokens": 1726,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t15",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 100.3184731000074,
+   "tokens": 1760,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 1
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t16",
+   "calls": [
+    {
+     "name": "match_requirements",
+     "args": {
+      "job_text": "YOLO defect detection",
+      "k": 1
+     }
+    }
+   ],
+   "latency_s": 95.84176160000789,
+   "tokens": 1629,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t17",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 146.69930779999413,
+   "tokens": 1698,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 1
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t18",
+   "calls": [
+    {
+     "name": "get_case_study",
+     "args": {
+      "evidence_id": "cs-churn"
+     }
+    }
+   ],
+   "latency_s": 87.12917819998984,
+   "tokens": 1266,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t19",
+   "calls": [
+    {
+     "name": "get_case_study",
+     "args": {
+      "evidence_id": "cs-rag-support"
+     }
+    }
+   ],
+   "latency_s": 171.16376569999557,
+   "tokens": 1276,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t20",
+   "calls": [],
+   "latency_s": 105.12443320000602,
+   "tokens": 1458,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 0,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t21",
+   "calls": [
+    {
+     "name": "get_case_study",
+     "args": {
+      "evidence_id": "cs-celery-etl"
+     }
+    }
+   ],
+   "latency_s": 18.639372899997397,
+   "tokens": 1298,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t22",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "ai_ml"
+     }
+    }
+   ],
+   "latency_s": 98.21235240000533,
+   "tokens": 1956,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t23",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "devops"
+     }
+    }
+   ],
+   "latency_s": 38.04234910001105,
+   "tokens": 1384,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t24",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "data_analysis"
+     }
+    }
+   ],
+   "latency_s": 23.21396909999021,
+   "tokens": 1375,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t25",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "query": "Python machine learning"
+     }
+    }
+   ],
+   "latency_s": 13.178170400002273,
+   "tokens": 1241,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t26",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "query": "rag llm"
+     }
+    }
+   ],
+   "latency_s": 23.255743300003815,
+   "tokens": 1302,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t27",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "query": "celery"
+     }
+    }
+   ],
+   "latency_s": 12.039354600012302,
+   "tokens": 1258,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t28",
+   "calls": [
+    {
+     "name": "get_connects_balance",
+     "args": {}
+    }
+   ],
+   "latency_s": 16.660905400000047,
+   "tokens": 1287,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t29",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 10.27937399999064,
+   "tokens": 1229,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t30",
+   "calls": [
+    {
+     "name": "free_slots",
+     "args": {
+      "days": 7,
+      "duration_min": 30
+     }
+    }
+   ],
+   "latency_s": 23.24272120000387,
+   "tokens": 1323,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t31",
+   "calls": [
+    {
+     "name": "list_messages",
+     "args": {
+      "thread_id": "T-1"
+     }
+    }
+   ],
+   "latency_s": 61.06915750000917,
+   "tokens": 1271,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t32",
+   "calls": [
+    {
+     "name": "list_messages",
+     "args": {
+      "thread_id": "T-2"
+     }
+    }
+   ],
+   "latency_s": 46.92708580000908,
+   "tokens": 1290,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t33",
+   "calls": [
+    {
+     "name": "get_connects_balance",
+     "args": {}
+    }
+   ],
+   "latency_s": 14.449315200006822,
+   "tokens": 1269,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t34",
+   "calls": [],
+   "latency_s": 49.55550159999984,
+   "tokens": 1593,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 0,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t35",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 38.798097500010044,
+   "tokens": 1510,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 1
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t36",
+   "calls": [],
+   "latency_s": 28.488623800003552,
+   "tokens": 1465,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 0,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t37",
+   "calls": [
+    {
+     "name": "free_slots",
+     "args": {
+      "days": 3
+     }
+    }
+   ],
+   "latency_s": 13.701822399991215,
+   "tokens": 1284,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t38",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-2"
+     }
+    }
+   ],
+   "latency_s": 15.829484800007776,
+   "tokens": 1320,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t39",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "DevOps"
+     }
+    }
+   ],
+   "latency_s": 26.101209300002665,
+   "tokens": 1339,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "coarse",
+   "task_id": "t40",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 14.137601200010977,
+   "tokens": 1281,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t01",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-100"
+     }
+    }
+   ],
+   "latency_s": 43.65497050000704,
+   "tokens": 1235,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t02",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-102"
+     }
+    }
+   ],
+   "latency_s": 13.135875300009502,
+   "tokens": 1158,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t03",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-104"
+     }
+    }
+   ],
+   "latency_s": 14.667098100006115,
+   "tokens": 1168,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t04",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-106"
+     }
+    }
+   ],
+   "latency_s": 28.57116429999587,
+   "tokens": 1259,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t05",
+   "calls": [
+    {
+     "name": "get_job",
+     "args": {
+      "job_id": "J-103"
+     }
+    }
+   ],
+   "latency_s": 16.71416119999776,
+   "tokens": 1178,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t06",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-1"
+     }
+    }
+   ],
+   "latency_s": 21.09137369999371,
+   "tokens": 1244,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t07",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-3"
+     }
+    }
+   ],
+   "latency_s": 14.430567099989275,
+   "tokens": 1169,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t08",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-5"
+     }
+    }
+   ],
+   "latency_s": 14.747732899995754,
+   "tokens": 1179,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t09",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-7"
+     }
+    }
+   ],
+   "latency_s": 16.75779610000609,
+   "tokens": 1202,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t10",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": "won",
+      "requirement": "Celery task queue with retries",
+      "types": [
+       "repo_readme"
+      ]
+     }
+    }
+   ],
+   "latency_s": 18.55886060000921,
+   "tokens": 1222,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t11",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "requirement": "hybrid BM25 search with a reranker",
+      "types": [
+       "case_study"
+      ]
+     }
+    }
+   ],
+   "latency_s": 274.0661589000083,
+   "tokens": 1764,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t12",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "k": 5,
+      "requirement": "demand forecasting for retail",
+      "types": [
+       "case_study"
+      ]
+     }
+    }
+   ],
+   "latency_s": 33.405485400013276,
+   "tokens": 1293,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t13",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "k": 1,
+      "outcome": "won",
+      "requirement": "OCR for scanned invoices"
+     }
+    }
+   ],
+   "latency_s": 18.963004400007776,
+   "tokens": 1170,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t14",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "k": 5,
+      "requirement": "won",
+      "types": [
+       "case_study"
+      ]
+     }
+    }
+   ],
+   "latency_s": 26.066399300005287,
+   "tokens": 1253,
+   "right_tool": true,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t15",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "requirement": "dbt models in BigQuery",
+      "types": [
+       "case_study"
+      ]
+     }
+    }
+   ],
+   "latency_s": 41.712710899999365,
+   "tokens": 1363,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t16",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": null,
+      "requirement": "YOLO defect detection"
+     }
+    }
+   ],
+   "latency_s": 64.88497529999586,
+   "tokens": 1620,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t17",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "outcome": null,
+      "requirement": "FastAPI service",
+      "types": [
+       "case_study"
+      ]
+     }
+    }
+   ],
+   "latency_s": 45.168956400011666,
+   "tokens": 1416,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t18",
+   "calls": [
+    {
+     "name": "get_case_study",
+     "args": {
+      "evidence_id": "cs-churn"
+     }
+    }
+   ],
+   "latency_s": 21.94347790000029,
+   "tokens": 1145,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t19",
+   "calls": [
+    {
+     "name": "get_case_study",
+     "args": {
+      "evidence_id": "cs-rag-support"
+     }
+    }
+   ],
+   "latency_s": 16.329111300001387,
+   "tokens": 1141,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t20",
+   "calls": [],
+   "latency_s": 51.762628500000574,
+   "tokens": 1389,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 0,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t21",
+   "calls": [
+    {
+     "name": "get_case_study",
+     "args": {
+      "evidence_id": "cs-celery-etl"
+     }
+    }
+   ],
+   "latency_s": 19.650757900002645,
+   "tokens": 1146,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t22",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "ai_ml"
+     }
+    }
+   ],
+   "latency_s": 24.556338499998674,
+   "tokens": 1186,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t23",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "DevOps"
+     }
+    }
+   ],
+   "latency_s": 36.313284599993494,
+   "tokens": 1236,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t24",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "data_analysis"
+     }
+    }
+   ],
+   "latency_s": 39.9922038000077,
+   "tokens": 1270,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t25",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "limit": 10,
+      "query": "Python machine learning"
+     }
+    }
+   ],
+   "latency_s": 19.157387400002335,
+   "tokens": 1130,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t26",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "limit": 10,
+      "query": "rag llm"
+     }
+    }
+   ],
+   "latency_s": 45.8543503999972,
+   "tokens": 1157,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t27",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "query": "celery"
+     }
+    }
+   ],
+   "latency_s": 15.966548800002784,
+   "tokens": 1120,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t28",
+   "calls": [
+    {
+     "name": "get_connects_balance",
+     "args": {}
+    }
+   ],
+   "latency_s": 26.24100140000519,
+   "tokens": 1202,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t29",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 17.619512499994016,
+   "tokens": 1129,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t30",
+   "calls": [
+    {
+     "name": "free_slots",
+     "args": {
+      "days": 7,
+      "duration_min": 30
+     }
+    }
+   ],
+   "latency_s": 31.495223799996893,
+   "tokens": 1241,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t31",
+   "calls": [
+    {
+     "name": "list_messages",
+     "args": {
+      "thread_id": "T-1"
+     }
+    }
+   ],
+   "latency_s": 24.05148779999581,
+   "tokens": 1168,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t32",
+   "calls": [
+    {
+     "name": "list_messages",
+     "args": {
+      "thread_id": "T-2",
+      "trace_id": null
+     }
+    }
+   ],
+   "latency_s": 41.58517469999788,
+   "tokens": 1293,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t33",
+   "calls": [
+    {
+     "name": "get_connects_balance",
+     "args": {}
+    }
+   ],
+   "latency_s": 119.96958940000331,
+   "tokens": 1881,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t34",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "requirement": "Qdrant vector database",
+      "types": [
+       "case_study"
+      ]
+     }
+    }
+   ],
+   "latency_s": 58.694165499997325,
+   "tokens": 1339,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t35",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "k": 1,
+      "requirement": "Redis experience"
+     }
+    }
+   ],
+   "latency_s": 175.7288966000051,
+   "tokens": 1792,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t36",
+   "calls": [
+    {
+     "name": "search_evidence",
+     "args": {
+      "k": 1,
+      "outcome": "won",
+      "requirement": "PyTorch fine-tuning",
+      "types": [
+       "code"
+      ]
+     }
+    }
+   ],
+   "latency_s": 99.14959190000081,
+   "tokens": 1492,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t37",
+   "calls": [
+    {
+     "name": "search_jobs",
+     "args": {
+      "limit": 10,
+      "query": "interview"
+     }
+    }
+   ],
+   "latency_s": 59.90986889999476,
+   "tokens": 1355,
+   "right_tool": false,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 1
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t38",
+   "calls": [
+    {
+     "name": "get_client_history",
+     "args": {
+      "client_id": "C-2"
+     }
+    }
+   ],
+   "latency_s": 27.455847100005485,
+   "tokens": 1204,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t39",
+   "calls": [
+    {
+     "name": "get_market_stats",
+     "args": {
+      "category": "gigs"
+     }
+    }
+   ],
+   "latency_s": 35.159583000000566,
+   "tokens": 1229,
+   "right_tool": true,
+   "args_ok": false,
+   "n_calls": 1,
+   "wrong_calls": 0
+  },
+  {
+   "condition": "terse_docs",
+   "task_id": "t40",
+   "calls": [
+    {
+     "name": "list_skills",
+     "args": {}
+    }
+   ],
+   "latency_s": 12.096850699992501,
+   "tokens": 1119,
+   "right_tool": true,
+   "args_ok": true,
+   "n_calls": 1,
+   "wrong_calls": 0
+  }
+ ]
+}
