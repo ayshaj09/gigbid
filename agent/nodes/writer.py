@@ -53,6 +53,14 @@ def _opening(job: dict) -> str:
     return f"{problem}. Below is the closest evidence from my portfolio and how I would approach it."
 
 
+def _question_opening(job: dict, spec: dict) -> str:
+    """Strategy B (X2): open with one sharp diagnostic question about the client's problem."""
+    need = next((r["text"] for r in spec.get("requirements", []) if r.get("must_have")), job.get("title", ""))
+    need = _swap_pronouns(strip_injection(need)).rstrip(".")
+    return (f"Quick question before anything else: what does success look like for \"{need[:90]}\" "
+            "in your first month? Here is the closest evidence from my portfolio.")
+
+
 def rank_evidence(job: dict, fit: dict, by_id: dict) -> list[str]:
     """Evidence that covers more requirements, and more of the post itself, comes first."""
     job_text = f"{job.get('title', '')} {job.get('description', '')}"
@@ -68,7 +76,7 @@ def rank_evidence(job: dict, fit: dict, by_id: dict) -> list[str]:
     return [e for e, v in sorted(scored.items(), key=lambda x: -x[1]) if v >= 0.5 * top]
 
 
-def rule_write(job, spec, fit, evidence, quote, critique, style, revision) -> WriterOutput:
+def rule_write(job, spec, fit, evidence, quote, critique, style, revision, strategy: str = "writer") -> WriterOutput:
     instr = " ".join((critique or {}).get("instructions", [])).lower()
     expand = "add coverage" in instr or "coverage" in instr
     by_id = {e["evidence_id"]: e for e in evidence}
@@ -99,7 +107,8 @@ def rule_write(job, spec, fit, evidence, quote, critique, style, revision) -> Wr
     unit = "/hour" if quote.get("basis") == "hourly" else " fixed"
     body.append(f"My proposed price is ${quote['amount']:.0f}{unit} for the scope above.")
     body.append("Would a short call this week work to confirm the details?")
-    letter = " ".join([_opening(job)] + body)
+    opening = _opening(job) if strategy == "writer" else _question_opening(job, spec)
+    letter = " ".join([opening] + body)
     answers = []
     for q in spec.get("screening_questions", []):
         best = max(evidence, key=lambda e: overlap(q, e["text"]), default=None)
@@ -131,7 +140,7 @@ async def writer(state, runtime):
         pcfg = ctx.cfg["policy"]
         try:
             result, usage = await ctx.llm.structured(
-                "writer", "writer", WriterOutput,
+                "writer", ctx.cfg.get("writer", {}).get("strategy", "writer"), WriterOutput,
                 min_words=str(pcfg["min_proposal_words"]), max_words=str(pcfg["max_proposal_words"]),
                 style_memory=style or "none", outcome_memory=out_mem or "none",
                 critic_instructions=(critique or {}).get("instructions", []),
@@ -142,7 +151,8 @@ async def writer(state, runtime):
         except (LLMUnavailable, ValueError) as exc:
             errors.append(f"writer llm fallback: {exc}")
     if result is None:
-        result = rule_write(job, spec, fit, evidence, quote, critique, style, revision)
+        result = rule_write(job, spec, fit, evidence, quote, critique, style, revision,
+                            strategy=ctx.cfg.get("writer", {}).get("strategy", "writer"))
     draft = ProposalDraft(job_id=job["job_id"], cover_letter=result.cover_letter, claims=result.claims,
                           screening_answers=result.screening_answers, revision=revision,
                           evidence_ids=sorted({i for c in result.claims for i in c.evidence_ids}))

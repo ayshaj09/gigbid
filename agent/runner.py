@@ -21,6 +21,7 @@ from typing import Any
 
 from langgraph.types import Command
 
+from agent import tracing
 from agent.graphs.bid_graph import compile_bid_graph
 from agent.graphs.conversation_graph import compile_conversation_graph
 from agent.llm import LLMRouter
@@ -87,23 +88,25 @@ class Runner:
 
     async def _run(self, graph_name: str, thread: str, payload, stream_cb=None) -> RunResult:
         graph = self.bid if graph_name == "bid" else self.conv
-        config = {"configurable": {"thread_id": thread}, "recursion_limit": 80}
         trace_id = uuid.uuid4().hex[:16]
+        config = {"configurable": {"thread_id": thread}, "recursion_limit": 80,
+                  "callbacks": tracing.callbacks(trace_id, self.user_id, thread),
+                  "metadata": tracing.run_metadata(trace_id, self.user_id, thread)}
         events = []
         try:
             async for chunk in graph.astream(payload, config, context=self._ctx(trace_id), stream_mode="updates"):
                 for node_name, update in chunk.items():
-                    ev = {"node": node_name, "trace_id": trace_id,
+                    ev = {"node": node_name, "trace_id": trace_id, "thread_id": thread,
                           "status": (update or {}).get("status") if isinstance(update, dict) else None}
                     events.append(ev)
                     if stream_cb:
                         await stream_cb(ev)
         except MarketplaceUnavailable as exc:
             self.waiting.add((graph_name, thread))
-            snap = await graph.aget_state(config)
+            snap = await graph.aget_state({"configurable": {"thread_id": thread}})
             return RunResult(thread, "waiting_for_marketplace", dict(snap.values), error=str(exc), events=events)
         self.waiting.discard((graph_name, thread))
-        snap = await graph.aget_state(config)
+        snap = await graph.aget_state({"configurable": {"thread_id": thread}})
         intr = snap.tasks[0].interrupts[0].value if snap.tasks and snap.tasks[0].interrupts else None
         status = "awaiting_approval" if intr is not None else snap.values.get("status", "unknown")
         return RunResult(thread, status, dict(snap.values), interrupt=intr, events=events)

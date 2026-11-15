@@ -21,26 +21,35 @@ from mcp_servers.portfolio.server import build_server as build_portfolio
 from mcp_servers.workspace.server import build_server as build_workspace
 
 
+async def open_inprocess_belt(stack: contextlib.AsyncExitStack, cfg: dict, data_dir: str | Path, backend=None,
+                              persona: str = "ai_engineer", servers=("portfolio", "marketplace", "workspace")):
+    """Start the three MCP servers in-process on memory transports and return (belt, built servers)."""
+    backend = backend or FixtureGigSim()
+    built = {
+        "portfolio": build_portfolio(cfg=cfg, persona=persona),
+        "marketplace": build_marketplace(backend=backend, cfg=cfg, data_dir=Path(data_dir)),
+        "workspace": build_workspace(data_dir=Path(data_dir)),
+    }
+    sessions = {}
+    for name in servers:
+        sessions[name] = await stack.enter_async_context(
+            create_connected_server_and_client_session(built[name]._mcp_server))
+    return await ToolBelt.from_sessions(sessions, cfg), built
+
+
 @contextlib.asynccontextmanager
 async def harness(tmp_dir: str | Path, cfg_overrides: dict | None = None, backend=None, checkpointer=None,
                   store=None, persona: str = "ai_engineer", servers=("portfolio", "marketplace", "workspace")):
     base = {"models": {"profile": "offline"}, "marketplace": {"max_requests_per_minute": 6000}}
     cfg = load_config(_merge(base, cfg_overrides or {}))
     backend = backend or FixtureGigSim()
-    built = {
-        "portfolio": build_portfolio(cfg=cfg, persona=persona),
-        "marketplace": build_marketplace(backend=backend, cfg=cfg, data_dir=Path(tmp_dir)),
-        "workspace": build_workspace(data_dir=Path(tmp_dir)),
-    }
     async with contextlib.AsyncExitStack() as stack:
-        sessions = {}
-        for name in servers:
-            sessions[name] = await stack.enter_async_context(
-                create_connected_server_and_client_session(built[name]._mcp_server))
-        belt = await ToolBelt.from_sessions(sessions, cfg)
+        belt, built = await open_inprocess_belt(stack, cfg, tmp_dir, backend, persona, servers)
         belt.retries = 1
         belt.backoff = 0.01
-        persona_doc = json.loads((ROOT / "data" / "fixtures" / f"persona_{persona}.json").read_text())
+        from rag.retriever import load_persona
+
+        persona_doc = load_persona(persona)
         runner = Runner(cfg, belt, persona_doc, checkpointer or InMemorySaver(), store or InMemoryStore(),
                         user_id="alice")
         runner.servers = built
@@ -49,4 +58,4 @@ async def harness(tmp_dir: str | Path, cfg_overrides: dict | None = None, backen
 
 
 def fixture_jobs() -> dict[str, dict]:
-    return {j["job_id"]: j for j in json.loads((ROOT / "data" / "fixtures" / "jobs.json").read_text())}
+    return {j["job_id"]: j for j in json.loads((ROOT / "data" / "fixtures" / "jobs.json").read_text(encoding="utf-8"))}
