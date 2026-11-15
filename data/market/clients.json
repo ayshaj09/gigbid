@@ -37046,6 +37046,98 @@
   "industry": null,
   "synthetic": true
  },
+ "C-5f5dcba9": {
+  "client_id": "C-5f5dcba9",
+  "payment_verified": true,
+  "total_spent_usd": 113532,
+  "hires": 8,
+  "jobs_posted": 14,
+  "average_rating": 4.7,
+  "country": "Pakistan",
+  "industry": null,
+  "synthetic": true
+ },
+ "C-94992e9d": {
+  "client_id": "C-94992e9d",
+  "payment_verified": true,
+  "total_spent_usd": 35868,
+  "hires": 14,
+  "jobs_posted": 17,
+  "average_rating": 4.6,
+  "country": "United States",
+  "industry": null,
+  "synthetic": true
+ },
+ "C-f4ed1866": {
+  "client_id": "C-f4ed1866",
+  "payment_verified": true,
+  "total_spent_usd": 16638,
+  "hires": 15,
+  "jobs_posted": 21,
+  "average_rating": 4.3,
+  "country": "United States",
+  "industry": null,
+  "synthetic": true
+ },
+ "C-501236ec": {
+  "client_id": "C-501236ec",
+  "payment_verified": true,
+  "total_spent_usd": 0,
+  "hires": 0,
+  "jobs_posted": 2,
+  "average_rating": null,
+  "country": null,
+  "industry": null,
+  "synthetic": true
+ },
+ "C-77f5a718": {
+  "client_id": "C-77f5a718",
+  "payment_verified": true,
+  "total_spent_usd": 891,
+  "hires": 4,
+  "jobs_posted": 8,
+  "average_rating": 4.7,
+  "country": "United States",
+  "industry": null,
+  "synthetic": true
+ },
+ "C-e051149d": {
+  "client_id": "C-e051149d",
+  "payment_verified": true,
+  "total_spent_usd": 41036,
+  "hires": 5,
+  "jobs_posted": 10,
+  "average_rating": 5.0,
+  "country": "Jordan",
+  "industry": null,
+  "synthetic": true
+ },
+ "C-9f88536f": {
+  "client_id": "C-9f88536f",
+  "payment_verified": true,
+  "total_spent_usd": 1000.0,
+  "hires": 8,
+  "jobs_posted": 11,
+  "average_rating": 4.6,
+  "country": "United States",
+  "industry": null,
+  "synthetic": true,
+  "real_fields": [
+   "payment_verified",
+   "total_spent_usd"
+  ]
+ },
+ "C-acce20dc": {
+  "client_id": "C-acce20dc",
+  "payment_verified": true,
+  "total_spent_usd": 0,
+  "hires": 0,
+  "jobs_posted": 4,
+  "average_rating": null,
+  "country": "India",
+  "industry": null,
+  "synthetic": true
+ },
  "C-3b14ecdc": {
   "client_id": "C-3b14ecdc",
   "payment_verified": false,
@@ -37056,6 +37148,46 @@
   "country": null,
   "industry": null,
   "synthetic": true
+ },
+ "C-4c3c2e5c": {
+  "client_id": "C-4c3c2e5c",
+  "payment_verified": true,
+  "total_spent_usd": 325,
+  "hires": 1,
+  "jobs_posted": 4,
+  "average_rating": 4.5,
+  "country": "China",
+  "industry": null,
+  "synthetic": true
+ },
+ "C-ccd605aa": {
+  "client_id": "C-ccd605aa",
+  "payment_verified": true,
+  "total_spent_usd": 24628,
+  "hires": 4,
+  "jobs_posted": 8,
+  "average_rating": 4.4,
+  "country": "Norway",
+  "industry": null,
+  "synthetic": true
+ },
+ "C-6ceaf9d0": {
+  "client_id": "C-6ceaf9d0",
+  "payment_verified": true,
+  "total_spent_usd": 400000.0,
+  "hires": 435,
+  "jobs_posted": 23,
+  "average_rating": 4.98849782,
+  "country": "United States",
+  "industry": null,
+  "synthetic": true,
+  "reviews": 435.0,
+  "real_fields": [
+   "average_rating",
+   "payment_verified",
+   "reviews",
+   "total_spent_usd"
+  ]
  },
  "C-6397793a": {
   "client_id": "C-6397793a",
@@ -37090,6 +37222,21 @@
   "industry": null,
   "synthetic": true
  },
+ "C-61a3068a": {
+  "client_id": "C-61a3068a",
+  "payment_verified": false,
+  "total_spent_usd": 0.0,
+  "hires": 5,
+  "jobs_posted": 10,
+  "average_rating": 4.4,
+  "country": "India",
+  "industry": null,
+  "synthetic": true,
+  "real_fields": [
+   "payment_verified",
+   "total_spent_usd"
+  ]
+ },
  "C-bed093f2": {
   "client_id": "C-bed093f2",
   "payment_verified": false,
@@ -37109,6 +37256,17 @@
   "jobs_posted": 29,
   "average_rating": 4.3,
   "country": null,
+  "industry": null,
+  "synthetic": true
+ },
+ "C-74b61186": {
+  "client_id": "C-74b61186",
+  "payment_verified": true,
+  "total_spent_usd": 782,
+  "hires": 3,
+  "jobs_posted": 5,
+  "average_rating": 5.0,
+  "country": "United States",
   "industry": null,
   "synthetic": true
  },
@@ -37134,6 +37292,17 @@
   "industry": null,
   "synthetic": true
  },
+ "C-759296f5": {
+  "client_id": "C-759296f5",
+  "payment_verified": true,
+  "total_spent_usd": 1266,
+  "hires": 4,
+  "jobs_posted": 8,
+  "average_rating": 4.4,
+  "country": "United States",
+  "industry": null,
+  "synthetic": true
+ },
  "C-bf513864": {
   "client_id": "C-bf513864",
   "payment_verified": true,
@@ -37142,6 +37311,39 @@
   "jobs_posted": 7,
   "average_rating": 4.6,
   "country": null,
+  "industry": null,
+  "synthetic": true
+ },
+ "C-f7ce324b": {
+  "client_id": "C-f7ce324b",
+  "payment_verified": true,
+  "total_spent_usd": 4298,
+  "hires": 5,
+  "jobs_posted": 5,
+  "average_rating": 4.5,
+  "country": "India",
+  "industry": null,
+  "synthetic": true
+ },
+ "C-6d274b2f": {
+  "client_id": "C-6d274b2f",
+  "payment_verified": false,
+  "total_spent_usd": 704,
+  "hires": 1,
+  "jobs_posted": 5,
+  "average_rating": 4.5,
+  "country": "Singapore",
+  "industry": null,
+  "synthetic": true
+ },
+ "C-5fd488cb": {
+  "client_id": "C-5fd488cb",
+  "payment_verified": true,
+  "total_spent_usd": 8967,
+  "hires": 15,
+  "jobs_posted": 18,
+  "average_rating": 4.5,
+  "country": "Morocco",
   "industry": null,
   "synthetic": true
  },
@@ -37178,6 +37380,24 @@
   "industry": null,
   "synthetic": true
  },
+ "C-b280b6e2": {
+  "client_id": "C-b280b6e2",
+  "payment_verified": true,
+  "total_spent_usd": 1000.0,
+  "hires": 8,
+  "jobs_posted": 10,
+  "average_rating": 4.577464789,
+  "country": "Hong Kong",
+  "industry": null,
+  "synthetic": true,
+  "reviews": 4.0,
+  "real_fields": [
+   "average_rating",
+   "payment_verified",
+   "reviews",
+   "total_spent_usd"
+  ]
+ },
  "C-d9cc650a": {
   "client_id": "C-d9cc650a",
   "payment_verified": false,
@@ -37197,6 +37417,17 @@
   "jobs_posted": 24,
   "average_rating": 4.2,
   "country": null,
+  "industry": null,
+  "synthetic": true
+ },
+ "C-0f4909f1": {
+  "client_id": "C-0f4909f1",
+  "payment_verified": true,
+  "total_spent_usd": 33975,
+  "hires": 10,
+  "jobs_posted": 14,
+  "average_rating": 4.7,
+  "country": "India",
   "industry": null,
   "synthetic": true
  },

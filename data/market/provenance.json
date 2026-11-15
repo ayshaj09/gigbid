@@ -1,13 +1,13 @@
 {
- "built": "2026-11-15 12:36",
- "seconds": 309.4,
+ "built": "2026-11-15 13:43",
+ "seconds": 1320.7,
  "raw_rows_read": {
   "upwork_jobs_2024_50k": 53058,
   "upwork_jobs_200k": 180000,
   "upwork_jobs_60k": 60000
  },
  "jobs_after_dedupe": 217527,
- "pool_jobs": 3050,
+ "pool_jobs": 3059,
  "jobs_with_real_description": 105632,
  "jobs_with_synthetic_description": 111895,
  "labelled_postings_used": {
@@ -19,7 +19,7 @@
  "contracts_rows_read": 180000,
  "freelancer_rows_read": 12000,
  "persona_rates_usd": {
-  "ai_engineer": 49.0,
+  "ai_engineer": 60.0,
   "web_fullstack": 49.0,
   "data_analyst": 50.0
  },
@@ -27,13 +27,13 @@
   "freelancer_success.hourly_rate_usd": "clipped at 280; median on the cap; not used for rates"
  },
  "categories": {
-  "ai_ml": 12767,
-  "data_analysis": 18390,
-  "design": 20529,
-  "devops": 1210,
-  "other": 80401,
-  "web_fullstack": 45884,
-  "writing": 38346
+  "ai_ml": 8954,
+  "data_analysis": 14509,
+  "design": 21524,
+  "devops": 1277,
+  "other": 83912,
+  "web_fullstack": 46314,
+  "writing": 41037
  },
  "synthetic": [
   "personas + portfolios",
