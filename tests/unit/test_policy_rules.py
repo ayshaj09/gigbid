@@ -40,3 +40,14 @@ def test_require_phrase_rule_from_config():
 def test_price_respects_floor(cfg):
     q = price({**SPEC, "budget_min": 50, "budget_max": 100}, FIT, RISK, PERSONA, {}, 80, cfg)
     assert q.amount >= 300
+
+
+def test_skip_when_far_below_floor():
+    cfg = load_config()
+    persona = {"floor_usd": 300, "hourly_rate_usd": 50}
+    cheap = {**SPEC, "budget_type": "fixed", "budget_max": 100}
+    assert decide(cheap, RISK, {**FIT, "score": 0.9}, cfg, persona).action == "skip"
+    ok = {**SPEC, "budget_type": "fixed", "budget_max": 400}
+    assert decide(ok, RISK, {**FIT, "score": 0.9}, cfg, persona).action == "bid"
+    low_rate = {**SPEC, "budget_type": "hourly", "budget_max": 20}
+    assert decide(low_rate, RISK, {**FIT, "score": 0.9}, cfg, persona).action == "skip"

@@ -1,6 +1,7 @@
 """Decision node: joins the three parallel analyses and chooses skip, watch or bid.
 
-Order of checks (first match wins): scam -> risk above threshold -> policy rules -> fit. Every
+Order of checks (first match wins): scam -> risk above threshold -> pays far below the user's
+floor/rate (thresholds.below_floor) -> policy rules -> fit. Every
 reason is recorded so the Job detail screen can show why. Only `skip` may be automatic (autonomy
 setting); `bid` always continues to a human approval before anything is sent.
 """
@@ -11,13 +12,22 @@ from agent.nodes.common import ctx_of, node
 from agent.policy import applies, rules
 
 
-def decide(spec: dict, risk: dict, fit: dict, cfg: dict) -> BidDecision:
+def decide(spec: dict, risk: dict, fit: dict, cfg: dict, persona: dict | None = None) -> BidDecision:
     th = cfg["thresholds"]
     auto = bool(cfg.get("autonomy", {}).get("auto_skip_low_fit"))
     if risk.get("is_scam"):
         return BidDecision(action="skip", auto=True, reasons=[f"scam signals: {', '.join(risk['flags'])}"])
     if risk["score"] > th["maximum_risk_score"]:
         return BidDecision(action="skip", auto=auto, reasons=[f"risk {risk['score']:.2f} > {th['maximum_risk_score']}"])
+    bf = th.get("below_floor") or {}
+    hi = spec.get("budget_max")
+    if persona and hi and bf:
+        if spec.get("budget_type") == "fixed" and persona.get("floor_usd") and hi < bf["fixed_ratio"] * persona["floor_usd"]:
+            return BidDecision(action="skip", auto=auto,
+                               reasons=[f"budget {hi:.0f} is under {bf['fixed_ratio']:.0%} of your project floor {persona['floor_usd']:.0f}"])
+        if spec.get("budget_type") == "hourly" and persona.get("hourly_rate_usd") and hi < bf["hourly_ratio"] * persona["hourly_rate_usd"]:
+            return BidDecision(action="skip", auto=auto,
+                               reasons=[f"max {hi:.0f}/h is under {bf['hourly_ratio']:.0%} of your rate {persona['hourly_rate_usd']:.0f}/h"])
     for r in rules(cfg, "decision"):
         if r["type"] == "min_budget" and (spec.get("budget_max") or 0) < r["usd"] and spec.get("budget_type") != "hourly":
             return BidDecision(action="skip", auto=auto, reasons=[f"policy {r.get('id', '')}: budget below {r['usd']}"])
@@ -38,6 +48,6 @@ def decide(spec: dict, risk: dict, fit: dict, cfg: dict) -> BidDecision:
 @node("decide")
 async def decision_node(state, runtime):
     ctx = ctx_of(runtime)
-    d = decide(state["job_spec"], state["risk_report"], state["fit_report"], ctx.cfg)
+    d = decide(state["job_spec"], state["risk_report"], state["fit_report"], ctx.cfg, getattr(ctx, "persona", None))
     status = {"skip": "skipped", "watch": "watching", "bid": "running"}[d.action]
     return {"decision": d.model_dump(), "status": status, "status_reason": "; ".join(d.reasons)}

@@ -171,6 +171,9 @@ thresholds:
   watch_fit_score: 0.40
   maximum_risk_score: 0.60
   min_client_rating: 4.0
+  # Skip jobs paying far below the user's own floor (fixed) or rate (hourly). The Pricing Strategist
+  # would otherwise bid at the floor against a client who cannot pay it.
+  below_floor: {fixed_ratio: 0.5, hourly_ratio: 0.6}
 
 writer:
   # X2 A/B extension: which proposal strategy the Writer uses (prompt file name in agent/prompts/).
