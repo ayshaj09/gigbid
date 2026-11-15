@@ -73,6 +73,9 @@ if __name__ == "__main__":
     jobs, gold, _ = load(a.dataset)
     ids = [j for j in gold if j in jobs][: a.limit]
     out = asyncio.run(run_arm(a.dataset, ids, a.strategy, a.wait_s))
-    path = ROOT / "evals" / "results" / f"gigsim_outcomes_{a.strategy}_{time.strftime('%Y%m%d-%H%M%S')}.json"
+    from agent.config import load_config
+
+    out = {"dataset": a.dataset, "model_profile": load_config()["models"]["profile"], **out}
+    path = ROOT / "evals" / "results" / f"gigsim_outcomes_{a.dataset}_{a.strategy}_{time.strftime('%Y%m%d-%H%M%S')}.json"
     path.write_text(json.dumps(out, indent=1), encoding="utf-8")
     print(json.dumps({k: v for k, v in out.items() if k != "rows"}, indent=1), "\nwrote", path.relative_to(ROOT))
