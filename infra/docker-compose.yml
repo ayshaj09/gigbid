@@ -68,7 +68,7 @@ services:
     depends_on: [api]
 
   ollama:
-    image: ollama/ollama
+    image: ollama/ollama:0.12.6
     profiles: [ollama]
     volumes: [ollama:/root/.ollama]
     ports: ["11434:11434"]
