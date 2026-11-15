@@ -22,7 +22,16 @@ PATTERNS = {
 }
 SCAM_FLAGS = {"unpaid_work", "off_platform_contact", "off_platform_payment", "credential_request"}
 SEVERITY = {"unpaid_work": 0.8, "off_platform_contact": 0.7, "off_platform_payment": 0.9, "credential_request": 0.95,
-            "prompt_injection": 0.3, "poor_client": 0.4, "vague_scope": 0.25, "zero_budget": 0.6}
+            "prompt_injection": 0.3, "poor_client": 0.4, "vague_scope": 0.25, "zero_budget": 0.6, "unspecified_rate": 0.1}
+
+
+def risk_rules(cfg: dict) -> tuple[dict, dict, set]:
+    """Defaults above, overridden/extended by `risk:` in agent/config.yaml (patterns, severity,
+    scam_flags), so a new scam pattern is a config edit, not a code change."""
+    rc = cfg.get("risk") or {}
+    patterns = {**PATTERNS, **(rc.get("patterns") or {})}
+    severity = {**SEVERITY, **(rc.get("severity") or {})}
+    return patterns, severity, SCAM_FLAGS | set(rc.get("scam_flags") or [])
 
 
 def client_quality(h: dict) -> float:
@@ -38,8 +47,9 @@ def client_quality(h: dict) -> float:
 
 
 def rule_risk(job: dict, history: dict, cfg: dict) -> RiskReport:
+    patterns, severity, scam_flags = risk_rules(cfg)
     text = f"{job.get('title', '')}\n{job.get('description', '')}"
-    flags = [f for f, pat in PATTERNS.items() if re.search(pat, job.get("description", "") if f == "vague_scope" else text, re.I)]
+    flags = [f for f, pat in patterns.items() if re.search(pat, job.get("description", "") if f == "vague_scope" else text, re.I)]
     if find_contact_details(job.get("description", "")) and "off_platform_contact" not in flags:
         if any(k.startswith(("email", "phone")) for k in find_contact_details(job["description"])):
             flags.append("off_platform_contact")
@@ -48,13 +58,14 @@ def rule_risk(job: dict, history: dict, cfg: dict) -> RiskReport:
         flags.append("prompt_injection")
     budget = job.get("budget") or {}
     if budget and not budget.get("max"):
-        flags.append("zero_budget")
+        # an hourly post without a stated range is normal on the platform; a fixed job with no budget is not
+        flags.append("unspecified_rate" if budget.get("type") == "hourly" else "zero_budget")
     cq = client_quality(history)
     if cq < 0.35 or (history.get("average_rating") or 5) < cfg["thresholds"]["min_client_rating"]:
         flags.append("poor_client")
-    score = max([SEVERITY[f] for f in flags], default=0.0)
+    score = max([severity.get(f, 0.3) for f in flags], default=0.0)
     score = min(1.0, score + (1 - cq) * 0.2)
-    is_scam = bool(SCAM_FLAGS & set(flags)) or ("zero_budget" in flags and "unpaid_work" in flags)
+    is_scam = bool(scam_flags & set(flags)) or ("zero_budget" in flags and "unpaid_work" in flags)
     expl = (f"Client quality {cq:.2f} (verified={history.get('payment_verified')}, hires={history.get('hires')}, "
             f"rating={history.get('average_rating')}). Flags: {', '.join(flags) or 'none'}.")
     if injected:

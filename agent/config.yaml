@@ -146,6 +146,16 @@ policy:
   # Change request hook: extra rules are evaluated by the Compliance Guard and pricing without code edits.
   extra_rules: []
 
+risk:
+  # Extra / overriding Risk Assessor rules, merged over the defaults in agent/nodes/risk_assessor.py.
+  # Added after failure analysis of the Kaggle fake-posting rows (text is lower-cased, punctuation stripped).
+  patterns:
+    income_bait: '\bearn\s?\$?\d[\d,]*\s?(?:/|per\s)?\s?(?:week|day)|\bimmediate hiring\b|no (?:degree|experience) (?:required|needed)'
+    off_platform_contact: 'whats\s?app|telegram|skype|signal\b|\bwechat|contact (?:me |us )?(?:now )?(?:on|at|via)\b|email me|\w+(?:gmail|yahoo|hotmail|outlook)com\b'
+  severity:
+    income_bait: 0.75
+  scam_flags: [income_bait]
+
 connects:
   usd_per_connect: 0.15
   weekly_budget: 80
