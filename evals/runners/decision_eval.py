@@ -54,6 +54,10 @@ async def run(dataset: str, limit: int | None):
                              "revisions": s.get("revisions", 0), "latency_s": round(dt, 3),
                              "tokens": usage.get("tokens_in", 0) + usage.get("tokens_out", 0), "usd": usage.get("usd", 0.0),
                              "status": res.status,
+                             "decision_reasons": (s.get("decision") or {}).get("reasons", []),
+                             "fit_score": (s.get("fit_report") or {}).get("score"),
+                             "risk_score": (s.get("risk_report") or {}).get("score"),
+                             "risk_flags": (s.get("risk_report") or {}).get("flags", []),
                              "letter": (s.get("proposal_draft") or {}).get("cover_letter"),
                              "evidence_ids": [e["evidence_id"] for e in s.get("evidence", [])][:8]})
     return rows, cfg
