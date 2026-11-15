@@ -42,8 +42,16 @@ def expand_skills(portfolio_skills: set[str]) -> tuple[set[str], set[str]]:
     return direct, implied
 
 
-def strength(req_text: str, ev: dict) -> float:
-    return overlap(req_text, f"{ev.get('title', '')} {ev['text']} {' '.join(ev.get('skills', []))}")
+def strength(req_text: str, ev: dict, req_skills: list[str] | None = None) -> float:
+    """Lexical coverage of the requirement by the evidence text; a requirement naming a skill is also
+    strong when the evidence item is TAGGED with that skill, directly or as an umbrella the taxonomy
+    derives from its specific tags (a churn model tagged XGBoost proves "Machine Learning")."""
+    lex = overlap(req_text, f"{ev.get('title', '')} {ev['text']} {' '.join(ev.get('skills', []))}")
+    if req_skills:
+        direct, implied = expand_skills(set(ev.get("skills", [])))
+        if any(canon(s) in direct | implied for s in req_skills):
+            return max(lex, STRONG)
+    return lex
 
 
 PROOF_TYPES = {"case_study", "repo_readme", "code", "review", "cv"}  # past proposals are claims, not proof
@@ -55,7 +63,7 @@ def build_fit(reqs, items: list[dict], per_req: dict[str, list], weak: list[str]
     matrix, total, got = [], 0.0, 0.0
     for r in reqs:
         cand_ids = [e for e, _ in per_req.get(r.id, [])] or list(by_id)
-        scored = sorted(((strength(r.text + " " + " ".join(r.skills), by_id[e]), e) for e in cand_ids if e in by_id),
+        scored = sorted(((strength(r.text + " " + " ".join(r.skills), by_id[e], r.skills), e) for e in cand_ids if e in by_id),
                         reverse=True)
         good = [e for s, e in scored if s >= PARTIAL][:3]
         best = scored[0][0] if scored else 0.0
