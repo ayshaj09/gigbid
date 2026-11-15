@@ -1,0 +1,117 @@
+My smarter retrieval pipeline barely beat the dumb one, and the reply rate went down
+
+What building a multi-agent freelancer copilot taught me about measuring the thing you ship
+
+Freelancers lose hours every week reading job posts, deciding which ones are worth the Connects, and writing proposals that mostly go unanswered. The obvious AI fix is to let a model write the proposal. The obvious result is a flood of generic, slightly invented cover letters: "I am a passionate engineer with many years of experience..."
+
+For a university assignment I built GigBid, a multi-agent copilot that does this job without that failure mode. Every claim in a proposal has to point at a real piece of the freelancer's portfolio, and nothing is sent without a human clicking Approve.
+
+I expected the hard part to be the model. It wasn't. My most surprising result was about retrieval. The most elaborate pipeline I built found the right portfolio evidence only 1.4 points more often than the simplest one (Recall@5 0.467 vs 0.453). Several of the "improvements" made retrieval worse. And when I shipped the better pipeline, the simulated reply rate for one persona fell from 27% to 8%, for a reason that had nothing to do with retrieval.
+
+
+What GigBid does, in one paragraph
+
+A job post goes into a LangGraph graph, and three agents run in parallel:
+• one extracts the requirements, budget and screening questions;
+• one checks for scams, off-platform requests and text aimed at an AI;
+• one matches each requirement to portfolio evidence through an MCP server.
+
+A decision node says skip, watch or bid. On a bid, pricing, a writer, a claim checker, a critic (at most two rewrites) and a compliance guard follow, and the graph pauses until I approve, edit or reject the draft in the web app.
+
+The job data comes from 217,527 real Upwork postings (after de-duplicating 293,058 rows) in public Kaggle datasets, plus 115 real labelled fake and genuine job ads for scam detection. The freelancer personas, client histories and conversations are synthetic, and labelled as synthetic everywhere.
+
+
+The experiment
+
+I built six retrieval pipelines:
+
+• V0 embeds the whole job post and takes the closest portfolio items.
+• V1 splits the post into requirements and searches for each one separately.
+• V2 adds keyword search (BM25) next to the embeddings, so exact names like "Celery" or "Power BI" aren't lost.
+• V3 adds a cross-encoder reranker on top of V2.
+• V4 boosts evidence from past proposals that won.
+• V8 grades the evidence for each requirement, searches again when it is weak, and refuses to claim anything when it still finds nothing.
+
+Everything ran on a laptop CPU with small open models (bge-small-en-v1.5 and a MiniLM cross-encoder), on 190 jobs for each of three personas.
+
+My expectation going in was the obvious one: each step would find the right evidence more often, and better evidence would mean better proposals. I'll be honest that I did not write it down in a dated commit before running the experiment, and I would next time.
+
+Relevance labels came from a fixed rubric (skill-tag and title overlap), not from me reading every pair. That makes absolute numbers optimistic, but every pipeline faces the same labels.
+
+
+What the numbers said
+
+[TABLE: paste as a code block]
+Pipeline                        Recall@5   nDCG@10   MRR
+V0 naive dense                  0.453      0.684     0.746
+V1 requirement decomposition    0.365      0.599     0.687
+V2 hybrid (BM25 + dense)        0.418      0.652     0.718
+V3 hybrid + cross-encoder       0.467      0.698     0.782
+V4 outcome-aware                0.397      0.623     0.672
+V8 corrective loop              0.412      0.603     0.683
+
+Three things surprised me.
+
+Splitting the job into requirements made retrieval worse, on every persona. That includes jobs with four or more requirements, the case it was supposed to help: 0.272 vs 0.364 for the AI persona. Real job posts are not lists of requirements. They are paragraphs of "We are a fast-growing startup..." and "Please include examples...". Every sentence became its own search, and merging those searches diluted the ranking.
+
+The clever loop hurt. In an ablation that removes one component at a time, taking the corrective loop out of V8 raised Recall@5 by 0.055. Re-querying when evidence looked weak mostly replaced good evidence with worse evidence. The only component that clearly earned its place was the cross-encoder: removing it cost 0.054.
+
+The reranker changed a lot but improved little. V3 changed the top three evidence items on 292 of 322 labelled jobs, yet Recall@5 rose by 1.4 points. It was mostly reshuffling, at a real price: retrieval p95 went from under a second to 5–13 seconds on CPU. It helped on posts with real descriptions (0.393 to 0.416). On posts that were only a title, where I had generated a short description, it was slightly worse than the baseline (0.604 vs 0.596).
+
+
+Then the outcome moved the wrong way
+
+GigBid runs against a simulated marketplace whose clients decide whether to reply. When I switched from the test embedder to the shipped V3 pipeline, the AI engineer persona bid on 50 jobs instead of 33, and its reply rate fell from 27% to 8%. The other two personas barely moved (30% to 28%, 26% to 22%).
+
+Retrieval was not the reason. Between those two runs I had also changed a rule. Fixed-price posts with no stated budget had been auto-skipped as risky, and I lowered that rule's severity, because on Upwork "no budget given" is common and not a scam signal. That let in a batch of jobs with no budget to price against, and the simulated clients, who reward price fit, rarely answered them. Connects spent per reply went from 41 to 100.
+
+So the comparison is confounded, and I report it that way. But it taught me the lesson the retrieval table only hinted at: the bid decision matters more than the evidence ranking. A perfect evidence list on a job you shouldn't have bid on is still a wasted bid.
+
+
+The second surprise: my guardrails were attacking real jobs
+
+The first run on real Kaggle data was humbling. Bid-or-skip F1 against my rubric labels was 0.00, 0.13 and 0.08 for the three personas, and scam recall was zero. I fixed it one measured change at a time, re-running all 570 dev jobs after each fix and keeping every run:
+
+• Hourly posts without a stated rate were auto-skipped as "zero budget". That is normal on Upwork, but my rule treated it as a red flag.
+• The scam detector flagged the project as the scam. "Build a Telegram bot", "PayPal integration" and "users create a password" all fired the off-platform-contact, off-platform-payment and credential rules: 23 false positives. Requiring intent toward the freelancer ("contact me on…", "pay you via…") raised scam precision from 0.41–0.64 to 0.64–1.0.
+• The real scams slipped through. They read like "earn 5000week immediate hiring contact now at julie64yahoocom", with punctuation stripped, so my email pattern never matched.
+• "Machine Learning" never matched "XGBoost". Job tags use umbrella terms and portfolios name tools, so fit scores were near zero until I added a small skill taxonomy.
+• A data bug. My skill lexicon matched "excel" inside "excellent" and "ads" inside "leads", so telesales and truck-driver posts ended up in the data analyst's job set.
+
+After six fixes, F1 was 0.63, 0.42 and 0.26. None of the 30 planted prompt injections made it into a proposal, and 27 of them were flagged outright.
+
+The same pattern showed up in the code built before any of this. The claim checker deleted the price from every proposal: "My proposed price is $1,425 fixed" is first-person and contains a number that is in no case study. The compliance guard also masked an interview slot written as "2026-11-16 10:00" as a phone number, so the client was offered ":00; :00".
+
+All of these were guardrails doing exactly what I told them to, in a context I hadn't pictured. Safety layers need end-to-end tests on real outputs, not just unit tests on their own rules.
+
+
+What I'd tell anyone building something similar
+
+I shipped V3, but with my eyes open. It is the best on every metric, by a margin small enough that the simple baseline is the documented fallback if latency matters more. Switching between them is one line of config.
+
+1. Pick the outcome metric first, then measure components against it. Without the simulated replies I would have called the reranker an improvement and moved on.
+2. Write the hypothesis down before you run anything. I didn't, and I noticed myself wanting to reinterpret what I had "expected".
+3. Give every guardrail an end-to-end test on real data. Rules that are correct on their own collide with real job posts.
+4. Change one thing per run. My confounded reply-rate result came from changing a rule and the retrieval pipeline between the same two runs.
+
+One design choice I'd keep without hesitation: the graph never sends a proposal or spends Connects on its own. Every send is a checkpointed pause that survives a crash, and each submission carries an idempotency key, so a retry after a lost response can't submit twice. A test throws away the running process while a proposal waits for approval, rebuilds it from the checkpoint, approves, and checks there is exactly one submission.
+
+
+What these results can't tell you
+
+• The reply rates are simulated. My simulator scores replies on specificity, skills mentioned, price fit and generic phrasing, by design. A higher simulated reply rate means the agent writes that kind of proposal, not that real clients would answer it.
+• The portfolios are synthetic. Retrieval on real, messy portfolios could look different, probably more favourable to hybrid search and reranking.
+• The labels are rubric labels, not human ones. Decision and relevance labels come from a fixed rubric I froze before the measured runs began. It rewards skill matching more than a person would; for example, it marks a single-skill "PowerBI task" as watch where I would bid. Treat the F1 numbers as relative, not absolute.
+• The proposals in these runs come from a template writer, not an LLM. On a laptop CPU an LLM proposal takes minutes, so the large runs used the rules-only profile.
+
+
+Closing
+
+I set out to build a better retrieval pipeline. What I learned is that the pipeline is only worth what reaches the final proposal, that the bid decision matters more than the evidence ranking, and that the safety layers I trusted most needed the most testing against real data. The code, the results files behind every number above, and a three-minute demo are linked below.
+
+• GitHub: https://github.com/ayshaj09/gigbid
+• Live demo: [deployed URL]
+• Demo video: [video link]
+• Portfolio MCP server, installable with uvx: https://github.com/ayshaj09/gigbid/blob/main/mcp_servers/portfolio/README.md
+
+Built for AI-4016 at FAST-NUCES Islamabad. Job data from public Kaggle datasets (see the repo's data card for sources and licences); personas, clients and conversations are synthetic.

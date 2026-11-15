@@ -161,7 +161,7 @@ checks there is exactly one submission.
 - **The portfolios are synthetic.** Retrieval on real, messy portfolios could look different,
   probably more favourable to hybrid search and reranking.
 - **The labels are rubric labels, not human ones.** Decision and relevance labels come from a fixed
-  rubric I froze before looking at system output. It rewards skill matching more than a person
+  rubric I froze before the measured runs began. It rewards skill matching more than a person
   would; for example, it marks a single-skill "PowerBI task" as watch where I would bid. Treat the F1
   numbers as relative, not absolute.
 - **The proposals in these runs come from a template writer, not an LLM.** On a laptop CPU an LLM
