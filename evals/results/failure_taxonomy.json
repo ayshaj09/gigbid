@@ -1,0 +1,3787 @@
+{
+ "runs": [
+  "0_baseline",
+  "1_risk_config_taxonomy",
+  "2_intent_scam_rules",
+  "3_tag_strength",
+  "4_below_floor_skip"
+ ],
+ "fixes": {
+  "1_risk_config_taxonomy": "risk rules in config (no zero_budget for hourly, income-bait patterns) + skill taxonomy",
+  "2_intent_scam_rules": "scam rules require intent toward the freelancer",
+  "3_tag_strength": "skill requirements matched on evidence tags",
+  "4_below_floor_skip": "skip jobs far below floor/rate"
+ },
+ "n_failed_jobs_baseline": 295,
+ "by_category": {
+  "bid_vs_watch": {
+   "failed_at_baseline": 23,
+   "not_fixed": 23
+  },
+  "mispriced": {
+   "failed_at_baseline": 37,
+   "fixed_by:4_below_floor_skip": 26,
+   "not_fixed": 11
+  },
+  "missed_evidence (fit too low)": {
+   "failed_at_baseline": 114,
+   "not_fixed": 55,
+   "fixed_by:1_risk_config_taxonomy": 26,
+   "fixed_by:3_tag_strength": 33
+  },
+  "risk_false_negative (scam missed)": {
+   "failed_at_baseline": 30,
+   "not_fixed": 9,
+   "fixed_by:1_risk_config_taxonomy": 21
+  },
+  "risk_false_positive (scam)": {
+   "failed_at_baseline": 23,
+   "fixed_by:2_intent_scam_rules": 18,
+   "not_fixed": 5
+  },
+  "risk_false_positive (skip)": {
+   "failed_at_baseline": 59,
+   "not_fixed": 36,
+   "fixed_by:1_risk_config_taxonomy": 23
+  },
+  "wrong_bid": {
+   "failed_at_baseline": 44,
+   "fixed_by:4_below_floor_skip": 43,
+   "not_fixed": 1
+  }
+ },
+ "regressions_at_end (new failures not present at baseline)": {
+  "wrong_bid": 3,
+  "mispriced": 5,
+  "bid_vs_watch": 10
+ },
+ "jobs": [
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-4406c99b46-inj",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.12 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-db6a7b229f",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-a1caa4a499",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.10 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-4632676312",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.68 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-949268f764-inj",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.22 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-535fac86e8",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-e1d21edc88",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.14 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-c8ddefc54a",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-c0bec68ac6",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.43 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-537984fab9",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-8d8477784d",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.50 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-8fbf07eeda",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.72 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-c44afd196b",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.61 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-46f3804e15",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.15 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_negative (scam missed)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-9995b4add4",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.68 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-ee70f4e075",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.67 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-3f994f5881",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: credential_request",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-a2605302c0",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.68 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-48173391e8",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.15 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-840859b846-inj",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.10 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-6a1e79609c",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.60 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-f5f0a6983d",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-c073028105",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-3894197762",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.18 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-c50e144b19-inj",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.65 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-d57427d5f2",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.62 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-e8e143b96d",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.42 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-b8d82c7447",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: unpaid_work",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-2872da2ab9",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-40fe536899",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.28 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-c01ffcb2c1",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.15 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-18b5136808",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.37 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-613b6df544",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.10 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-521aca19a4",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: credential_request, zero_budget",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-b624d00505",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.20 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-252b0e93a6",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-a24e056c69",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.69 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-165a72c18b",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-10086ff9fc-inj",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-00fadbcabe",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_negative (scam missed)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-03e79a5b6e",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-c3cc8a11a1",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-762fb1b9b3",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.73 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-583bb5e9be",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.17 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-713844ffa1",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-476e47b320-inj",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.71 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-8ad3c83aeb",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-abd15e52ed",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-83092464bb",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.68 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-bfcc0a493f",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-ad6de94a4c",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-589747559f",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-5519d1637d",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.66 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-9da951393d",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_payment",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (scam)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-8ddd487aa2",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-ff7cb24e83",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.68 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-0030c15f8e",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.28 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-05a5d55621",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact, off_platform_payment",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-04272dfe54",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-b9b6367f10",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-984af96a0a",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.61 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-1f08e66852",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.14 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-1ed6b742ed",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.66 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-d8828a1c8b",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_payment, zero_budget",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-a0602d7b98",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-29c5d324c2",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.20 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-dbcf51c39f",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-06e52622b7",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_negative (scam missed)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-cf1e827587-inj",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.14 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-509c9c5170",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.62 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-9d857ef981",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-1aa89ddd9c",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.68 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-5e2e28f6c6",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-d9352579cb",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-ffd0576716",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-2bb6618ed0",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.78 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-462a84c4bd",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.74 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-c099d169c5",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.29 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-e2596510a1",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-7e3f8721b6",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.73 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-e51b97a533",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.10 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-8cee5ecc63",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-8fb40771ac",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.66 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-dbefc8c816",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-0dff1d74cb",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-d0375ab950",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.28 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-9582547fff",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.67 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-b94eda5af6",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-f2b1f6f2f4",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.13 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-b077b1a69d",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.25 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-d27356a394",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "U-0a2b5a30bc",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-87905e8f37",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_ai_engineer",
+   "job_id": "F-a92db8e0e3",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-44422b93a8",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_payment, poor_client",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-87905e8f37",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-fc668c0c33",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.10 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-5893a065a2",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.48 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-96a98cc76b",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.30 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-703421257e",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.64 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-24a89c7ec2",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.07 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-183c4b549f",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.78 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-1ff1722f4f",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.50 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-f9fba4c760",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-77a56cf768",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.73 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-49011f40f1",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.63",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-c7917ef4c3",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.68 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-53d91acdff",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-9eca9a1101",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-06e52622b7",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_negative (scam missed)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-16fe6fea96-inj",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.73 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-b19f87e8f7-inj",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.57",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-46f3804e15",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.15 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_negative (scam missed)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-a1848d697a",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-e98a2772ff",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.28 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-07b083ed88",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.49 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-426104d516",
+   "categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-2b266d7ce5",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.50 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-140d420752",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.42 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-eb4ea76469",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.60",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-f96f2a951e",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-6cb4851792",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.64",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-dcc18b249c",
+   "categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-e32ede80c5",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.43 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-be8933839f",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.85",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-09b45651c4",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.25 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-5f4bf135f2",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-a44373a295",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-c2884bb8dd",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.15 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-e198560a88",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.19 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-baee66dd69",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.62 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-535f377c5a",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-a0602d7b98",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-21f7cbf0f3",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.61 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-a32849c3dd",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.67 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-184f52a86a",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-1d99a29999-inj",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.33 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-ee746a1ef4",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-7b0daa2ad2",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.39 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-49d93073d8",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.09 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-25db04db1e",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_payment, poor_client",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-f20290a0b7",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.85",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-878d8ac1fc",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.30 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-f3601e1cc2-inj",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.80",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-bd02da6476-inj",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-2e978c52bc",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-fa1d5a647c",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.14 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-efdb4107cb",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-d3587afd26",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-83764e9fe4",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-31e299ad63",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-0da1401197",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.50 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-ae0ea5a63f",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-db68450e4e",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-ab737feb5f",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 1.00",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-b94eda5af6",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-136c1c5d53-inj",
+   "categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.65",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-078b1261d6",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.74 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-a92db8e0e3",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-353448c5d0",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-5ad7cc4825",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.67 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-9c74527c08-inj",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-005d5d5177",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-6639a95be5",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.66 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-64b220de7d",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.68 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-58ad6d37d5",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.35 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-470bb427a4",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.60",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-e9fcd1f98d",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.20 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-a645e7a1b8",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.32 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-8fa75e64ed",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-bfcc0a493f",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-671e04d2a5",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.46 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-c4150208ba",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.37 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-d27356a394",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-5b1e3d39e1",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.73 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-b46dcd3b73",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.68 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-8cee5ecc63",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-00fadbcabe",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_negative (scam missed)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-aca51577f2",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.85",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-ac6738d324",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.36 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-f77118c7bc",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.65",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-fc8755de67-inj",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.31 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-70dc9001ad",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.42 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-a336f1173d",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.31 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-cd227c607e",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.04 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "F-b51fa2c702",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-7be59b7d8c",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.73 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-4797e77f55",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-ecd3954c84",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.65",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-97ce27e087",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.03 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-0ab4c61142",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.53 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-3efb019537",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.20 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_data_analyst",
+   "job_id": "U-4cfa368800",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.62 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-38022bd3d5-inj",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.30 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-7091262103",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-070c6f74cc",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.50 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-8a3f5fc9cb",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.78 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-79f8eb8441",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.78 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-5462a553ed",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.66 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-8d0ec3f862",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.72",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-3f26160edd-inj",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.85",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-f5bded4930",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.26 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-bfcc0a493f",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-102b25bcad",
+   "categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-773628c283",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-85ab7c54ff",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {},
+   "final_categories": [
+    "wrong_bid"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-5314838602",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.43 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-a75c009eaa",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.63 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-6b4db5d5ab",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact, zero_budget",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-411ce14169",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.63 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-87905e8f37",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-8cb97989d9",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.41 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-d5aa13a30d",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.50 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-937624929e",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.09 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-44a18d53b9",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_payment",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-34f9523ef8",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.60 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-3b13be0254",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.28 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-b70a6f0acb",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.10 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-85ec1e3da2",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.05 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-745ba9791c",
+   "categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.65",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-62cdd2c014",
+   "categories": [
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.57",
+   "fixed_by": {},
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-3f32a6b3e1",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.13 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-d25c2980a6",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.37 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-06289c6aab",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.41 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-a9a820d131-inj",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.60 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-58f86e8e5b",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.17 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-d32390155e",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.74 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-9af247d075",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.12 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-aeaf426b8f",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.18 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-b449a53aa5",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (scam)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-d47cac2cc6",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.50 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-ea52e6b264",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.60 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-e0b30bd470",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.37 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-80dcc9cceb",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.06 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-14203094f4",
+   "categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-eb73d1be74",
+   "categories": [
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.60",
+   "fixed_by": {},
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-46f3804e15",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.15 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_negative (scam missed)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-a92db8e0e3",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-3c1233c796",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.24 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-0d9bc05ce4",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.35 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-420ffa6aa8",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-604eb924ac",
+   "categories": [
+    "bid_vs_watch"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-4669f0248d",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.37 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-b1ecf8cbf6",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.46 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-e602530d91",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.34 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-d51418212e",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.73 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-c95ef5a45f",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.65 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-2dc3a7c3d7",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.15 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-f6be2ea414",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact, zero_budget",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (scam)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-0ea6e24746",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.42 below bid threshold 0.55",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-00fadbcabe",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_negative (scam missed)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-1df927713c",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.61 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-8e474c29fb",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.31 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-c0b4b92e50",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.22 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-bd710012d2",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.62 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-9eea090b44",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.74 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-a0602d7b98",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-d0b7cade76",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-2787de0e4d-inj",
+   "categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-dd64ae4fed-inj",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_payment, prompt_injection",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-d61af1f348",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.20 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-31ce4fdae5",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.32 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-8cee5ecc63",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-b8dd7f76cc-inj",
+   "categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-b42ae1942f",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.65 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-d27356a394",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-a49dd29794",
+   "categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 1.00",
+   "fixed_by": {},
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-fd214c76e3",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (scam)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-aa92155033",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_payment, zero_budget",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-028cbce3d6",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.31 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-c6a9c0acf0-inj",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.21 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-c055cf9ab0",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.17 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-c40112c957",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.35 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-a9b13268e7",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact, zero_budget",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (scam)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-bca11d8d33",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.66 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-f2bb7c5fd4",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-9754b409e4",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.28 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-a4e9f756b0",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.57",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-d339d2e86a",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.30 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-06e52622b7",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_negative (scam missed)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-d9dc60b309",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.19 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-4a6e10fd6b",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.30 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-e4d3654f13",
+   "categories": [
+    "wrong_bid"
+   ],
+   "baseline_reason": "fit 0.40 below bid threshold 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-eb797daa43",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.72 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-a7c6d89d05",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.85",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-e72eb9f5e5",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.71 > 0.6",
+   "fixed_by": {
+    "risk_false_positive (skip)": "1_risk_config_taxonomy"
+   },
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-4b75ba1847",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.06 < 0.4",
+   "fixed_by": {},
+   "final_categories": [
+    "missed_evidence (fit too low)"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-3a5988b528",
+   "categories": [
+    "risk_false_positive (scam)"
+   ],
+   "baseline_reason": "scam signals: off_platform_contact",
+   "fixed_by": {
+    "risk_false_positive (scam)": "2_intent_scam_rules"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-47ec264487",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.55",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-e78bf09d37",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.28 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": [
+    "bid_vs_watch",
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-3417320aa9",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.36 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "3_tag_strength"
+   },
+   "final_categories": [
+    "mispriced"
+   ]
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-38d9f725da",
+   "categories": [
+    "wrong_bid",
+    "mispriced"
+   ],
+   "baseline_reason": "fit 0.70",
+   "fixed_by": {
+    "wrong_bid": "4_below_floor_skip",
+    "mispriced": "4_below_floor_skip"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-b94eda5af6",
+   "categories": [
+    "risk_false_negative (scam missed)"
+   ],
+   "baseline_reason": "fit 0.00 < 0.4",
+   "fixed_by": {
+    "risk_false_negative (scam missed)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "F-bfddc05966",
+   "categories": [
+    "missed_evidence (fit too low)"
+   ],
+   "baseline_reason": "fit 0.28 < 0.4",
+   "fixed_by": {
+    "missed_evidence (fit too low)": "1_risk_config_taxonomy"
+   },
+   "final_categories": []
+  },
+  {
+   "dataset": "dev_web_fullstack",
+   "job_id": "U-c7b049a89b",
+   "categories": [
+    "risk_false_positive (skip)"
+   ],
+   "baseline_reason": "risk 0.69 > 0.6",
+   "fixed_by": {},
+   "final_categories": [
+    "risk_false_positive (skip)"
+   ]
+  }
+ ]
+}
