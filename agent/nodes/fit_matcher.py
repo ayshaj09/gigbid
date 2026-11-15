@@ -10,9 +10,36 @@ from __future__ import annotations
 from agent.handoffs import FitReport, RequirementMatch
 from agent.nodes.analyst import extract_requirements
 from agent.nodes.common import ctx_of, node
+from functools import lru_cache
+
+import yaml
+
+from agent.config import ROOT
 from rag.text import overlap
 
 STRONG, PARTIAL = 0.5, 0.25
+
+
+@lru_cache(maxsize=4)
+def taxonomy(path: str = "data/taxonomy/skills.yaml") -> tuple[dict, dict]:
+    p = ROOT / path
+    if not p.exists():
+        return {}, {}
+    t = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+    return ({k.lower(): v.lower() for k, v in (t.get("aliases") or {}).items()},
+            {k.lower(): {x.lower() for x in v} for k, v in (t.get("implies") or {}).items()})
+
+
+def canon(skill: str) -> str:
+    s = skill.strip().lower()
+    return taxonomy()[0].get(s, s)
+
+
+def expand_skills(portfolio_skills: set[str]) -> tuple[set[str], set[str]]:
+    """(direct, implied): canonical portfolio skills, plus umbrella skills implied by them."""
+    direct = {canon(s) for s in portfolio_skills}
+    implied = {u for u, specific in taxonomy()[1].items() if specific & direct} - direct
+    return direct, implied
 
 
 def strength(req_text: str, ev: dict) -> float:
@@ -38,9 +65,10 @@ def build_fit(reqs, items: list[dict], per_req: dict[str, list], weak: list[str]
         w = 1.0 if r.must_have else 0.4
         total += w
         got += w * {"strong": 1.0, "partial": 0.5, "none": 0.0}[level]
-    lower_skills = {s.lower() for s in portfolio_skills}
-    matched = [s for s in required_skills if s.lower() in lower_skills]
-    missing = [s for s in required_skills if s.lower() not in lower_skills]
+    direct, implied = expand_skills(portfolio_skills)
+    matched = [s for s in required_skills if canon(s) in direct | implied]
+    missing = [s for s in required_skills if canon(s) not in direct | implied]
+    implied_hits = [s for s in matched if canon(s) not in direct]
     req_score = got / total if total else 0.0
     skill_score = len(matched) / len(required_skills) if required_skills else req_score
     score = round(0.6 * req_score + 0.4 * skill_score, 3)
@@ -48,6 +76,8 @@ def build_fit(reqs, items: list[dict], per_req: dict[str, list], weak: list[str]
                f"skills matched: {', '.join(matched) or 'none'}"]
     if missing:
         reasons.append(f"no evidence for: {', '.join(missing)}")
+    if implied_hits:
+        reasons.append(f"implied by specific skills (taxonomy): {', '.join(implied_hits)}")
     return FitReport(score=score, matched_skills=matched, missing_skills=missing,
                      evidence_ids=sorted({e for m in matrix for e in m.evidence_ids}), matrix=matrix, reasons=reasons)
 

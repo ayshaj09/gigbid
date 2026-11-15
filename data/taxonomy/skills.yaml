@@ -1,0 +1,47 @@
+# Skill taxonomy used by the Fit Matcher (product data, not code; edit freely).
+# aliases: spelling variants -> canonical skill.
+# implies: an umbrella skill a freelancer can claim when the portfolio shows any of the listed
+#          specific skills. Job posts often tag the umbrella ("Machine Learning") while portfolios
+#          name the tool ("XGBoost"); without this, exact matching scores real jobs near zero
+#          (baseline: evals/results/baseline/). An implied skill is reported as implied, never as
+#          a direct claim, and claims in proposals are still verified against evidence text.
+aliases:
+  artificial intelligence: ai
+  ml: machine learning
+  llms: llm
+  large language models: llm
+  natural language processing: nlp
+  reactjs: react
+  react.js: react
+  nodejs: node.js
+  node: node.js
+  postgresql: sql
+  postgres: sql
+  mysql: sql
+  microsoft excel: excel
+  microsoft power bi: power bi
+  data visualization: data analysis
+  data analytics: data analysis
+  web development: full stack
+  web application: full stack
+  python programming: python
+  chatgpt: llm
+  openai: openai api
+  api development: backend
+  api integration: backend
+implies:
+  machine learning: [scikit-learn, xgboost, lightgbm, pytorch, tensorflow, classification]
+  deep learning: [pytorch, transformers, bert, tensorflow, yolo]
+  ai: [llm, rag, langchain, openai api, machine learning, nlp, computer vision]
+  chatbot: [llm, rag, langchain, openai api]
+  ai agent development: [langchain, llm, openai api]
+  data science: [pandas, scikit-learn, xgboost, forecasting, statistics]
+  computer vision: [opencv, yolo]
+  nlp: [bert, transformers, topic modeling]
+  frontend: [react, next.js, typescript, javascript, tailwind]
+  backend: [fastapi, django, flask, node.js, express]
+  full stack: [react, next.js, node.js, django, fastapi]
+  javascript: [react, next.js, node.js, typescript]
+  data analysis: [sql, excel, power bi, tableau, pandas, google sheets]
+  data visualization: [power bi, tableau, looker studio]
+  statistics: [a/b testing, regression]
