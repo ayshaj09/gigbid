@@ -7,11 +7,9 @@ claim.
 
 ## Run it
 ```bash
-# from GitHub, no clone needed (replace <you>):
-uvx --from git+https://github.com/<you>/gigbid gigbid-portfolio-mcp
+uvx --from git+https://github.com/ayshaj09/gigbid gigbid-portfolio-mcp
 
-# your own folder of *.md case studies, *.pdf CV, code, proposals/*.json:
-PORTFOLIO_DIR=~/my-portfolio EMBEDDER_PROVIDER=ollama uvx --from git+https://github.com/<you>/gigbid gigbid-portfolio-mcp
+PORTFOLIO_DIR=~/my-portfolio EMBEDDER_PROVIDER=ollama uvx --from git+https://github.com/ayshaj09/gigbid gigbid-portfolio-mcp
 ```
 Markdown files may start with front matter (`type`, `title`, `skills: [a, b]`, `date`,
 `client_industry`, `outcome`). `PORTFOLIO_DIR` is required when installed with `uvx`; from a clone of
@@ -21,10 +19,10 @@ Claude Desktop (`claude_desktop_config.json`):
 ```json
 { "mcpServers": { "portfolio": {
     "command": "uvx",
-    "args": ["--from", "git+https://github.com/<you>/gigbid", "gigbid-portfolio-mcp"],
+    "args": ["--from", "git+https://github.com/ayshaj09/gigbid", "gigbid-portfolio-mcp"],
     "env": { "PORTFOLIO_DIR": "/Users/me/portfolio", "EMBEDDER_PROVIDER": "ollama" } } } }
 ```
-Over the network: `MCP_TRANSPORT=http MCP_TOKENS=<long-random>:<you> gigbid-portfolio-mcp` serves
+Over the network: `MCP_TRANSPORT=http MCP_TOKENS=<long-random>:ayshaj09 gigbid-portfolio-mcp` serves
 Streamable HTTP on port 8101 with bearer-token auth.
 
 ## Tools
