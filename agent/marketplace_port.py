@@ -47,6 +47,7 @@ class MarketplacePort(Protocol):
     async def submit_proposal(
         self, proposal_id: str, idempotency_key: str, dry_run: bool = False
     ) -> dict[str, Any]: ...
+    async def get_proposal(self, proposal_id: str) -> dict[str, Any]: ...
     async def list_messages(self, thread_id: str) -> list[dict[str, Any]]: ...
     async def send_message(
         self, thread_id: str, text: str, idempotency_key: str, dry_run: bool = False
@@ -105,6 +106,9 @@ class McpMarketplace:
         return await self._tool(
             "submit_proposal", proposal_id=proposal_id, idempotency_key=idempotency_key, dry_run=dry_run
         )
+
+    async def get_proposal(self, proposal_id: str):
+        return await self._tool("get_proposal", proposal_id=proposal_id)
 
     async def list_messages(self, thread_id: str):
         return (await self._tool("list_messages", thread_id=thread_id))["messages"]

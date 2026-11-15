@@ -31,7 +31,7 @@ async def test_tool_schemas_match_snapshot(name, tmp_path):
                     "annotations": t.annotations.model_dump() if t.annotations else None} for t in tools]
     path = SNAP / f"{name}.json"
     if os.environ.get("UPDATE_SNAPSHOTS") or not path.exists():
-        path.write_text(json.dumps(current, indent=1, sort_keys=True))
+        path.write_text(json.dumps(current, indent=1, sort_keys=True), encoding="utf-8")
         if not os.environ.get("UPDATE_SNAPSHOTS"):
             pytest.fail(f"snapshot {path.name} created; commit it")
-    assert current == json.loads(path.read_text()), f"{name} tool schema changed; rerun with UPDATE_SNAPSHOTS=1 if intended"
+    assert current == json.loads(path.read_text(encoding="utf-8")), f"{name} tool schema changed; rerun with UPDATE_SNAPSHOTS=1 if intended"

@@ -638,6 +638,138 @@
   },
   "input": {
    "properties": {
+    "proposal_id": {
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_-]+$",
+     "title": "Proposal Id",
+     "type": "string"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "maxLength": 64,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Trace id to correlate logs",
+     "title": "Trace Id"
+    },
+    "user_id": {
+     "default": "default",
+     "description": "GigBid user id (overridden by the bearer token over HTTP)",
+     "maxLength": 64,
+     "minLength": 1,
+     "pattern": "^[A-Za-z0-9_.-]+$",
+     "title": "User Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "proposal_id"
+   ],
+   "title": "get_proposalArguments",
+   "type": "object"
+  },
+  "name": "get_proposal",
+  "output": {
+   "properties": {
+    "client_replied": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Client Replied"
+    },
+    "connects_cost": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Connects Cost"
+    },
+    "hired": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Hired"
+    },
+    "job_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Job Id"
+    },
+    "proposal_id": {
+     "title": "Proposal Id",
+     "type": "string"
+    },
+    "reply_probability": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Reply Probability"
+    },
+    "simulated": {
+     "default": false,
+     "title": "Simulated",
+     "type": "boolean"
+    },
+    "status": {
+     "title": "Status",
+     "type": "string"
+    }
+   },
+   "required": [
+    "proposal_id",
+    "status"
+   ],
+   "title": "ProposalStatus",
+   "type": "object"
+  }
+ },
+ {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true,
+   "title": null
+  },
+  "input": {
+   "properties": {
     "thread_id": {
      "maxLength": 64,
      "minLength": 1,

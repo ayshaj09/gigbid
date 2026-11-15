@@ -103,6 +103,17 @@ class MessageList(BaseModel):
     messages: list[Message]
 
 
+class ProposalStatus(BaseModel):
+    proposal_id: str
+    job_id: str | None = None
+    status: str
+    client_replied: bool | None = None
+    hired: bool | None = None
+    connects_cost: int | None = None
+    simulated: bool = False
+    reply_probability: float | None = None
+
+
 class WriteResult(BaseModel):
     dry_run: bool
     idempotent_replay: bool = False
@@ -199,6 +210,14 @@ def build_server(backend=None, cfg: dict | None = None, data_dir: Path | None = 
         async def run():
             return MarketStats.model_validate(await backend.get_market_stats(category))
         return await guarded("get_market_stats", user, trace_id, {"category": category}, run)
+
+    @mcp.tool(annotations=READ, description="Get a proposal's status and outcome (client replied? hired?).")
+    async def get_proposal(proposal_id: JobId, user_id: UserId = "default", trace_id: TraceId = None,
+                           ctx: Context | None = None) -> ProposalStatus:
+        user = _user(ctx, user_id)
+        async def run():
+            return ProposalStatus.model_validate(await backend.get_proposal(proposal_id))
+        return await guarded("get_proposal", user, trace_id, {"proposal_id": proposal_id}, run)
 
     @mcp.tool(annotations=READ, description="List messages in a client conversation thread, oldest first.")
     async def list_messages(thread_id: JobId, user_id: UserId = "default", trace_id: TraceId = None,

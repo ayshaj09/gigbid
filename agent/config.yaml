@@ -21,6 +21,7 @@ marketplace:
       get_connects_balance: "GET /connects"
       create_proposal_draft: "POST /proposals"
       submit_proposal: "POST /proposals/{proposal_id}/submit"
+      get_proposal: "GET /proposals/{proposal_id}"
       list_messages: "GET /threads/{thread_id}/messages"
       send_message: "POST /threads/{thread_id}/messages"
   upwork_live:
@@ -36,6 +37,7 @@ marketplace:
       get_connects_balance: get_connects_balance
       create_proposal_draft: create_proposal_draft
       submit_proposal: null      # never auto-submitted in live mode; user confirms on Upwork
+      get_proposal: get_proposal
       list_messages: list_messages
       send_message: create_message_draft
 
@@ -59,6 +61,7 @@ mcp:
     risk_assessor: [get_client_history]
     fit_matcher: [match_requirements, search_evidence, list_skills]
     pricing: [get_connects_balance, get_market_stats]
+    outcomes: [get_proposal]
     writer: [search_evidence, get_case_study]
     critic: [search_evidence, get_case_study]
     preview: [create_proposal_draft, submit_proposal, send_message]   # dry_run=true enforced in code
@@ -85,6 +88,7 @@ models:
         compliance: qwen3:4b
         client_liaison: gpt-oss:20b
         intent: qwen3:4b
+        judge: qwen3:8b      # deliberately NOT the writer's model, to limit self-preference bias
       fallback: qwen3:4b                 # C7: fallback model for cheap nodes
       cheap_nodes: [analyst, risk_assessor, fit_matcher, pricing, compliance, intent]
     paid:
@@ -152,6 +156,10 @@ thresholds:
   watch_fit_score: 0.40
   maximum_risk_score: 0.60
   min_client_rating: 4.0
+
+writer:
+  # X2 A/B extension: which proposal strategy the Writer uses (prompt file name in agent/prompts/).
+  strategy: writer          # writer (A: evidence-led) | writer_b (B: question-led opening)
 
 budgets:
   max_graph_steps: 40

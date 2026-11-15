@@ -68,6 +68,14 @@ async def submit(proposal_id: str, request: Request, idempotency_key: str = Head
         _wrap(exc)
 
 
+@app.get("/proposals/{proposal_id}")
+async def proposal(proposal_id: str):
+    try:
+        return await sim.get_proposal(proposal_id)
+    except MarketplaceError as exc:
+        _wrap(exc)
+
+
 @app.get("/threads/{thread_id}/messages")
 async def messages(thread_id: str):
     return {"messages": await sim.list_messages(thread_id)}

@@ -84,6 +84,9 @@ class GigSimHttp:
         return await self._req("submit_proposal", proposal_id=proposal_id, json_body={"user_id": user_id},
                                headers={"Idempotency-Key": idem})
 
+    async def get_proposal(self, proposal_id):
+        return await self._req("get_proposal", proposal_id=proposal_id)
+
     async def list_messages(self, thread_id):
         data = await self._req("list_messages", thread_id=thread_id)
         return data.get("messages", data) if isinstance(data, dict) else data
@@ -115,9 +118,9 @@ class FixtureGigSim:
     """In-memory GigSim stand-in. Not the instructor's simulator; same contract as GigSimHttp."""
 
     def __init__(self, fail_rate: float = 0.0, seed: int = 7, connects: int = 80):
-        self.jobs = {j["job_id"]: j for j in json.loads((FIXTURES / "jobs.json").read_text())}
-        self.clients = json.loads((FIXTURES / "clients.json").read_text())
-        self.threads = {t["thread_id"]: t for t in json.loads((FIXTURES / "threads.json").read_text())}
+        self.jobs = {j["job_id"]: j for j in json.loads((FIXTURES / "jobs.json").read_text(encoding="utf-8"))}
+        self.clients = json.loads((FIXTURES / "clients.json").read_text(encoding="utf-8"))
+        self.threads = {t["thread_id"]: t for t in json.loads((FIXTURES / "threads.json").read_text(encoding="utf-8"))}
         self.connects: dict[str, int] = {}
         self.start_connects = connects
         self.proposals: dict[str, dict] = {}
@@ -186,6 +189,13 @@ class FixtureGigSim:
         self.submissions.append({"proposal_id": proposal_id, "idem": idem})
         return prop
 
+    async def get_proposal(self, proposal_id):
+        """The stand-in never simulates client behaviour: outcomes come only from the real GigSim."""
+        self._maybe_fail()
+        if proposal_id not in self.proposals:
+            raise MarketplaceError(f"proposal {proposal_id} not found")
+        return {**self.proposals[proposal_id], "client_replied": None, "hired": None}
+
     async def list_messages(self, thread_id):
         self._maybe_fail()
         return list(self.threads.get(thread_id, {}).get("messages", []))
@@ -199,7 +209,14 @@ class FixtureGigSim:
 
 
 def make_backend(cfg: dict):
-    base = os.environ.get(cfg["marketplace"]["gigsim"]["base_url_env"], "fixture://")
+    """GIGSIM_BASE_URL: http(s)://... -> real GigSim; local:// -> LocalSim over data/market (built from the
+    Kaggle datasets); fixture:// -> tiny test fixtures. Unset: local:// if data/market exists, else fixture://."""
+    default = "local://" if (ROOT / "data" / "market" / "jobs.json").exists() else "fixture://"
+    base = os.environ.get(cfg["marketplace"]["gigsim"]["base_url_env"]) or default
     if base.startswith("fixture://"):
         return FixtureGigSim()
+    if base.startswith("local://"):
+        from mcp_servers.marketplace.adapters.local_sim import LocalSim
+
+        return LocalSim()
     return GigSimHttp(cfg, base, os.environ.get(cfg["marketplace"]["gigsim"]["token_env"]))

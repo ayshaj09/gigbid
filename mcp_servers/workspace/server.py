@@ -54,10 +54,10 @@ class LocalWorkspace:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.tz = tz
         self.work_hours = work_hours
-        self.state = json.loads(self.path.read_text()) if self.path.exists() else {"busy": [], "holds": [], "drafts": []}
+        self.state = json.loads(self.path.read_text(encoding="utf-8")) if self.path.exists() else {"busy": [], "holds": [], "drafts": []}
 
     def _save(self):
-        self.path.write_text(json.dumps(self.state, indent=1))
+        self.path.write_text(json.dumps(self.state, indent=1), encoding="utf-8")
 
     def free_slots(self, days: int, duration_min: int, now: datetime | None = None) -> list[Slot]:
         tz = ZoneInfo(self.tz)

@@ -1,7 +1,7 @@
 """Live Upwork adapter (A4): the official Upwork MCP server behind the same MarketplacePort.
 
 * Transport: Streamable HTTP via langchain-mcp-adapters' MultiServerMCPClient.
-* Auth: OAuth 2.1 access token, stored encrypted per user (apps/api/auth/token_store.py) and
+* Auth: OAuth 2.1 access token, stored encrypted per user (apps/api/security.py (TokenStore)) and
   passed as a bearer header. Tokens are never logged.
 * Writes: proposals and messages are created as *drafts only*. `submit_proposal` refuses: the
   user confirms on Upwork, as the platform requires.
@@ -112,6 +112,9 @@ class UpworkLiveMarketplace:
     async def submit_proposal(self, proposal_id, idempotency_key, dry_run=False):
         return {"proposal_id": proposal_id, "status": "draft_on_upwork",
                 "note": "Confirm and submit this draft on Upwork. GigBid never submits in live mode."}
+
+    async def get_proposal(self, proposal_id):
+        return await self._call("get_proposal", proposal_id=proposal_id)
 
     async def list_messages(self, thread_id):
         out = await self._call("list_messages", thread_id=thread_id)
