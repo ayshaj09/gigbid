@@ -140,12 +140,14 @@ retrieval:
   variant: v3_rerank       # chosen by measurement (R6); rerun `make eval-rag` to compare
   k: 8
   embedder:
-    provider: hashing      # hashing (tests only) | ollama | sentence_transformers
-    model: nomic-embed-text
+    # Shipped: open, CPU-friendly (33M params). Tests pin `hashing` via conftest.py.
+    provider: sentence_transformers   # hashing (tests only) | ollama | sentence_transformers
+    model: BAAI/bge-small-en-v1.5
     dim: 512
   reranker:
-    provider: lexical      # lexical (tests only) | cross_encoder
-    model: BAAI/bge-reranker-v2-m3
+    # Shipped: open cross-encoder (22M params); bge-reranker-v2-m3 (568M) is the GPU option.
+    provider: cross_encoder   # lexical (tests only) | cross_encoder
+    model: cross-encoder/ms-marco-MiniLM-L-6-v2
     max_length: 256
   chunk:
     max_words: 180
