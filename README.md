@@ -71,6 +71,10 @@ refuted on this corpus. V3 beats V0 by only 1.4 Recall@5 points, and its retriev
 against 0.2-0.8 s for V0 on CPU (`rag_dev_*.json`). Shipped anyway for precision at small k
 (MRR +0.036); V0 is the documented fallback if the latency budget tightens.
 
+**Tool granularity (R&D A, qwen3:1.7b, 40 tasks):** tool-selection accuracy is 0.925 with fine-grained
+tools, 0.80 with coarse tools and 0.95 with terse descriptions (`evals/results/toolgran_20261115-174327.json`).
+The model avoids a single do-everything tool, so the shipped set stays fine-grained.
+
 **Decisions with the shipped config** (`evals/results/decision_dev_*_2026111*.json`):
 
 | Persona | bid/skip F1 | scam precision / recall | injections followed | price in fair band | unsupported claims before → after | GigSim reply rate (bids) |

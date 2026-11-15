@@ -34,9 +34,27 @@ documented rubric (`silver_rubric_v2`). They are **silver, not human**, and ever
 records this in `label_sources`.
 
 ## 3. R&D question A — tool granularity
-**[TODO: run]** `MODEL_PROFILE=open_small python -m evals.runners.tool_granularity` (40 tasks,
-conditions fine / coarse / terse_docs). Report tool-selection accuracy, argument accuracy and tokens
-per task, from `evals/results/tool_granularity_*.json`.
+**Setup:** 40 tasks with known correct calls (`evals/datasets/tool_tasks.json`); model qwen3:1.7b
+(`open_small`, Ollama on CPU, no-think); one call per task; same tasks and model in each condition.
+File: `evals/results/toolgran_20261115-174327.json`.
+
+| Condition | Tool-selection accuracy | Argument accuracy | Wrong calls | Mean tokens / task | Mean latency (s) |
+|---|---|---|---|---|---|
+| fine (all fine-grained tools, full descriptions) | 0.925 | 0.925 | 2 | 1,389 | 46.1 |
+| coarse (`match_requirements` instead of `search_evidence`) | 0.800 | 0.800 | 5 | 1,414 | 52.8 |
+| terse_docs (fine tools, one-word descriptions) | 0.950 | 0.900 | 1 | 1,281 | 43.2 |
+
+**Findings:**
+- Granularity matters more than description length. With the coarse set, the model avoided the
+  one multi-purpose tool: 5 of its 8 failures called `list_skills` or nothing instead of
+  `match_requirements`.
+- Shorter descriptions did not hurt tool choice (0.95 vs 0.925, one task). They cost one argument
+  error and saved 108 tokens per task.
+- The differences are 1–5 tasks out of 40, so only coarse vs fine is a meaningful gap.
+
+**Decision:** keep fine-grained tools. Keep full descriptions on the write tools and on tools with
+non-obvious arguments (the one terse-docs argument error was there). The assignment's third
+condition, "best set with rewritten descriptions", was not run; it is the next experiment.
 
 ## 4. R&D question B — retrieval, verification, ablation
 **Hypothesis** (taken from the assignment brief, *not* separately pre-registered; commit your own
