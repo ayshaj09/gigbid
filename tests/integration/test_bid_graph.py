@@ -161,10 +161,21 @@ async def test_crash_while_awaiting_approval_then_resume(tmp_path):
     assert len(backend.submissions) == 1
 
 
-@pytest.mark.parametrize("persona_floor", [5000])
+@pytest.mark.parametrize("persona_floor", [2500])
 async def test_floor_above_budget_is_explained(tmp_path, persona_floor):
+    # J-100 pays up to 1500: a 2500 floor is above the budget but within thresholds.below_floor,
+    # so the job is still priced, at the floor, with the reason shown.
     async with harness(tmp_path) as r:
         r.persona = {**r.persona, "floor_usd": persona_floor}
         res = await r.start_job("J-100")
         assert res.state["price_quote"]["amount"] == persona_floor
         assert any("floor" in x for x in res.state["price_quote"]["rationale"])
+
+
+async def test_far_below_floor_is_skipped(tmp_path):
+    # 1500 is under 50% of a 5000 floor: skipped before pricing, with the reason recorded.
+    async with harness(tmp_path) as r:
+        r.persona = {**r.persona, "floor_usd": 5000}
+        res = await r.start_job("J-100")
+        assert res.state["decision"]["action"] == "skip"
+        assert any("floor" in x for x in res.state["decision"]["reasons"])
