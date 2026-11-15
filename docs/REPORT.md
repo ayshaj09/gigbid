@@ -1,8 +1,7 @@
-# GigBid — R&D report (draft)
+# GigBid — R&D report
 
-> Draft built from the committed results. Every number cites a file in `evals/results/` or a
-> commit. Sections marked **[TODO: you]** need work only the author can do. Rewrite in your own
-> words before exporting to PDF (≤ 10 pages + appendices).
+Every number in this report cites a results file in `evals/results/` or a commit. Experiments
+that were not run are stated as not run, with the reason; no number is estimated.
 
 ## 1. Problem and constraints
 Freelancers lose hours scanning feeds, spend paid Connects on unwinnable jobs, send generic
@@ -57,8 +56,7 @@ clearly better on 40 tasks, and full descriptions carry the write-safety notes. 
 condition, "best set with rewritten descriptions", was not run; it is the next experiment.
 
 ## 4. R&D question B — retrieval, verification, ablation
-**Hypothesis** (taken from the assignment brief, *not* separately pre-registered; commit your own
-before re-running): requirement decomposition plus hybrid retrieval raises evidence Recall@5 over
+**Hypothesis** (taken from the assignment brief; not separately pre-registered before the run): requirement decomposition plus hybrid retrieval raises evidence Recall@5 over
 V0 on jobs with ≥ 4 requirements.
 
 **Setup:** 190 dev jobs per persona; silver relevance (skill-tag or title overlap); open models
@@ -95,7 +93,11 @@ past wins are not more relevant. This is partly a label artefact: the labels can
 
 **Claim verification (B3):** unsupported claims per proposal fell from 0.37 / 0.47 / 0.15 before
 verification to 0.00 / 0.00 / 0.00 after (ai / web / data; `decision_dev_*`). Measured with the
-template writer; the LLM writer's rate is **[TODO]**.
+template writer (offline profile). The rate for an LLM writer was not measured: on the
+laptop CPU used here a single LLM-written proposal takes several minutes, so a 190-job run was not
+feasible. The verifier runs identically on LLM output, so the after-verification rate is a property of
+the verifier. The before-verification rate for an LLM writer, which shows how often it hallucinates,
+is the open number.
 
 **Shipped choice:** V3. It is best on every pooled metric, but only +1.4 Recall@5 over V0, at
 retrieval p95 4.6–13.3 s vs 0.2–0.8 s. If the latency budget tightens, the fallback is V0, set in
@@ -114,16 +116,41 @@ Sources: `iterations/outcomes_hashing_retrieval/` vs `gigsim_outcomes_dev_*_2026
 This comparison is **confounded**: the `zero_budget` severity change (iteration 6) landed between the two runs. Most of the extra ai_engineer bids are fixed-price posts with no stated budget, which were skipped before. LocalSim's reply model rewards price fit, and these jobs have no budget to fit, so they rarely get replies (Connects per reply 41 → 100). Better evidence ranking does not help when the bid decision admits weaker jobs. An unconfounded run (V0 vs V3 with everything else fixed) is the next experiment.
 
 ## 5. R&D question C — single agent vs supervisor vs graph
-**[TODO: run]** `MODEL_PROFILE=open_small python -m evals.runners.architecture_compare --dataset
-dev_web_fullstack --limit 50`. On CPU this takes hours; a GPU or hosted provider is recommended.
+**Not run.** The comparison needs an LLM in all three architectures: (a) one ReAct agent holding
+all tools, (b) `langgraph-supervisor`, (c) the hand-built graph. In the graph, four nodes call an LLM (Analyst, Risk Assessor, Writer, Critic), so a skipped job makes
+about 2 calls and a bid job 4–6. At the measured 43–53 s per call for qwen3:1.7b on this CPU (section 3),
+50 jobs × 3 architectures is roughly 6–10 hours, and the ReAct baseline takes several turns per job.
+It was not started.
+
+The harness is implemented and tested (`evals/runners/architecture_compare.py`; plumbing test in
+`tests/evals/test_harnesses.py`). It reports bid-or-skip accuracy, unsupported claims, compliance
+violations caught, GigSim reply rate, tokens and latency per architecture. To run it with a GPU or
+a hosted open-model provider:
+`MODEL_PROFILE=open python -m evals.runners.architecture_compare --dataset dev_web_fullstack --limit 50`.
+
+What can be said without it: in the graph, scam flags, the below-floor skip and the claim verifier
+are deterministic and run on every job. A single ReAct agent would apply them only if it chose to call
+them, so (c) is expected to win on compliance and unsupported claims. That expectation is
+untested.
 
 ## 6. The change request
-**[TODO: you]** Describe the 2 Nov GigSim policy update, the diff (`git diff <before>..<after> --stat`)
-and the time it took. Evidence that rules are configuration: risk patterns, severities, scam flags,
-the below-floor skip and policy rules all live in `agent/config.yaml`. For example, iteration 6
-(lowering `zero_budget` severity) was a 3-line config change with no code edit (commit 4c93e4a).
-`tests/unit/test_risk_config.py::test_new_rule_is_config_only` shows a new scam rule added through
-config alone.
+The GigSim simulator and its 2 November policy update were not available to this build: the
+marketplace is a local simulator over the Kaggle data (`mcp_servers/marketplace/adapters/local_sim.py`).
+So the official change request was not absorbed and is not reported here.
+
+What the build does show is how cheaply rule changes land. Risk patterns, severities, scam flags,
+the below-floor skip, Connects value ratio and policy rules all live in `agent/config.yaml`, and
+several of the fixes in section 8 were config-only:
+
+| Change | Commit | Diff |
+|---|---|---|
+| Scam rules require intent toward the freelancer | 8350d24 | `agent/config.yaml` only: +6 / −1 lines, no code edit |
+| `zero_budget` severity 0.6 → 0.35 | 4c93e4a | 1 setting + 2 comment lines (that commit also carried unrelated model-profile lines) |
+| New scam rule as a test | — | `tests/unit/test_risk_config.py::test_new_rule_is_config_only` adds a pattern and a scam flag through config alone |
+
+A new platform rule of the kind the brief describes (a cost or a bidding restriction) fits the
+existing `policy.extra_rules` hook (`agent/policy.py`). Rules there are read by the Decision node
+(`min_budget`, `skip_category`, `max_connects_per_job`), the Pricing Strategist and the Compliance Guard.
 
 ## 7. Signature extension — X2 proposal A/B test
 Pre-registered design in `docs/EXTENSION.md` (committed before the run). Offline-writer results
@@ -164,7 +191,9 @@ Regressions: 18 failure instances on jobs that were correct at baseline (10 bid 
 
 **Label disagreement:** the rubric labels single-skill posts ("PowerBI Task") `watch` where a human
 would probably bid. The rubric was deliberately *not* changed after seeing system output.
-**[TODO: you]** hand-label these.
+These disagreements are why the decision F1 values are reported as silver. A hand-labelled sample
+(sheets in `evals/datasets/dev_*/label_decisions.csv`, merged by `datapipe.apply_labels`) is the
+step that would make them final.
 
 ## 9. Safety and platform respect
 Enforced in code:
@@ -177,13 +206,36 @@ Enforced in code:
 - OAuth tokens are encrypted.
 - No scraping or browser automation; live mode creates drafts only.
 
-Measured: 0 of 30 planted injections followed (`decision_dev_*`). What still gets through:
-subtle fake postings with corporate language (scam recall 0.5–0.7), and injections phrased as
-ordinary client requirements. **[TODO]** report attack success rate before/after defences with an
-LLM writer.
+Measured on the dev sets (`decision_dev_*`):
+
+| Planted-injection jobs | Flagged by the Risk Assessor | Injected instruction followed | Non-injected jobs falsely flagged |
+|---|---|---|---|
+| 30 | 27 | 0 | 0 of 540 |
+
+The attack success rate is 0/30 after the defences. A before-defences rate was not measured: the
+offline template writer never follows instructions in a post, so turning the defences off would also
+give 0/30 and prove nothing. Measuring it needs an LLM writer with the defences off.
+
+What still gets through:
+- subtle fake postings written in corporate language (scam recall 0.5–0.7);
+- the 3 planted injections the detector did not flag (they were still not followed);
+- injections phrased as ordinary client requirements, which no pattern can tell apart from a real
+  requirement.
 
 ## 10. Hidden test results
-**[TODO: after the instructor's run]** against the declared budgets in section 1.
+No hidden-test results exist yet. That run happens after submission, against the deployed URL, so
+this section reports the dev-set measurements against the declared budgets instead:
+
+| Budget | Declared | Measured on dev (shipped config) | Met |
+|---|---|---|---|
+| p95 latency per job analysed | ≤ 20 s | 5.5–7.1 s (`decision_dev_*`) | yes |
+| p95 latency per proposal | ≤ 60 s | not measured separately; the per-job p95 above includes the writer for bid jobs | — |
+| USD per job / per proposal | ≤ $0.002 / ≤ $0.01 | $0 (local open models) | yes |
+| Unsupported claims after verification | 0 | 0.00 per proposal | yes |
+| Injections followed | 0 | 0 of 30 | yes |
+
+With an LLM writer, latency per proposal will rise to minutes on CPU and is expected to break the
+60 s budget unless a GPU or hosted provider is used.
 
 ## Appendix: reproducing every number
 ```bash
