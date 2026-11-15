@@ -13,3 +13,4 @@ after one change, so every fix in the failure analysis has a before and after.
 | 5_lexicon_fix_dev_v2 | skill-lexicon bug fixed (0cb7d6c) and dev sets rebuilt (e339cd9): **dev set v2**, so compare 5+ with each other, not with 0-4 |
 
 Summaries: `python -m evals.runners.summarise_iterations` → `evals/results/iterations/summary.csv`.
+| 6_zero_budget_severity | fixed-price posts with no stated budget: severity 0.6 -> 0.35 in config (config-only change) |

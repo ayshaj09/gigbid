@@ -18,3 +18,6 @@
 | 5_lexicon_fix_dev_v2 | dev_ai_engineer | 0.4359 | 0.7 | 0.7 | 0 | 0.6364 | 0.3636 | 0.0 | 0.477 |
 | 5_lexicon_fix_dev_v2 | dev_data_analyst | 0.2979 | 0.875 | 0.7 | 0 | 0.7037 | 0.3333 | 0.0 | 0.453 |
 | 5_lexicon_fix_dev_v2 | dev_web_fullstack | 0.5432 | 0.7 | 0.7 | 0 | 0.525 | 0.5 | 0.0 | 0.53 |
+| 6_zero_budget_severity | dev_ai_engineer | 0.5055 | 0.7 | 0.7 | 0 | 0.7391 | 0.3261 | 0.0 | 0.724 |
+| 6_zero_budget_severity | dev_data_analyst | 0.2857 | 0.875 | 0.7 | 0 | 0.7241 | 0.3103 | 0.0 | 0.45 |
+| 6_zero_budget_severity | dev_web_fullstack | 0.5393 | 0.7 | 0.7 | 0 | 0.6042 | 0.4375 | 0.0 | 0.538 |

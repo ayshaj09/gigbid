@@ -91,6 +91,28 @@ models:
         judge: qwen3:8b      # deliberately NOT the writer's model, to limit self-preference bias
       fallback: qwen3:4b                 # C7: fallback model for cheap nodes
       cheap_nodes: [analyst, risk_assessor, fit_matcher, pricing, compliance, intent]
+    # CPU-sized open profiles actually measured on a laptop (Ollama in Docker, no GPU); see
+    # evals/results/llm_profiles_*.json. `open` above is the target for a 16-24 GB GPU or a hosted provider.
+    open_small:
+      provider: openai_compatible
+      base_url_env: OPEN_MODEL_BASE_URL
+      api_key_env: OPEN_MODEL_API_KEY
+      usd_per_mtok: {input: 0.0, output: 0.0}
+      node_timeout_s: 240
+      nodes: {analyst: "qwen3:1.7b", risk_assessor: "qwen3:1.7b", writer: "qwen3:1.7b", critic: "qwen3:1.7b",
+              compliance: "qwen3:1.7b", client_liaison: "qwen3:1.7b", intent: "qwen3:1.7b", judge: "qwen3:4b"}
+      fallback: null
+      cheap_nodes: [analyst, risk_assessor, compliance, intent]
+    open_mixed:
+      provider: openai_compatible
+      base_url_env: OPEN_MODEL_BASE_URL
+      api_key_env: OPEN_MODEL_API_KEY
+      usd_per_mtok: {input: 0.0, output: 0.0}
+      node_timeout_s: 400
+      nodes: {analyst: "qwen3:1.7b", risk_assessor: "qwen3:1.7b", writer: "qwen3:4b", critic: "qwen3:4b",
+              compliance: "qwen3:1.7b", client_liaison: "qwen3:4b", intent: "qwen3:1.7b", judge: "qwen3:1.7b"}
+      fallback: qwen3:1.7b
+      cheap_nodes: [analyst, risk_assessor, compliance, intent]
     paid:
       provider: openai_compatible
       base_url_env: PAID_MODEL_BASE_URL
@@ -160,6 +182,9 @@ risk:
     unpaid_work: '\bfor free\b|\bunpaid (?:test|trial|work|task|sample|project)|\bfree (?:test|trial|sample)\b|\bno pay\b|\bwithout pay'
   severity:
     income_bait: 0.75
+    # Fixed-price posts with no stated budget are 'budget not provided' on the platform, not a scam
+    # signal; keep the flag visible but below the skip threshold (failure taxonomy: 36 wrong skips).
+    zero_budget: 0.35
   scam_flags: [income_bait]
 
 connects:
