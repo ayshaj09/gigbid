@@ -112,10 +112,15 @@ def normalise_jobs(df: pd.DataFrame) -> list[dict]:
             continue
         desc = str(r.get("description") or "").strip()
         desc = "" if desc.lower() == "nan" else re.sub(r"\s+", " ", desc)[:4000]
-        key = re.sub(r"\W+", " ", (title + " " + desc[:200]).lower()).strip()
-        if key in seen:
-            continue  # exact duplicate (reposts across tracker files)
-        seen.add(key)
+        link = str(r.get("link") or "").strip().lower()
+        # the 200k tracker re-lists 50k jobs without descriptions: match on the job URL first, so the
+        # copy with a real description (read first) wins; fall back to title + description.
+        keys = {re.sub(r"\W+", " ", (title + " " + desc[:200]).lower()).strip()}
+        if link and link != "nan":
+            keys.add(link.split("?")[0].rstrip("/"))
+        if keys & seen:
+            continue  # duplicate (reposts across tracker files)
+        seen |= keys
         skills = extract_skills(title + " " + desc, r.get("skills"))
         hourly = _hourly(r.get("is_hourly"))
         lo, hi = (_num(r.get("hourly_low")), _num(r.get("hourly_high"))) if hourly else (None, _num(r.get("budget")))
@@ -125,7 +130,8 @@ def normalise_jobs(df: pd.DataFrame) -> list[dict]:
             lo = hi
         rid = hashlib.sha1((str(r.get("link") or "") + title + str(r.get("posted_at"))).encode()).hexdigest()[:10]
         rg = _rng(rid)
-        synthetic_fields = ["connects_cost", "client_id"]
+        real_connects = _num(r.get("connects"))
+        synthetic_fields = ["client_id"] + ([] if real_connects else ["connects_cost"])
         if not desc:
             desc = synth_description(title, skills, rg)
             synthetic_fields.append("description")
@@ -135,16 +141,40 @@ def normalise_jobs(df: pd.DataFrame) -> list[dict]:
                                     "What is your availability?", "Which tools would you use and why?"])]
             synthetic_fields.append("screening_questions")
         btype = "hourly" if hourly else "fixed"
+        client_real = _client_signals(r)
+        level = str(r.get("experience_level") or "").strip()
         jobs.append({
             "job_id": f"U-{rid}", "client_id": f"C-{hashlib.sha1(rid.encode()).hexdigest()[:8]}",
             "title": title, "description": desc, "category": categorize(skills), "required_skills": skills,
             "budget": {"min": lo, "max": hi, "type": btype}, "duration_days": None,
-            "screening_questions": questions, "connects_cost": connects_for(btype, hi),
+            "screening_questions": questions,
+            "connects_cost": int(real_connects) if real_connects else connects_for(btype, hi),
+            "experience_level": None if level.lower() in ("", "nan", "none") else level,
             "posted_at": str(r.get("posted_at") or "") or None, "country": None if str(r.get("country")) == "nan" else r.get("country"),
             "source": r.get("_source"), "source_file": r.get("_file"), "link": None if str(r.get("link")) == "nan" else r.get("link"),
             "synthetic_fields": synthetic_fields, "label_scam": False, "label_scam_source": "assumed (platform listing)",
+            **({"client_real": client_real} if client_real else {}),
         })
     return jobs
+
+
+def _client_signals(r: dict) -> dict:
+    """REAL client signals where the source has them (upwork_jobs_60k): spend, rating, review count,
+    payment verification. Returned only if at least one is present."""
+    status = str(r.get("payment_status") or "").strip().lower()
+    out = {
+        "total_spent_usd": _num(r.get("client_spent")),
+        "average_rating": _num(r.get("client_rating")),
+        "reviews": _num(r.get("client_reviews")),
+        "payment_verified": (None if status in ("", "nan") else "unverified" not in status),
+        "applicants": str(r.get("applicants")) if str(r.get("applicants") or "nan") != "nan" else None,
+    }
+    if all(v is None for v in out.values()):
+        return {}
+    # a real 0-spend client is informative: keep it explicit rather than missing
+    if out["total_spent_usd"] is None and str(r.get("client_spent")).strip() in ("0", "0.0"):
+        out["total_spent_usd"] = 0.0
+    return {k: v for k, v in out.items() if v is not None}
 
 
 def scam_jobs(fake: pd.DataFrame, n_each: int) -> list[dict]:
@@ -208,16 +238,21 @@ def market_stats(jobs: list[dict], contracts: pd.DataFrame) -> dict:
     return stats
 
 
-def persona_rate(pid: str, freelancers: pd.DataFrame) -> float | None:
+def persona_rate(pid: str, freelancers: pd.DataFrame, stats: dict | None = None) -> float | None:
+    """Persona hourly rate = p75 of the REAL hourly ranges clients post in the persona's category
+    (an experienced freelancer prices in the upper quartile of what clients offer).
+
+    freelancer_success is NOT used for rates: its `hourly_rate_usd` is clipped at $280 and the median
+    row sits on the cap (checked 2026-11-15), so a median from it is an artefact, not a market rate."""
+    cat = PERSONAS[pid]["category"]
+    hourly = ((stats or {}).get(cat) or {}).get("hourly") or {}
+    rate = hourly.get("p75")
+    if rate and 5 <= rate <= 300:
+        return float(rate)
     if freelancers.empty:
         return None
     rates = pd.to_numeric(freelancers["hourly_rate"], errors="coerce")
-    cat = PERSONAS[pid]["category"]
-    if freelancers["category"].notna().any():
-        words = {"ai_ml": "data|ai|ml|machine", "web_fullstack": "web|develop|software", "data_analysis": "data|analy"}[cat]
-        m = freelancers["category"].astype(str).str.contains(words, case=False, regex=True)
-        if m.sum() >= 20:
-            rates = rates[m]
+    rates = rates[rates < rates.max()]  # drop the clipped cap before falling back
     med = rates.dropna().median()
     return float(med) if med == med and 5 <= med <= 300 else None
 
@@ -251,7 +286,7 @@ def build(max_rows: int, pool: int, dev_size: int):
     dev_ids: set[str] = set()
     dev_sets = {}
     for pid, p in PERSONAS.items():
-        rate = persona_rate(pid, freelancers)
+        rate = persona_rate(pid, freelancers, stats)
         persona, items = persona_docs(pid, rate)
         pdir = ROOT / "data" / "personas" / pid
         pdir.mkdir(parents=True, exist_ok=True)
@@ -273,7 +308,16 @@ def build(max_rows: int, pool: int, dev_size: int):
 
     pool_jobs = jobs[:pool] + [j for _, d in dev_sets.values() for j in d]
     pool_jobs = list({j["job_id"]: j for j in pool_jobs}.values())
-    clients = {j["client_id"]: client_history(j["client_id"], j.get("country"), amounts) for j in pool_jobs}
+    clients = {}
+    for j in pool_jobs:
+        c = client_history(j["client_id"], j.get("country"), amounts)
+        real = j.get("client_real") or {}
+        if real:  # overlay REAL signals; record which fields are real so the data card can count them
+            c.update({k: v for k, v in real.items() if k != "applicants"})
+            if "reviews" in real:
+                c["hires"] = max(c["hires"], int(real["reviews"]))
+            c["real_fields"] = sorted(k for k in real if k != "applicants")
+        clients[j["client_id"]] = c
     threads = [thread_for(j, kind, i) for i, (j, kind) in enumerate(
         zip(pool_jobs[:25], ["interview_request", "question", "negotiation", "scam_signal", "injection"] * 5))]
     (out_m / "jobs.json").write_text(json.dumps(pool_jobs, indent=1, default=str), encoding="utf-8")
@@ -291,12 +335,14 @@ def build(max_rows: int, pool: int, dev_size: int):
         gp = d / "gold.json"
         if gp.exists():  # keep human labels already applied
             old = json.loads(gp.read_text(encoding="utf-8"))
-            for k, v in old.items():
-                if k in gold:
-                    gold[k]["action"] = v.get("action")
-                    gold[k]["relevant"] = v.get("relevant")
+            for k, v in old.items():  # only HUMAN labels survive a rebuild; silver ones are regenerated
+                if k in gold and v.get("action_source") == "human":
+                    gold[k].update({f: v.get(f) for f in ("action", "action_source")})
+                if k in gold and v.get("relevant_source") == "human":
+                    gold[k].update({f: v.get(f) for f in ("relevant", "relevant_source")})
         gp.write_text(json.dumps(gold, indent=1), encoding="utf-8")
-        (d / "meta.json").write_text(json.dumps({"persona": pid, "n": len(dev), "built": time.strftime("%Y-%m-%d %H:%M")}, indent=1))
+        (d / "meta.json").write_text(json.dumps({"persona": pid, "n": len(dev), "built": time.strftime("%Y-%m-%d %H:%M")}, indent=1),
+                                     encoding="utf-8")
         with open(d / "label_decisions.csv", "w", newline="", encoding="utf-8") as fh:
             w = csv.writer(fh)
             w.writerow(["job_id", "action (bid/watch/skip)", "notes", "title", "budget", "category", "description",
@@ -313,11 +359,16 @@ def build(max_rows: int, pool: int, dev_size: int):
         "jobs_with_real_description": sum("description" not in j["synthetic_fields"] for j in jobs),
         "jobs_with_synthetic_description": sum("description" in j["synthetic_fields"] for j in jobs),
         "labelled_postings_used": {"fraudulent": sum(s["label_scam"] for s in scams), "legitimate": sum(not s["label_scam"] for s in scams)},
+        "jobs_with_real_connects": sum("connects_cost" not in j["synthetic_fields"] for j in jobs),
+        "jobs_with_real_client_signals": sum(bool(j.get("client_real")) for j in jobs),
         "contracts_rows_read": len(contracts), "freelancer_rows_read": len(freelancers),
+        "persona_rates_usd": {pid: persona_rate(pid, freelancers, stats) for pid in PERSONAS},
+        "rejected": {"freelancer_success.hourly_rate_usd": "clipped at 280; median on the cap; not used for rates"},
         "categories": {c: sum(j["category"] == c for j in jobs) for c in sorted({j["category"] for j in jobs})},
         "synthetic": ["personas + portfolios", "client histories", "threads", "planted injections",
                       "descriptions/screening questions for title-only rows", "connects costs"],
         "licences": {k: v["licence"] for k, v in SOURCES.items()},
+        "attribution": {k: v.get("attribution") for k, v in SOURCES.items()},
     }
     (out_m / "provenance.json").write_text(json.dumps(prov, indent=1), encoding="utf-8")
     print(json.dumps(prov, indent=1))
