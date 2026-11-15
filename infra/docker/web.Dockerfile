@@ -13,5 +13,8 @@ ENV NODE_ENV=production
 COPY --from=build /web/.next/standalone ./
 COPY --from=build /web/.next/static ./.next/static
 COPY --from=build /web/public ./public
+# Next's standalone server binds to $HOSTNAME, which Docker sets to the container id; bind on all
+# interfaces so a host's proxy (Render) can reach it. It listens on $PORT (Render injects it).
+ENV HOSTNAME=0.0.0.0 PORT=3000
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "HOSTNAME=0.0.0.0 node server.js"]
