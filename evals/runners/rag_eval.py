@@ -14,7 +14,7 @@ import time
 
 from agent.config import ROOT, load_config
 from agent.nodes.analyst import extract_requirements
-from evals.datasets import is_smoke, load
+from evals.datasets import is_smoke, label_sources, load
 from rag.index.models import make_reranker
 from rag.metrics import mrr, ndcg_at_k, recall_at_k
 from rag.pipeline import Flags, Pipeline, RetrievalQuery
@@ -72,7 +72,7 @@ def main():
                 pipe = Pipeline(index, cfg, flags, reranker=make_reranker(cfg) if flags.rerank else None)
                 results[f"{args.ablate}-minus-{f.name}"] = evaluate(pipe, jobs, gold)
     out = {"dataset": args.dataset, "persona": persona, "embedder": cfg["retrieval"]["embedder"],
-           "reranker": cfg["retrieval"]["reranker"], "warnings": is_smoke(args.dataset, cfg),
+           "reranker": cfg["retrieval"]["reranker"], "warnings": is_smoke(args.dataset, cfg), "label_sources": label_sources(args.dataset),
            "created": time.strftime("%Y-%m-%dT%H:%M:%S"), "results": results}
     path = ROOT / "evals" / "results" / f"rag_{args.dataset}_{time.strftime('%Y%m%d-%H%M%S')}.json"
     path.write_text(json.dumps(out, indent=1), encoding="utf-8")

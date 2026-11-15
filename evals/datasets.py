@@ -33,6 +33,9 @@ def is_smoke(name: str, cfg: dict) -> list[str]:
     else:
         warnings.append("personas, portfolios and client histories are SYNTHETIC; job posts are real (Kaggle); "
                         "see data/market/provenance.json")
+        srcs = label_sources(name)
+        if any(k.startswith("silver") for f in srcs.values() for k in f):
+            warnings.append(f"decision/relevance labels include SILVER rubric labels (not human): {srcs}")
     if cfg["retrieval"]["embedder"]["provider"] == "hashing":
         warnings.append("hashing embedder is lexical; dense-vs-hybrid comparisons are meaningless with it")
     if cfg["retrieval"]["reranker"]["provider"] == "lexical":
@@ -49,3 +52,17 @@ def backend_for(name: str):
     from mcp_servers.marketplace.adapters.local_sim import LocalSim
 
     return LocalSim()
+
+
+def label_sources(name: str) -> dict:
+    """How many gold labels are human vs silver (rubric), so no silver number is quoted as human."""
+    if name == "fixtures":
+        return {"action": {"human": "fixtures"}, "relevant": {"human": "fixtures"}}
+    gold = json.loads((ROOT / "evals" / "datasets" / name / "gold.json").read_text(encoding="utf-8"))
+    out: dict = {"action": {}, "relevant": {}}
+    for g in gold.values():
+        for f in ("action", "relevant"):
+            if g.get(f) is not None:
+                src = g.get(f"{f}_source", "unknown")
+                out[f][src] = out[f].get(src, 0) + 1
+    return out

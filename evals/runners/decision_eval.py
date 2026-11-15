@@ -18,7 +18,7 @@ import time
 from agent.config import ROOT
 from agent.testing import harness
 from evals.datasets import backend_for as _backend
-from evals.datasets import is_smoke, load
+from evals.datasets import is_smoke, label_sources, load
 from rag.metrics import f1, percentile
 
 
@@ -99,7 +99,7 @@ def main():
     rows, cfg = asyncio.run(run(args.dataset, args.limit))
     summary = summarise(rows)
     out = {"dataset": args.dataset, "model_profile": cfg["models"]["profile"], "variant": cfg["retrieval"]["variant"],
-           "warnings": is_smoke(args.dataset, cfg), "created": time.strftime("%Y-%m-%dT%H:%M:%S"),
+           "warnings": is_smoke(args.dataset, cfg), "label_sources": label_sources(args.dataset), "created": time.strftime("%Y-%m-%dT%H:%M:%S"),
            "summary": summary, "rows": rows}
     path = ROOT / "evals" / "results" / f"decision_{args.dataset}_{time.strftime('%Y%m%d-%H%M%S')}.json"
     path.write_text(json.dumps(out, indent=1), encoding="utf-8")
