@@ -46,14 +46,14 @@ File: `evals/results/toolgran_20261115-174327.json`.
 
 **Findings:**
 - Granularity matters more than description length. With the coarse set, the model avoided the
-  one multi-purpose tool: 5 of its 8 failures called `list_skills` or nothing instead of
-  `match_requirements`.
+  one multi-purpose tool: 7 of its 8 failures called `list_skills` (4) or no tool at all (3)
+  instead of `match_requirements`.
 - Shorter descriptions did not hurt tool choice (0.95 vs 0.925, one task). They cost one argument
   error and saved 108 tokens per task.
 - The differences are 1–5 tasks out of 40, so only coarse vs fine is a meaningful gap.
 
-**Decision:** keep fine-grained tools. Keep full descriptions on the write tools and on tools with
-non-obvious arguments (the one terse-docs argument error was there). The assignment's third
+**Decision:** keep fine-grained tools with full descriptions. Terse descriptions are not
+clearly better on 40 tasks, and full descriptions carry the write-safety notes. The assignment's third
 condition, "best set with rewritten descriptions", was not run; it is the next experiment.
 
 ## 4. R&D question B — retrieval, verification, ablation
