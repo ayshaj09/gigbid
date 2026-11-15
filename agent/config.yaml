@@ -122,6 +122,7 @@ retrieval:
   reranker:
     provider: lexical      # lexical (tests only) | cross_encoder
     model: BAAI/bge-reranker-v2-m3
+    max_length: 256
   chunk:
     max_words: 180
     overlap_words: 30

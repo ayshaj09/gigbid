@@ -78,16 +78,25 @@ class LexicalReranker:
 class CrossEncoderReranker:
     name = "cross_encoder"
 
-    def __init__(self, model: str = "BAAI/bge-reranker-v2-m3", **_):
+    def __init__(self, model: str = "BAAI/bge-reranker-v2-m3", max_length: int = 256, cache_size: int = 200_000, **_):
         from sentence_transformers import CrossEncoder
 
-        self.model = CrossEncoder(model, device="cpu", max_length=512)
+        # 256 tokens covers a 180-word chunk plus a requirement; 512 made CPU reranking ~7 s per job.
+        self.model = CrossEncoder(model, device="cpu", max_length=max_length)
+        self._cache: dict[tuple[str, str], float] = {}  # V3/V4/V8 and ablations rerank the same pairs
+        self.cache_size = cache_size
 
     def score(self, query: str, docs: list[str]) -> list[float]:
         if not docs:
             return []
-        raw = self.model.predict([(query, d) for d in docs])
-        return [float(1 / (1 + np.exp(-x))) for x in np.atleast_1d(raw)]
+        todo = [d for d in dict.fromkeys(docs) if (query, d) not in self._cache]
+        if todo:
+            raw = np.atleast_1d(self.model.predict([(query, d) for d in todo], batch_size=64))
+            if len(self._cache) > self.cache_size:
+                self._cache.clear()
+            for d, x in zip(todo, raw):
+                self._cache[(query, d)] = float(1 / (1 + np.exp(-x)))
+        return [self._cache[(query, d)] for d in docs]
 
 
 EMBEDDERS = {"hashing": HashingEmbedder, "ollama": OllamaEmbedder, "sentence_transformers": SentenceTransformerEmbedder}
@@ -99,6 +108,12 @@ def make_embedder(cfg: dict):
     return EMBEDDERS[e["provider"]](model=e.get("model"), dim=e.get("dim", 512))
 
 
+_RERANKERS: dict = {}
+
+
 def make_reranker(cfg: dict):
     r = cfg["retrieval"]["reranker"]
-    return RERANKERS[r["provider"]](model=r.get("model"))
+    key = (r["provider"], r.get("model"), r.get("max_length", 256))
+    if key not in _RERANKERS:
+        _RERANKERS[key] = RERANKERS[r["provider"]](model=r.get("model"), max_length=r.get("max_length", 256))
+    return _RERANKERS[key]
