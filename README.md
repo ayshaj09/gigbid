@@ -4,11 +4,10 @@ GigBid finds freelance jobs, decides whether they are worth bidding on, drafts p
 every claim links to real portfolio evidence, and handles client replies. A human approves every
 proposal and message before it leaves the system.
 
-> **Status:** everything that can be built without the instructor's assets is built and tested:
-> MCP servers, RAG + claim verification, both LangGraph graphs with durable approvals and memory,
-> the FastAPI backend, the Next.js UI, the worker, Docker/Render configs and every experiment
-> harness. What remains needs GigSim, the persona corpora, the dev set, real models, a deploy
-> account, and your own labels and writing (see "What is left" below).
+> **Status (15 Nov 2026):** built, tested (90+ Python tests) and **evaluated on real Kaggle job
+> data** (217,527 de-duplicated Upwork posts, 115 labelled scam/legit postings) with open models on a
+> laptop CPU. Not yet done: public deployment + reviewer login, human labels for judge calibration,
+> demo video, write-up (see "What is left").
 
 ## Try it
 ```bash
@@ -45,24 +44,59 @@ open models: `MODEL_PROFILE=open OPEN_MODEL_BASE_URL=http://localhost:11434/v1 m
 | Portfolio MCP published (`uvx ... gigbid-portfolio-mcp`) | `mcp_servers/portfolio/README.md` | packaged; publishing is your GitHub push |
 
 ## Results
-Fill from `evals/results/*.json` after running on the real dev set:
-`DATASET=<name> make eval`. The fixture runs print warnings and must not be reported.
+All numbers below come from `evals/results/` (regenerate: `python -m evals.runners.results_table`
+→ [`evals/results/results_table.md`](evals/results/results_table.md)). Dev sets: 190 real jobs per
+persona; personas and portfolios are synthetic; **decision and relevance labels are silver
+(rubric), not human** ([data card §4](docs/DATA_CARD.md)). Profile: rules-only LLM nodes,
+`BAAI/bge-small-en-v1.5` embeddings, `cross-encoder/ms-marco-MiniLM-L-6-v2` reranker, CPU only.
 
-| Variant | Evidence Recall@5 | nDCG@10 | Unsupported claims / proposal | Judge score | GigSim reply rate | p95 latency (s) | Cost / proposal (USD) |
-|---|---|---|---|---|---|---|---|
-| V0 | | | | | | | |
-| Your best | | | | | | | |
+**Retrieval (B5, three personas pooled):**
+
+| Variant | Evidence Recall@5 | nDCG@10 | MRR | Unsupported claims / proposal | p95 latency per job (s) | Cost / proposal |
+|---|---|---|---|---|---|---|
+| V0 naive dense | 0.453 | 0.684 | 0.746 | - | - | - |
+| V1 decomposition | 0.365 | 0.599 | 0.687 | - | - | - |
+| V2 hybrid (BM25 + dense, RRF) | 0.418 | 0.652 | 0.718 | - | - | - |
+| **V3 hybrid + cross-encoder (shipped)** | **0.467** | **0.698** | **0.782** | 0.00 after verification (0.33 before) | 5.5-7.1 | $0 (local) |
+| V4 outcome-aware | 0.397 | 0.623 | 0.672 | - | - | - |
+| V8 corrective | 0.412 | 0.603 | 0.683 | - | - | - |
+
+Findings: the cross-encoder is the only component that clearly helps. In the V8 ablation, removing
+rerank costs 0.054 Recall@5, while removing the corrective loop *gains* 0.055 (the loop re-queries
+away from good evidence). Requirement decomposition *hurts* on all three personas, so the
+pre-registered hypothesis ("decomposition + hybrid raises Recall@5 on 4+ requirement jobs") is
+refuted on this corpus. V3 beats V0 by only 1.4 Recall@5 points, and its retrieval p95 is 4.6-13.3 s
+against 0.2-0.8 s for V0 on CPU (`rag_dev_*.json`). Shipped anyway for precision at small k
+(MRR +0.036); V0 is the documented fallback if the latency budget tightens.
+
+**Decisions with the shipped config** (`evals/results/decision_dev_*_2026111*.json`):
+
+| Persona | bid/skip F1 | scam precision / recall | injections followed | price in fair band | unsupported claims before → after |
+|---|---|---|---|---|---|
+| ai_engineer | 0.63 | 0.70 / 0.70 | 0 / 10 | 0.75 | 0.37 → 0.00 |
+| web_fullstack | 0.42 | 0.71 / 0.50 | 0 / 10 | 0.57 | 0.47 → 0.00 |
+| data_analyst | 0.26 | 0.88 / 0.70 | 0 / 10 | 0.74 | 0.15 → 0.00 |
+
+From the first run on real data to now, bid/skip F1 went from 0.00 / 0.13 / 0.08 to the values above.
+That came from six measured fixes, each one commit; see
+[`evals/results/iterations/`](evals/results/iterations/README.md) and the
+[failure taxonomy](evals/results/failure_taxonomy.md).
 
 ## Data
-Real job-market data from six instructor-approved Kaggle datasets plus clearly marked synthetic
-personas, clients and conversations; GigSim is replaced by a local simulator over that data.
-`bash scripts/download_datasets.sh && make data` builds it; see [Data card](docs/DATA_CARD.md).
+Six instructor-approved Kaggle datasets (ODC-By / Apache-2.0; one with no stated licence, sampled
+only) plus clearly marked synthetic personas, portfolios, client histories and threads. Real fields
+include titles, descriptions, budgets, Connects costs and, for 749 clients, real spend/rating/
+reviews. Build: `bash scripts/download_datasets.sh && make data && python -m datapipe.silver_labels`.
+Selection, preprocessing, attribution, licences and limitations: [data card](docs/DATA_CARD.md).
 
-## What is left (needs you)
-downloading the Kaggle data and `make data`; labelling decisions and evidence relevance; real model and embedding settings; running the
-experiments; 30 human labels for the judge; filling the failure taxonomy; the change request;
-deployment and the reviewer account; MCP Inspector screenshots; the report, write-up and demo
-video. `docs/REPORT_TEMPLATE.md`, `docs/EXTENSION.md` and `docs/WRITEUP_OUTLINE.md` give the structure.
+## What is left
+1. **Deploy** (Render blueprint in `infra/render.yaml`, or any host) with a reviewer login, and keep it live.
+2. **Human labels**: hand-label ≥30 jobs per persona (`label_decisions.csv`) and 30 proposals for
+   judge calibration (`python -m evals.runners.judge export`), then re-run `make eval`. Every
+   decision number above is silver until then.
+3. Run the LLM profiles on a GPU or hosted open-model provider (`MODEL_PROFILE=open`); the CPU
+   profiles `open_small` / `open_mixed` work but are slow on a laptop.
+4. MCP Inspector screenshots, demo video, technical write-up, publish the Portfolio MCP server.
 
 ## Docs
 [Architecture](docs/ARCHITECTURE.md) · [Tools](docs/TOOLS.md) · [Runbook](docs/RUNBOOK.md) ·
