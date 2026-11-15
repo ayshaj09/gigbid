@@ -19,8 +19,10 @@ simulator prefers, and why that is or is not informative.
 * Primary metric: reply rate per submitted proposal. Secondary: judge `overall` score (only if the
   judge's calibration kappa >= 0.6), Connects per reply.
 * Sample size: `python -m evals.runners.ab_test --dataset x --power <baseline> <baseline+effect>`.
-  Expected baseline: ___ (from a pilot). Minimum effect worth detecting: ___ points.
-  Jobs needed per arm: ___. If GigSim cannot supply that many, say so and report the CI only.
+  Expected baseline: 0.30 (offline-writer reply rate, `gigsim_outcomes_*` pilot). Minimum effect worth
+  detecting: 15 points. Jobs needed per arm: **163**. The dev sets supply only 11-24 bids per arm, so
+  the test is underpowered and the CI is the main result. (These three lines were filled in after
+  the run; the hypothesis and design above were committed before it, in 1dbbc90 vs af2aa96.)
 * Stopping rule: run once at the planned n. No peeking, no early stop.
 
 ## 3. Analysis plan
@@ -28,11 +30,21 @@ Two-proportion z-test and a bootstrap 95% CI of the difference (B - A). Report b
 replies, rate, p-value, CI. A null result is reported as a null result.
 
 ## 4. Results (after the run)
-| Arm | Bids | Replies | Reply rate | Judge overall |
-|---|---|---|---|---|
-| A writer | | | | |
-| B writer_b | | | | |
+Run: `MODEL_PROFILE=offline python -m evals.runners.ab_test --dataset dev_<persona> --limit 1000 --wait-s 0`
+(commit af2aa96). Template writer (no LLM), hashing embedder, LocalSim reply model. Files:
+`evals/results/ab_dev_*_20261115-*.json`.
 
-p = ___, 95% CI of difference = [___, ___]. Results file: `evals/results/ab_<dataset>_<timestamp>.json`.
+| Persona | A bids | A replies (rate) | B bids | B replies (rate) | p (two-sided) | 95% CI of B − A |
+|---|---|---|---|---|---|---|
+| ai_engineer | 15 | 3 (0.200) | 18 | 3 (0.167) | 0.80 | [−0.29, 0.22] |
+| web_fullstack | 24 | 7 (0.292) | 16 | 2 (0.125) | 0.22 | [−0.40, 0.08] |
+| data_analyst | 16 | 5 (0.313) | 11 | 4 (0.364) | 0.78 | [−0.29, 0.41] |
+
+No significant difference in any persona. Every CI includes 0 and spans more than 50 points. The
+judge `overall` score is not reported: the judge has no calibration yet (kappa needs 30 human labels).
 
 ## 5. What we would ship and why
+Strategy A stays the default (`writer.strategy: writer`). B did not beat it. At this sample size a
+null result is uninformative rather than evidence of no effect, so A wins as the incumbent, not on
+merit. To get a real answer: run the LLM writer on ≥ 163 bids per arm (pool more GigSim jobs, or
+pool personas, accepting persona as a covariate), and report the result even if it stays null.
