@@ -13,3 +13,10 @@ build/
 data/processed/
 # results are committed (every reported number must cite one); scratch runs go here:
 evals/results/scratch/
+apps/web/node_modules/
+apps/web/.next/
+apps/web/test-results/
+apps/web/playwright-report/
+apps/web/tsconfig.tsbuildinfo
+evals/labels/*.csv.bak
+data/raw/
