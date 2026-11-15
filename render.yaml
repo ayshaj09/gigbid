@@ -1,45 +1,52 @@
-# Render Blueprint (https://render.com/docs/blueprint-spec). In Render: New -> Blueprint -> pick this repo,
-# set blueprint path to infra/render.yaml, then fill the `sync: false` secrets in the dashboard.
+# Render Blueprint (https://render.com/docs/blueprint-spec): Dashboard -> New -> Blueprint -> this repo.
+# Free plan: API + web + Postgres. Render asks for every `sync: false` value when the Blueprint is created.
+#
+# Free-plan constraints and what this file does about them:
+#  - 512 MB RAM: the API uses the hashing embedder + lexical reranker (about 130 MB measured). The
+#    evaluated open models (bge-small + MiniLM cross-encoder) need about 1 GB; on a 2 GB plan set
+#    EMBEDDER_PROVIDER=sentence_transformers, RERANKER_PROVIDER=cross_encoder and unset INSTALL_MODELS.
+#  - No background workers on free: scouting runs on demand from the inbox ("Run Scout").
+#    `worker/` is unchanged; add it as a `type: worker` service on a paid plan.
+#  - Ephemeral disk: the app's SQLite user table resets on restart, so the reviewer account is
+#    recreated on every boot from REVIEWER_EMAIL / REVIEWER_PASSWORD. Graph checkpoints (pending
+#    approvals) and long-term memory live in Postgres, which survives restarts.
+#  - Free web services sleep after ~15 idle minutes; the first request then takes ~1 minute.
+#  - Free Postgres expires 30 days after creation (Render policy); upgrade it before grading ends.
 services:
   - type: web
     name: gigbid-api
     runtime: docker
-    dockerfilePath: infra/docker/python.Dockerfile
+    plan: free
+    dockerfilePath: ./infra/docker/python.Dockerfile
     dockerContext: .
     healthCheckPath: /health
-    disk: {name: appdata, mountPath: /app/data/processed, sizeGB: 1}
     envVars:
       - {key: APP_ENV, value: production}
       - {key: APP_SECRET_KEY, generateValue: true}
       - {key: INTERNAL_TOKEN, generateValue: true}
       - {key: DATABASE_URL, fromDatabase: {name: gigbid-db, property: connectionString}}
-      - {key: MODEL_PROFILE, value: open}
-      - {key: OPEN_MODEL_BASE_URL, sync: false}     # e.g. a hosted OpenAI-compatible open-model provider
+      - {key: GIGSIM_BASE_URL, value: "local://"}        # local simulator over the committed Kaggle-derived pool
+      - {key: MARKETPLACE_MODE, value: gigsim}
+      - {key: MODEL_PROFILE, value: offline}              # set to `open` + the two keys below to use a hosted open model
+      - {key: OPEN_MODEL_BASE_URL, sync: false}           # e.g. https://api.groq.com/openai/v1 (leave empty for offline)
       - {key: OPEN_MODEL_API_KEY, sync: false}
-      - {key: EMBEDDER_PROVIDER, sync: false}       # sentence_transformers on CPU, or ollama if you host one
-      - {key: GIGSIM_BASE_URL, sync: false}         # where your GigSim instance runs
-      - {key: WEB_ORIGINS, sync: false}             # https://<your-web>.onrender.com
+      - {key: EMBEDDER_PROVIDER, value: hashing}
+      - {key: RERANKER_PROVIDER, value: lexical}
+      - {key: INSTALL_MODELS, value: "0"}                 # Docker build arg: skip torch on the free plan
+      - {key: WEB_ORIGINS, sync: false}                   # the web service URL, e.g. https://gigbid-web.onrender.com
+      - {key: REVIEWER_EMAIL, sync: false}                # reviewer login (share it in a private comment, not the repo)
+      - {key: REVIEWER_PASSWORD, sync: false}
+      - {key: REVIEWER_PERSONA, value: ai_engineer}
       - {key: LANGFUSE_PUBLIC_KEY, sync: false}
       - {key: LANGFUSE_SECRET_KEY, sync: false}
-  - type: worker
-    name: gigbid-worker
-    runtime: docker
-    dockerfilePath: infra/docker/python.Dockerfile
-    dockerContext: .
-    dockerCommand: arq worker.main.WorkerSettings
-    envVars:
-      - {key: API_URL, sync: false}                 # https://<your-api>.onrender.com
-      - {key: INTERNAL_TOKEN, fromService: {type: web, name: gigbid-api, envVarKey: INTERNAL_TOKEN}}
-      - {key: REDIS_URL, fromService: {type: keyvalue, name: gigbid-redis, property: connectionString}}
   - type: web
     name: gigbid-web
     runtime: docker
-    dockerfilePath: infra/docker/web.Dockerfile
+    plan: free
+    dockerfilePath: ./infra/docker/web.Dockerfile
     dockerContext: .
     envVars:
-      - {key: NEXT_PUBLIC_API_URL, sync: false}     # https://<your-api>.onrender.com (build-time)
-  - type: keyvalue
-    name: gigbid-redis
-    ipAllowList: []
+      - {key: NEXT_PUBLIC_API_URL, sync: false}           # the API service URL, e.g. https://gigbid-api.onrender.com (build-time)
 databases:
   - name: gigbid-db
+    plan: free

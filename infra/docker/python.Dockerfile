@@ -13,7 +13,12 @@ COPY worker worker
 COPY evals evals
 COPY dev dev
 COPY data data
-RUN pip install -e ".[models]" arq "pydantic[email]" sse-starlette langfuse && mkdir -p /app/data/processed && chown -R gigbid /app/data
+# INSTALL_MODELS=1 adds the open embedding + reranker models (CPU-only torch, ~1 GB RAM at runtime).
+# Leave it 0 on small hosts (e.g. Render free, 512 MB) and set EMBEDDER_PROVIDER=hashing,
+# RERANKER_PROVIDER=lexical there.
+ARG INSTALL_MODELS=1
+RUN if [ "$INSTALL_MODELS" = "1" ]; then       pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -e ".[models]";     else pip install -e .; fi  && pip install arq "pydantic[email]" sse-starlette langfuse  && mkdir -p /app/data/processed && chown -R gigbid /app/data
 USER gigbid
 EXPOSE 8000
-CMD ["uvicorn", "apps.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Hosts such as Render inject $PORT; default 8000 for docker compose.
+CMD ["sh", "-c", "uvicorn apps.api.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

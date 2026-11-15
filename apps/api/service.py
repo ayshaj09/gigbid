@@ -14,7 +14,7 @@ import time
 import uuid
 from typing import Any
 
-from agent.config import _deep_merge, load_config
+from agent.config import ROOT, _deep_merge, load_config
 from agent.llm import LLMRouter
 from agent.runner import Runner, RunResult, persistence
 from apps.api.db import DB
@@ -74,7 +74,34 @@ class Service:
         # calls past tool_timeout_s and the cancelled calls broke the MCP sessions. Cap concurrency.
         self._run_slots = asyncio.Semaphore(int(self.cfg.get("budgets", {}).get("max_concurrent_runs", 2)))
 
+    def seed_reviewer(self) -> str | None:
+        """Reviewer login for the deployed app (REVIEWER_EMAIL / REVIEWER_PASSWORD / REVIEWER_PERSONA).
+        Idempotent: hosts with an ephemeral disk wipe the SQLite user table on restart, so the account
+        is recreated on every boot. The password comes only from the environment, never from the repo."""
+        email, password = os.environ.get("REVIEWER_EMAIL"), os.environ.get("REVIEWER_PASSWORD")
+        if not email or not password:
+            return None
+        from apps.api.security import hash_password
+
+        persona_id = os.environ.get("REVIEWER_PERSONA", "ai_engineer")
+        u = self.db.user_by_email(email)
+        uid = u["id"] if u else "u_reviewer"
+        if not u:
+            self.db.exec("INSERT INTO users (id,email,password_hash,settings,created) VALUES (?,?,?,?,?)",
+                         (uid, email.lower(), hash_password(password), "{}", time.time()))
+        if not u or not u.get("onboarded"):
+            pfile = ROOT / "data" / "personas" / persona_id / "persona.json"
+            if not pfile.exists():
+                pfile = ROOT / "data" / "fixtures" / f"persona_{persona_id}.json"
+            persona = json.loads(pfile.read_text(encoding="utf-8")) if pfile.exists() else {}
+            settings = {"hourly_rate_usd": persona.get("hourly_rate_usd", 50), "floor_usd": persona.get("floor_usd", 300),
+                        "weekly_connects_budget": persona.get("weekly_connects_budget", 80),
+                        "saved_searches": persona.get("saved_searches", [])[:10], "marketplace_mode": "gigsim"}
+            self.db.save_settings(uid, settings, persona_id=persona_id, onboarded=True)
+        return uid
+
     async def start(self):
+        self.seed_reviewer()
         self.saver, self.store = await self._stack.enter_async_context(persistence(self.cfg))
         if os.environ.get("MCP_MODE", "inprocess") == "inprocess":
             from agent.testing import open_inprocess_belt

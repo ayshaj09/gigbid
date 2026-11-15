@@ -57,13 +57,28 @@ idempotency keys, so a replayed `submit` is a no-op (`test_crash_while_awaiting_
 Add an entry to `policy.extra_rules` in `agent/config.yaml` (types listed in `agent/policy.py`).
 If the new rule needs a new type, add it in `agent/policy.py` + the one stage that applies it.
 
-## Deploy (Render blueprint in infra/render.yaml)
-1. Push the repo to GitHub. In Render: New -> Blueprint -> select the repo, path `infra/render.yaml`.
-2. Fill the `sync: false` values: model provider URL + key, `GIGSIM_BASE_URL`, `WEB_ORIGINS`,
-   `API_URL` (worker), `NEXT_PUBLIC_API_URL` (web, needs a rebuild after changing).
-3. Open `https://<api>/health`, then register the reviewer account in the web app, run
-   onboarding with a persona, and analyse a few jobs so the reviewer sees real state.
-4. Check the degraded banner by pointing `GIGSIM_BASE_URL` at a dead URL for a minute.
+## Deploy (Render, free plan: `render.yaml` at the repo root)
+1. Push `main` to GitHub. In Render: **New → Blueprint**, connect the GitHub repo, keep the default
+   path `render.yaml`. It creates `gigbid-api`, `gigbid-web` and the `gigbid-db` Postgres.
+2. Render asks for the `sync: false` values:
+   - `WEB_ORIGINS` = `https://gigbid-web.onrender.com` and `NEXT_PUBLIC_API_URL` =
+     `https://gigbid-api.onrender.com`. If Render adds a suffix to a taken name, use the URL it shows
+     on each service page, update the values, and redeploy `gigbid-web` (the API URL is baked in at build time).
+   - `REVIEWER_EMAIL` / `REVIEWER_PASSWORD`: the reviewer login, recreated on every boot. Put it in the
+     private Classroom comment, never in the repo.
+   - Model keys: leave them empty for the rules-only `offline` profile. For an LLM, set
+     `MODEL_PROFILE=open`, `OPEN_MODEL_BASE_URL` and `OPEN_MODEL_API_KEY` for a hosted open-model provider.
+3. Check `https://gigbid-api.onrender.com/health`, then sign in on the web URL with the reviewer login
+   and press **Run Scout**.
+
+Free-plan limits (also in `render.yaml`):
+- 512 MB RAM, so the API uses the hashing embedder and lexical reranker (about 130 MB measured locally).
+  The evaluated open models need a 2 GB plan.
+- No background worker, so scouting runs on demand. Parked jobs resume when the status check sees
+  the marketplace back.
+- Free services sleep after about 15 idle minutes, so the first request takes about a minute.
+- Free Postgres expires after a limited period; check Render's current policy.
+
 Any host that runs Docker works the same way (Railway, Fly.io, a VM with compose).
 
 ## Secrets

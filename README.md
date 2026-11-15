@@ -100,7 +100,7 @@ reviews. Build: `bash scripts/download_datasets.sh && make data && python -m dat
 Selection, preprocessing, attribution, licences and limitations: [data card](docs/DATA_CARD.md).
 
 ## What is left
-1. **Deploy** (Render blueprint in `infra/render.yaml`, or any host) with a reviewer login, and keep it live.
+1. **Deploy**: `render.yaml` (Render free plan) is ready, and the reviewer login comes from env vars; steps are in [RUNBOOK](docs/RUNBOOK.md#deploy-render-free-plan-renderyaml-at-the-repo-root). Keep it live.
 2. **Human labels**: hand-label ≥30 jobs per persona (`label_decisions.csv`) and 30 proposals for
    judge calibration (`python -m evals.runners.judge export`), then re-run `make eval`. Every
    decision number above is silver until then.
