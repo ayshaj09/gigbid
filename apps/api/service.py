@@ -69,6 +69,10 @@ class Service:
         self.saver = self.store = None
         self._stack = contextlib.AsyncExitStack()
         self.marketplace_down_since: float | None = None
+        # Agent runs share one event loop with the in-process MCP servers, and CPU-bound retrieval
+        # (embeddings, cross-encoder) blocks it. Unbounded fan-out (a scout of 40 jobs) queued tool
+        # calls past tool_timeout_s and the cancelled calls broke the MCP sessions. Cap concurrency.
+        self._run_slots = asyncio.Semaphore(int(self.cfg.get("budgets", {}).get("max_concurrent_runs", 2)))
 
     async def start(self):
         self.saver, self.store = await self._stack.enter_async_context(persistence(self.cfg))
@@ -132,7 +136,8 @@ class Service:
 
         async def body():
             try:
-                result = await fn(run.push)
+                async with self._run_slots:  # queued runs wait here; the UI shows them as running/queued
+                    result = await fn(run.push)
             except Exception as exc:  # noqa: BLE001 - surfaced to the UI, never crashes the API
                 await run.finish(None, repr(exc))
                 self.db.exec("UPDATE runs SET status=?, finished=?, error=?, events=? WHERE run_id=?",

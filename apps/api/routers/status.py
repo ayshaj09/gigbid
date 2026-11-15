@@ -16,6 +16,11 @@ async def status(request: Request, user=Depends(current_user)):
     try:
         port = svc.runner(user)._ctx("status").marketplace("pricing")
         await asyncio.wait_for(port.get_connects_balance(), 5)
+    except asyncio.TimeoutError:
+        # A slow probe while agent runs hold the CPU means "busy", not "down": only a server the
+        # tool belt has actually marked down (failed calls after retries) raises the banner.
+        down = getattr(svc.belt, "down", set())
+        ok, detail = "marketplace" not in down, "marketplace busy (probe timed out)"
     except Exception as exc:  # noqa: BLE001
         ok, detail = False, str(exc)[:200]
     waiting = svc.db.one("SELECT COUNT(*) n FROM jobs WHERE user_id=? AND status='waiting_for_marketplace'", (user["id"],))["n"]
