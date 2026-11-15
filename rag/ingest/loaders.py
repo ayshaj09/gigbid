@@ -42,7 +42,7 @@ def _doc_id(path: Path) -> str:
 
 
 def load_json_items(path: Path, persona: str | None = None) -> list[dict]:
-    items = json.loads(Path(path).read_text())
+    items = json.loads(Path(path).read_text(encoding="utf-8"))
     for it in items:
         it.setdefault("persona", persona or it.get("freelancer_id"))
         it.setdefault("text", it.get("summary", ""))
@@ -66,7 +66,7 @@ def load_directory(root: Path, persona: str) -> list[dict]:
         elif path.suffix in CODE_EXT:
             body, meta, dtype = path.read_text(encoding="utf-8", errors="ignore"), {}, "code"
         elif path.suffix == ".json" and dtype in ("past_proposal", "review"):
-            raw = json.loads(path.read_text())
+            raw = json.loads(path.read_text(encoding="utf-8"))
             body, meta = raw.get("text", ""), raw
         else:
             continue

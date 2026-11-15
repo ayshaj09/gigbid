@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 rows = []
 for server in ("portfolio", "marketplace", "workspace"):
-    for t in json.loads((ROOT / "tests/contract/snapshots" / f"{server}.json").read_text()):
+    for t in json.loads((ROOT / "tests/contract/snapshots" / f"{server}.json").read_text(encoding="utf-8")):
         a = t["annotations"] or {}
         rw = "read" if a.get("readOnlyHint") else "write"
         ann = ", ".join(k.replace("Hint", "") for k, v in a.items() if v is True and k.endswith("Hint"))

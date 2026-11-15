@@ -30,10 +30,15 @@ def make_pipeline(cfg: dict, index: PortfolioIndex, variant: str | None = None, 
 
 def persona_sources(persona: str) -> list[Path]:
     """Where a persona's corpus lives. Instructor corpora go in data/personas/<persona>/."""
+    import os
+
     root = Path(__file__).resolve().parent.parent / "data"
     real = root / "personas" / persona
-    if real.exists():
-        return [real]
+    if os.environ.get("GIGBID_PERSONA_SOURCE") != "fixtures":
+        if (real / "portfolio.json").exists():
+            return [real / "portfolio.json"]
+        if real.exists():
+            return [real]
     fixture = root / "fixtures" / f"portfolio_{persona}.json"
     if fixture.exists():
         return [fixture]
@@ -41,8 +46,13 @@ def persona_sources(persona: str) -> list[Path]:
 
 
 def load_persona(persona: str) -> dict:
+    import os
+
     root = Path(__file__).resolve().parent.parent / "data"
-    for p in (root / "personas" / persona / "persona.json", root / "fixtures" / f"persona_{persona}.json"):
+    cands = [root / "personas" / persona / "persona.json", root / "fixtures" / f"persona_{persona}.json"]
+    if os.environ.get("GIGBID_PERSONA_SOURCE") == "fixtures":
+        cands.reverse()
+    for p in cands:
         if p.exists():
-            return json.loads(p.read_text())
+            return json.loads(p.read_text(encoding="utf-8"))
     raise FileNotFoundError(persona)

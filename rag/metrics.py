@@ -48,3 +48,22 @@ def percentile(xs: list[float], p: float) -> float:
         return float("nan")
     idx = min(len(xs) - 1, max(0, math.ceil(p / 100 * len(xs)) - 1))
     return xs[idx]
+
+
+def weighted_kappa(a: list[int], b: list[int], labels=(1, 2, 3, 4, 5)) -> float:
+    """Quadratic-weighted Cohen's kappa for ordinal 1-5 scores (judge calibration)."""
+    k = len(labels)
+    idx = {lbl: i for i, lbl in enumerate(labels)}
+    n = len(a)
+    obs = [[0.0] * k for _ in range(k)]
+    for x, y in zip(a, b):
+        obs[idx[x]][idx[y]] += 1
+    ra = [sum(row) for row in obs]
+    cb = [sum(obs[i][j] for i in range(k)) for j in range(k)]
+    num = den = 0.0
+    for i in range(k):
+        for j in range(k):
+            w = ((i - j) ** 2) / ((k - 1) ** 2)
+            num += w * obs[i][j]
+            den += w * ra[i] * cb[j] / n
+    return 1.0 - num / den if den else 1.0

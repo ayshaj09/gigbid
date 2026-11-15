@@ -50,6 +50,6 @@ def test_metrics():
 
 
 def test_gold_file_is_consistent():
-    gold = json.loads((ROOT / "data/fixtures/gold.json").read_text())
-    items = {i["evidence_id"] for i in json.loads((ROOT / "data/fixtures/portfolio_ai_engineer.json").read_text())}
+    gold = json.loads((ROOT / "data/fixtures/gold.json").read_text(encoding="utf-8"))
+    items = {i["evidence_id"] for i in json.loads((ROOT / "data/fixtures/portfolio_ai_engineer.json").read_text(encoding="utf-8"))}
     assert all(set(g["relevant"]) <= items for g in gold.values())

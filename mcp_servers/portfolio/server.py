@@ -177,7 +177,12 @@ def build_server(index=None, cfg: dict | None = None, persona: str | None = None
     return mcp
 
 
-if __name__ == "__main__":
+def main():
+    """Console entry point: `gigbid-portfolio-mcp` (stdio), or MCP_TRANSPORT=http for Streamable HTTP."""
     from mcp_servers.common import run_server
 
     run_server(build_server(), int(os.environ.get("MCP_PORT", 8101)))
+
+
+if __name__ == "__main__":
+    main()

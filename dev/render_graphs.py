@@ -7,5 +7,5 @@ from agent.graphs.conversation_graph import compile_conversation_graph
 out = Path(__file__).resolve().parent.parent / "docs" / "images"
 out.mkdir(parents=True, exist_ok=True)
 for name, g in (("bid_graph", compile_bid_graph()), ("conversation_graph", compile_conversation_graph())):
-    (out / f"{name}.mmd").write_text(g.get_graph().draw_mermaid())
+    (out / f"{name}.mmd").write_text(g.get_graph().draw_mermaid(), encoding="utf-8")
     print("wrote", out / f"{name}.mmd")

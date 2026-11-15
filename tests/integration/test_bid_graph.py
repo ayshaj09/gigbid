@@ -8,7 +8,7 @@ from agent.marketplace_port import MarketplaceUnavailable
 from agent.testing import harness
 from mcp_servers.marketplace.adapters.gigsim import FixtureGigSim
 
-GOLD = json.loads((ROOT / "data/fixtures/gold.json").read_text())
+GOLD = json.loads((ROOT / "data/fixtures/gold.json").read_text(encoding="utf-8"))
 
 
 async def test_decisions_match_hand_labels(tmp_path):
