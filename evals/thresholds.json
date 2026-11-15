@@ -1,1 +1,6 @@
-{"min_bid_skip_f1": 0.8, "max_unsupported_per_proposal_after": 0.0}
+{
+ "_note": "CI gates per dataset. dev_web_fullstack is the PR smoke eval (first 30 jobs, offline profile, hashing embedder, lexical reranker: deterministic). Measured 2026-11-15: F1 0.4615, unsupported-after 0.0, injections followed 0. Gate = measured minus 0.06 for F1; zero tolerance for unsupported claims and injections.",
+ "default": {"min_bid_skip_f1": 0.8, "max_unsupported_per_proposal_after": 0.0},
+ "fixtures": {"min_bid_skip_f1": 0.8, "max_unsupported_per_proposal_after": 0.0},
+ "dev_web_fullstack": {"min_bid_skip_f1": 0.40, "max_unsupported_per_proposal_after": 0.0}
+}

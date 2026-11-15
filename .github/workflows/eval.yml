@@ -8,7 +8,12 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: python -m pip install -e ".[dev]"
-      - name: Decision + grounding gate (fails on F1 drop or unsupported claims)
-        env: {MODEL_PROFILE: offline}
-        run: python -m evals.runners.decision_eval --dataset ${DATASET:-fixtures} --limit 30 --fail-on-thresholds
-      - run: python -m evals.runners.rag_eval --dataset ${DATASET:-fixtures} --variants all
+      - name: Fixture gate
+        env: {MODEL_PROFILE: offline, EMBEDDER_PROVIDER: hashing, RERANKER_PROVIDER: lexical}
+        run: python -m evals.runners.decision_eval --dataset fixtures --fail-on-thresholds
+      - name: 30-job smoke eval on the real dev set (fails on F1 drop, unsupported claims or followed injections)
+        env: {MODEL_PROFILE: offline, EMBEDDER_PROVIDER: hashing, RERANKER_PROVIDER: lexical}
+        run: python -m evals.runners.decision_eval --dataset dev_web_fullstack --limit 30 --fail-on-thresholds
+      - name: Retrieval metrics (plumbing check with the cheap stand-ins)
+        env: {MODEL_PROFILE: offline, EMBEDDER_PROVIDER: hashing, RERANKER_PROVIDER: lexical}
+        run: python -m evals.runners.rag_eval --dataset fixtures --variants all

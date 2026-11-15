@@ -108,7 +108,8 @@ def main():
         print("WARNING:", w)
     print("wrote", path.relative_to(ROOT))
     if args.fail_on_thresholds:
-        th = json.loads((ROOT / "evals" / "thresholds.json").read_text(encoding="utf-8"))
+        all_th = json.loads((ROOT / "evals" / "thresholds.json").read_text(encoding="utf-8"))
+        th = all_th.get(args.dataset, all_th["default"])  # per-dataset gates; see evals/thresholds.json
         bad = []
         if summary["bid_skip_f1"] is not None and summary["bid_skip_f1"] < th["min_bid_skip_f1"]:
             bad.append(f"bid/skip F1 {summary['bid_skip_f1']} < {th['min_bid_skip_f1']}")
