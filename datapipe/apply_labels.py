@@ -21,6 +21,7 @@ def main(persona: str):
             a = (row.get("action (bid/watch/skip)") or "").strip().lower()
             if a in ("bid", "watch", "skip") and row["job_id"] in gold:
                 gold[row["job_id"]]["action"] = a
+                gold[row["job_id"]]["action_source"] = "human"
                 n_dec += 1
     if (d / "label_relevance.csv").exists():
         judged: dict[str, list[str]] = {}
@@ -33,6 +34,7 @@ def main(persona: str):
         for jid, rel in judged.items():
             if jid in gold:
                 gold[jid]["relevant"] = rel
+                gold[jid]["relevant_source"] = "human"
                 n_rel += 1
     (d / "gold.json").write_text(json.dumps(gold, indent=1), encoding="utf-8")
     print(f"{persona}: {n_dec} decision labels, {n_rel} jobs with relevance judgements -> gold.json")
