@@ -1,13 +1,69 @@
 # Data Card
 
-| Data | Source | Status | Use |
-|---|---|---|---|
-| `data/fixtures/*` | Written for this repo | Synthetic, hand-labelled | Tests and smoke evals only. 1 persona, 14 evidence items, 8 jobs (2 scams, 1 planted injection, 1 duplicate repost, 1 skill mismatch), 7 client histories, 2 threads. Never reported as results. |
-| `data/personas/` | Instructor (GigSim kit) | **Not yet in repo** | Real RAG corpus; `rag/retriever.persona_sources` prefers it automatically. |
-| Dev evaluation set | Instructor | **Not yet in repo** | Convert into `evals/datasets/<name>/{jobs.json,gold.json,meta.json}`. |
-| Hidden test set | Instructor | Never in repo | Run against the deployed URL only. |
-| `data/policy_pack/` | Instructor (starter) | Illustrative starter version | Compliance Guard ground truth. |
+GigBid's data = **real job-market data from six instructor-approved Kaggle datasets** + **synthetic
+data where no real source exists**, built by `python -m datapipe.build`. Every record says which it
+is: jobs carry `source` and `synthetic_fields`; synthetic records carry `"synthetic": true` and a
+`source` starting with `synthetic/`. Row counts for the current build are in `data/market/provenance.json`.
 
-Chunk metadata: persona, type, project, skills, date, client_industry, outcome (proposals), source.
-Handling: job posts and client messages are untrusted; PII is masked in audit logs; no live-mode
-client data is committed.
+## 1. Sources (real data)
+| Key (data/raw/...) | Kaggle dataset | Author | Used for | Licence* |
+|---|---|---|---|---|
+| upwork_jobs_2024_50k | [Upwork Job Postings 2024 (50K)](https://www.kaggle.com/datasets/asaniczka/upwork-job-postings-dataset-2024-50k-records) | asaniczka | job titles, budgets/hourly ranges, country, date | ___ |
+| upwork_jobs_200k | [All Upwork Job Postings, monthly tracker (200K+)](https://www.kaggle.com/datasets/asaniczka/all-jobs-on-upwork-200k-plus) | asaniczka | same 8-column shape; market statistics | ___ |
+| upwork_jobs_60k | [Upwork Freelance Jobs 60K](https://www.kaggle.com/datasets/ahmedmyalo/upwork-freelance-jobs-60k) | ahmedmyalo | job posts (2023), descriptions/skills where present | ___ |
+| contracts_1_3m | [Freelance Contracts Dataset (1.3M)](https://www.kaggle.com/datasets/asaniczka/freelance-contracts-dataset-1-3-million-entries) | asaniczka | contract hourly rates and amounts: pricing stats, client spend calibration | ___ |
+| freelancer_success | [Freelancer Success, Earnings and Churn](https://www.kaggle.com/datasets/sarveshchhetri/freelancer-success-earnings-and-churn-prediction) | sarveshchhetri | median hourly rate per category to set persona rates (the dataset itself may be synthetic: check its card) | ___ |
+| fake_job_postings | [Fake Job Posting Detection (trial-1)](https://www.kaggle.com/datasets/adityammantri/trial-1) | adityammantri | real/fake labelled postings: scam examples and **scam ground truth** (schema matches EMSCAD, University of the Aegean: verify and credit the original if so) | ___ |
+
+\*Copy the exact licence from each Kaggle page into this table **and** `datapipe/sources.yaml`
+before submitting. If a licence forbids redistribution, do not commit derived files containing
+its text (keep `data/market/` out of Git and rebuild it in deployment).
+
+## 2. Preprocessing (datapipe/build.py)
+1. Read up to `--max-rows-per-file` rows per file; map columns through aliases in `sources.yaml`
+   (`python -m datapipe.inspect` shows the mapping).
+2. Jobs: drop titles shorter than 8 characters; normalise budget into `{min, max, type}`; exact
+   de-duplication on normalised title + description start (the trackers repost the same job).
+3. Skills by a keyword lexicon over title + description (+ listed skills); category from skills.
+4. Market statistics (p25/p50/p75 of budgets per category and type) from real jobs; contract rate
+   and amount percentiles from the contracts dataset.
+5. Scam set: up to 60 fraudulent and 60 legitimate labelled postings. Both get clients from the
+   same synthetic distribution, so detection must come from the text (no leaked client signal).
+6. Dev sets per persona (~200 jobs): 60% same-category, 20% other categories, 5% fraudulent, 5%
+   legitimate labelled postings, 5% planted-injection copies.
+
+## 3. What is synthetic, and why
+| Data | Why synthetic | How it is made |
+|---|---|---|
+| 3 freelancer personas and portfolios (case studies, READMEs, code notes, reviews, past proposals with outcomes, CVs) | no approved dataset contains portfolios | `datapipe/synthetic.py` templates; rates calibrated on `freelancer_success` |
+| Client histories | job datasets only have a country | seeded generator; spend sampled from real contract amounts; ~80% payment-verified |
+| Job descriptions for title-only rows | the asaniczka trackers have no descriptions | template restating the title and detected skills (adds no facts); flagged in `synthetic_fields` |
+| Screening questions (~30% of jobs), Connects cost | not in the datasets | seeded templates; Connects by budget tier |
+| Planted prompt injections | needed to test injection resistance | 3 injection sentences appended to copies of real jobs |
+| Client conversations | none available | 5 kinds (interview, question, negotiation, scam signal, injection) |
+| Client replies to proposals | no outcome data | LocalSim reply model (`mcp_servers/marketplace/adapters/local_sim.py`) |
+
+## 4. Labels
+* **Scam**: real labels (`fraudulent`) for the labelled postings; Upwork listings are *assumed*
+  legitimate (`label_scam_source` says so).
+* **Bid / watch / skip**: human labels only (`label_decisions.csv` -> `datapipe.apply_labels`). No
+  label is generated by rules, to avoid evaluating the rules against themselves.
+* **Evidence relevance**: pooled judgements (`datapipe.pool`, top-5 of four variants, shown in
+  random order) -> `apply_labels`. Unjudged items count as not relevant.
+* **Fair price band**: the job's own budget when present, else category p25-p75 from real data.
+
+## 5. Limitations
+* Title-only jobs give the agents little to work with; results on them are reported separately.
+* Synthetic portfolios are cleaner than real ones; retrieval scores will be optimistic.
+* LocalSim's reply model rewards specificity, skills coverage and price fit **by construction**:
+  simulated reply rates show whether the agent produces such proposals, not real-world reply
+  rates. A/B results inherit this.
+* Kaggle scrapes are a snapshot (2023-2024) and reflect the platform's category mix then.
+* Labelled fake postings come from general job boards, not freelance marketplaces.
+* Decision labels come from one annotator (you); report this and, if possible, have a classmate
+  double-label 30 jobs and report agreement (kappa).
+
+## 6. Handling
+Raw data stays in `data/raw/` (git-ignored). No personal data is introduced; descriptions are
+truncated to 4,000 characters; audit logs mask emails/phones. Hand-made test fixtures in
+`data/fixtures/` are separate and only used by tests.

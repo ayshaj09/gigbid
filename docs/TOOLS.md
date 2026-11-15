@@ -13,6 +13,7 @@ Generated from `tests/contract/snapshots/` by `python dev/tools_table.py`. A sch
 | `get_connects_balance` | marketplace | read | idempotent, openWorld, readOnly | bearer token -> user (HTTP); stdio local |
 | `get_job` | marketplace | read | idempotent, openWorld, readOnly | bearer token -> user (HTTP); stdio local |
 | `get_market_stats` | marketplace | read | idempotent, openWorld, readOnly | bearer token -> user (HTTP); stdio local |
+| `get_proposal` | marketplace | read | idempotent, openWorld, readOnly | bearer token -> user (HTTP); stdio local |
 | `list_messages` | marketplace | read | idempotent, openWorld, readOnly | bearer token -> user (HTTP); stdio local |
 | `search_jobs` | marketplace | read | idempotent, openWorld, readOnly | bearer token -> user (HTTP); stdio local |
 | `send_message` | marketplace | write | destructive, idempotent, openWorld | bearer token -> user (HTTP); stdio local; idempotency_key, dry_run |

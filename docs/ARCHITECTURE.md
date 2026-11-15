@@ -1,5 +1,19 @@
 # Architecture
 
+## Deployment view
+```mermaid
+flowchart LR
+  web[Next.js web] -- REST + SSE --> api[FastAPI]
+  worker[Arq worker] -- internal token --> api
+  api --> runner[Runner: bid + conversation graphs]
+  runner -- MCP --> pf[Portfolio MCP] & mk[Marketplace MCP] & ws[Workspace MCP]
+  mk --> gigsim[(GigSim)]
+  runner -. live mode .-> upwork[(Upwork official MCP)]
+  runner --> pg[(Postgres: checkpoints + memory store)]
+  api --> appdb[(App DB: users, job index, runs, approvals)]
+  runner --> llm[[Open models via OpenAI-compatible API]]
+```
+
 ## Bid graph (one thread per job)
 ```mermaid
 flowchart TD

@@ -5,6 +5,7 @@
 | Tool | Files / tasks |
 |---|---|
 | Claude (Anthropic), in Claude.ai | Initial implementation of `agent/`, `rag/`, `mcp_servers/`, `evals/runners/`, `dev/`, fixtures, tests and docs, 13 Nov 2026 |
+| Claude (Anthropic), in Claude.ai | `apps/api/`, `apps/web/`, `worker/`, `infra/`, experiment harnesses in `evals/`, report templates, 14 Nov 2026 |
 
 Things it got wrong that tests caught:
 1. Claim verification labelled the writer's own price sentence ("My proposed price is $1425...")
@@ -13,3 +14,6 @@ Things it got wrong that tests caught:
 2. Interview slots formatted as `2026-11-16 10:00` were masked as phone numbers by the Compliance
    Guard, so the client reply offered ":00; :00". Fixed by formatting slots without digit runs;
    a test now asserts the slot time survives.
+3. The proposal studio kept the user's old edit box open after Compliance changed an edit, so the
+   user could re-send text that no longer matched what was shown. Caught by the Playwright edit
+   flow; fixed by keying the studio on the draft text and hiding it while a run is in progress.
